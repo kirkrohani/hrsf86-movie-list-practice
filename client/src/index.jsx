@@ -19,6 +19,8 @@ class MovieList extends React.Component {
     this.state = {
     	movieList: movies,
     	noMovies: false,
+    	showWatched: true,
+    	showUnWatched: false,
     }
   }
 
@@ -47,17 +49,52 @@ class MovieList extends React.Component {
   	}
   }
 
+  onAddMovie() {
+  	var newMovie = {};
+  	var newMovieString = document.getElementById('newMovie').value.trim();
+  	newMovie.title = newMovieString;
+  	movies.push(newMovie);
+  	this.setState({
+  		movieList: movies,
+  	})
+  }
+
+  onWatchedMovie() {
+  	var watchedMovies = movies.filter((movie) => movie.watched);
+  	console.log(watchedMovies);
+  	this.setState({
+  		showWatched: true,
+    	showUnWatched: false,
+    	movieList: watchedMovies,
+  	});
+  }
+
+  onUnWatchedMovie() {
+  	var unWatchedMovies = movies.filter((movie) => !movie.watched);
+  	console.log(movies);
+  	this.setState({
+  		showWatched: false,
+    	showUnWatched: true,
+    	movieList: unWatchedMovies,
+  	});
+  }
+
+  toggleWatched(toggleMovie) {
+  	toggleMovie.watched = toggleMovie.watched ? !toggleMovie.watched : true;
+  }
+
   render() {
     return (
       <div>
       	<div>
-      		<AddMovie movies={this.state.movieList} />
+      		<AddMovie onAddMovie={this.onAddMovie.bind(this)} movies={this.state.movieList} />
       	</div>
       	<div>
       		<Search onSearchClick={this.onSearchClick.bind(this)} movies={this.state.movieList} />
       	</div>
-      	<div>
-      		<Movie movies={this.state.movieList} />
+      	<div className="movieList">
+      		<button onClick={this.onWatchedMovie.bind(this)}>Watched</button> <button onClick={this.onUnWatchedMovie.bind(this)}>To Watch</button>
+      		<div><Movie movies={this.state.movieList} toggleWatched={this.toggleWatched.bind(this)}/>{this.state.watchedMovie}</div>
       	</div>
       	<div>
       		{this.state.noMovies ? <button id="goBackButton" onClick={this.goBack.bind(this)}>Go Back?</button> : null}

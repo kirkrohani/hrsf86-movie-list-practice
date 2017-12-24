@@ -1,16 +1,12 @@
 import React from 'react';
 
-class AddMovie extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-		};
-	}
-	render() {
-		return (
-			<div></div>
-		)
-	}
+const AddMovie = (props) => {
+	return (
+		<div>
+		<input id="newMovie" type="text" defaultValue="Add A Movie..."/>
+			<button onClick={props.onAddMovie}>Add</button>
+		</div>
+	);
 };
 
 export default AddMovie
