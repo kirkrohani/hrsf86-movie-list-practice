@@ -7,9 +7,7 @@ class MovieDetails extends React.Component {
 			showDetails: false,
 		};
 	}
-
-
-
+	
 	render() {
 		return (
 			<div>

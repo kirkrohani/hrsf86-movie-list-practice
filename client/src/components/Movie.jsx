@@ -6,7 +6,7 @@ const Movie = (props) => {
 		<div>
 			<div>
 				<div>
-					{props.movies.map((movie, index) => <MovieDetails movie={movie} key={index} toggleWatched={props.toggleWatched}/>)}
+				{props.showWatched ? props.movies.filter((movie) => movie.watched === true).map((movie, index) => <MovieDetails movie={movie} key={index} toggleWatched={props.toggleWatched}/>) : props.movies.filter((movie) => movie.watched === false).map((movie, index) => <MovieDetails movie={movie} key={index} toggleWatched={props.toggleWatched}/>)}
 				</div>
 			</div>
 		</div>
