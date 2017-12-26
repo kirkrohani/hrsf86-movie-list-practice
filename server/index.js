@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+const movieAPI = require('../lib/movieAPI.js');
 
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -10,15 +11,19 @@ app.use(bodyParser.json());
 
 
 // Our Initial Data
-var movies = [
-  {title: 'Mean Girls', year: 1995, runtime: '107 min', metascore: 46, imdbRating: 6.2, watched: false},
-  {title: 'Hackers', year: 1996, runtime: '101 min', metascore: 41, imdbRating: 6.1, watched: false},
-  {title: 'The Grey', year: 1997, runtime: '102 min', metascore: 42, imdbRating: 6.2, watched: false},
-  {title: 'Sunshine', year: 1998, runtime: '103 min', metascore: 43, imdbRating: 6.3, watched: false},
-  {title: 'Ex Machina', year: 1999, runtime: '104 min', metascore: 44, imdbRating: 6.4, watched: false},
-];
+var movies = [];
 
 // OUR GET AND POST RESPONSES
+app.get('/load', function(req, res) {
+	movieAPI.getRequest(function(data) {
+		movies = data.results
+		movies.forEach((movie) => {
+			movie.watched = false;
+		});
+		res.send(movies)
+	});
+});
+
 app.get('/messages', function(req, res) {
 	res.send(movies);
 });

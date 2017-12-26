@@ -2,6 +2,7 @@ import React from 'react';
 import MovieDetails from './MovieDetails.jsx';
 
 const Movie = (props) => {
+	console.log(props);
 	return (
 		<div>
 			<div>

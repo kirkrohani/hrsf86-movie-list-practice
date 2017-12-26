@@ -17,7 +17,23 @@ class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    this.getRequest();
+    this.onLoad();
+  }
+
+  onLoad() {
+    $.ajax({
+      url: 'http://127.0.0.1:3000/load',
+      method: 'GET',
+      success: (data) => {
+        console.log('Successful on load!', data);
+        this.setState({
+          movieList: data,
+        })
+      },
+      error: (error) => {
+        console.log('Error on load!', error);
+      },
+    })
   }
 
   getRequest() {
