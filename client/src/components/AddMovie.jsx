@@ -10,7 +10,7 @@ class AddMovie extends React.Component {
   render() {
   	return (
   	  <div className = 'addmovie'>
-  	    <input type = 'text' id = 'movieAdd'/> 
+  	    <input type = 'text' id = 'movieAdd' placeholder = 'Add a movie title here'/> 
   	    <button onClick = {() => this.props.onAddClick(document.getElementById('movieAdd').value)}> Add </button>
   	  </div>
   	)

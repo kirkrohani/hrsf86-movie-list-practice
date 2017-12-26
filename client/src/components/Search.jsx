@@ -9,7 +9,7 @@ class Search extends React.Component {
 	render() {
 	  return (
 	  	<div className = 'search'> 
-	  		<input type = 'form' id = 'movieSearch'/> 
+	  		<input type = 'form' id = 'movieSearch' placeholder = 'Search..'/> 
 	  		<button onClick = {() => this.props.onSubmitClick(document.getElementById('movieSearch').value)}> Go! </button>
 	  	</div> 
 	  )
