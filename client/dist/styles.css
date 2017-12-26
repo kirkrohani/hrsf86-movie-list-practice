@@ -1,0 +1,22 @@
+.movieEntry {
+  font-style: italic;
+  text-align: center;
+  padding-top: 50px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.search {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.addmovie {
+  text-align: center;
+  padding-bottom: 20px;
+}
