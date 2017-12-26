@@ -8,12 +8,13 @@ class MovieList extends React.Component {
   constructor() {
     super();
     this.state = {movies:[
-      {title: 'Mean Girls'},
-      {title: 'Hackers'},
-  	  {title: 'The Grey'},
-  	  {title: 'Sunshine'},
-  	  {title: 'Ex Machina'},
-	]}
+        {title: 'Mean Girls'},
+        {title: 'Hackers'},
+  	    {title: 'The Grey'},
+  	    {title: 'Sunshine'},
+  	    {title: 'Ex Machina'},
+	  ], watchedMoviesShown: false
+	}
   }
 
   onSubmitClick(searchVal) {
@@ -49,6 +50,10 @@ class MovieList extends React.Component {
       <div>
       	<AddMovie onAddClick = {this.onAddClick.bind(this)}/>
       	<Search onSubmitClick = {this.onSubmitClick.bind(this)}/>
+      	<div>
+      	  <button className = 'toggle'> Watched </button>
+      	  <button className = 'toggle'> Not Watched </button> 
+      	</div>
     	{this.state.movies.map(movie => <Movie movie = {movie}/>)}
       </div>
     )
