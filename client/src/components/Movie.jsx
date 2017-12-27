@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 const Movie = ({title}) => {
     return (
-        <div className = "movList">{title}</div>
+        <div className = "mov-list">{title}</div>
     )
 };
 

@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 
 const Search = ({submitSearch}) => {
     return (
-        <div className="searchBar"> 
+        <div className="search-bar"> 
           <form>
-            <input type="text" placeholder="search" onChange = {submitSearch} />
+            <input type="text" placeholder="Search List" onChange = {submitSearch} />
           </form>
         </div>
     );
