@@ -1,0 +1,14 @@
+body {
+  text-align: center;
+  padding-top: 2%;
+}
+.movieItem {
+  padding-top: 2%;
+  border: 3px solid rgb(212, 212, 212);
+  margin-top: 10px;
+}
+
+#searchBox, #addBox {
+  width: 65%;
+  padding-left: 1%;
+}
