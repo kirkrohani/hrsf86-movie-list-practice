@@ -7,7 +7,7 @@ const Search = (props) => {
   return (
     <div className="searchBar">
       <input placeholder="Search..." type="text" id="searchBox" />
-      <button onClick={getQuery}>Go!</button>
+      <button className="searchButton" onClick={getQuery}>Go!</button>
     </div>
   )
 }

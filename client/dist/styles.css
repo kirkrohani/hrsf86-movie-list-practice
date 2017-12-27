@@ -11,6 +11,14 @@ body {
 }
 #searchBox, #addBox {
   padding-left: 1%;
+  border: 3px solid rgb(212, 212, 212);
+  border-radius: 5px;
+}
+.searchButton, .addButton {
+  margin-left: -5px;
+  padding-top: 0.35%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 #searchBox {
   width: 85%;
@@ -42,7 +50,7 @@ button {
 }
 .watchedTab, .toWatchTab {
   padding: 20px;
-  margin-bottom: 1.5px;
+  margin-bottom: -0.05px;
   border: 3px solid rgb(212, 212, 212)
 }
 .watchedTab {

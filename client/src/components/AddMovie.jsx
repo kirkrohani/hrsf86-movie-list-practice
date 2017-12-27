@@ -21,7 +21,7 @@ class AddMovie extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input placeholder="Add movie title here" id="addBox" />
-          <button onClick={this.updateList.bind(this)}>Add</button>
+          <button className="addButton" onClick={this.updateList.bind(this)}>Add</button>
         </form>
       </div>
     );
