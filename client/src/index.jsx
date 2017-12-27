@@ -19,15 +19,7 @@ class MovieList extends React.Component {
     };
   }
   componentDidMount() {
-    axios.get('/movies')
-      .then(response => {
-        this.setState({
-          list: response.data
-        });
-      })
-      .catch(function(error) {
-        console.log(error)
-      });
+    this.getMovies();
   }
   searchMovies(input) {
     this.state.list.forEach(movie => {
@@ -41,18 +33,22 @@ class MovieList extends React.Component {
       list: this.state.filtered.length === 0 ? [{title: 'Sorry, couldn\'t find any movies! Please try a different title.'}] : this.state.filtered
     });
   }
+  getMovies() {
+    axios.get('/movies')
+      .then(response => {
+        this.setState({
+          list: response.data
+        })
+      })
+      .catch(function(error) {
+        console.log(error)
+      });
+  }
   addMovie(movieTitle) {
-    axios.post('/movie')
+    this.state.list = [];
+    axios.post('/movie', {title: movieTitle})
         .then(response => {
-          if (movieTitle) {
-            this.setState({
-              list: this.state.list.concat([
-                {
-                  title: movieTitle
-                }
-              ])
-            });
-          }
+          this.getMovies();
         })
         .catch(function(error) {
           console.log(error);

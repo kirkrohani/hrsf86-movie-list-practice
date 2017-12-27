@@ -12,18 +12,20 @@ var movies = [
 ];
 
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.listen(3000, function () { console.log('MovieList app listening on port 3000!') });
 
 
-app.get('/movies', function(request, response) {
-  response.send(movies);
+app.get('/movies', (request, response) => {
+  response.send(JSON.stringify(movies));
   console.log('Sent a GET request!');
 });
 
-app.post('/movie', function(request, response) {
+app.post('/movie', (request, response) => {
   movies.push(request.body);
-  response.send('Sent a POST request');
+  response.send('Sent a POST request!');
+  console.log(request.body);
   console.log('Sent a POST request!');
 });
 
