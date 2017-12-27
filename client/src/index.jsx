@@ -9,13 +9,6 @@ class MovieList extends React.Component {
       finalSearch: '',
       currentAddMovie: '',
       movies: [],
-      // movies: [
-      //   {title: 'Mean Girls', director: 'some director0', year: 1980, watched: false, showPanel: false},
-      //   {title: 'Hackers', director: 'some director1', year: 1981, watched: false, showPanel: false},
-      //   {title: 'The Grey', director: 'some director2', year: 1982, watched: false, showPanel: false},
-      //   {title: 'Sunshine', director: 'some director3', year: 1983, watched: false, showPanel: false},
-      //   {title: 'Ex Machina', director: 'some director4', year: 1984, watched: false, showPanel: false}
-      // ],
       displayWatchedMovies: true,
       displayUnwatchedMovies: true,
       isLoaded: false
@@ -23,28 +16,24 @@ class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/movies')
+    fetch('/load')
       .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            movies: result.movies
-          });
-          console.log('after mount, state variables:', this.state);
-        },
-        (error) => {
-          console.error('got error:', error);
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+      .then((result) => {
+        this.setState({
+          isLoaded: true,
+          movies: result
+        });
+        console.log('after mount, state variables:', this.state);
+      },
+      (error) => {
+        console.error('on load got error:', error);
+      }
+    );
   }
 
   handleSearchChange(event) {
     this.setState({currentSearch: event.target.value});
+    event.preventDefault();
   }
 
   handleSearchClick(event) {
@@ -55,6 +44,7 @@ class MovieList extends React.Component {
 
   handleAddChange(event) {
     this.setState({currentAddMovie: event.target.value});
+    event.preventDefault();
   }
 
   handleAddClick(event) {
@@ -76,25 +66,18 @@ class MovieList extends React.Component {
       mode: 'cors',
       body: JSON.stringify(newObj)
     });
-    fetch(request).then(function(response) {
-      console.log('POST response:', response);
-    });
-    // now get the new list of movies
-    fetch('/movies')
+    fetch(request)
       .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            movies: result.movies
-          });
-        },
-        (error) => {
-          console.error('got error:', error);
-          this.setState({
-            error
-          });
-        }
-      )
+      .then((response) => {
+        console.log('POST response body:', response);
+        this.setState({
+          movies: response
+        });
+      },
+      (error) => {
+        console.error('on post got error:', error);
+      }
+    );
     event.preventDefault();
   }
 
@@ -145,12 +128,12 @@ class MovieList extends React.Component {
                   <td>{movie.title}</td>
                 </tr>
                 <tr>
-                  <td>director</td>
-                  <td>{movie.director}</td>
+                  <td>summary</td>
+                  <td>{movie.overview}</td>
                 </tr>
                 <tr>
-                  <td>year</td>
-                  <td>{movie.year}</td>
+                  <td>release date</td>
+                  <td>{movie.release_date}</td>
                 </tr>
               </div>
             );
@@ -162,11 +145,11 @@ class MovieList extends React.Component {
     return (
       <div>
         <div>
-          Search:<input type="text" value={ this.state.currentSearch } onChange={() => this.handleSearchChange() } />
+          Search:<input type="text" value={ this.state.currentSearch } onChange={(event) => this.handleSearchChange(event) } />
           <input
             type="button"
             value="Submit"
-            onClick={this.handleSearchClick}
+            onClick={(event) => this.handleSearchClick(event)}
           />
         </div>
         <div>
