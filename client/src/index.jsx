@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
-import MovieItem from './components/Movie.jsx'
+import MovieItem from './components/Movie.jsx';
+import Search from './components/Search.jsx';
 
 //// HARD CODE DATA ////
 var movies = [
@@ -22,10 +23,15 @@ class MovieList extends React.Component {
   render() {
     return (
       <div>
-        { this.state.movies.map(movie => {
-            return <MovieItem movie={ movie } key={ movie.title }/>
-          })
-        }
+        <div className="search-bar">
+          <Search />
+        </div>
+        <div className="movie-list">
+          { this.state.movies.map(movie => {
+              return <MovieItem movie={ movie } key={ movie.title }/>
+            })
+          }
+        </div>
       </div>
     )
   }
