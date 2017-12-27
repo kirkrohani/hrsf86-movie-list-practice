@@ -6,21 +6,55 @@ h2 {
 table {
   width: 43%;
   margin: 0 auto;
+  border-collapse: collapse;
+  /*border: solid black 1px;*/
 }
 
 th {
   text-align: center;
   vertical-align: center;
   padding-bottom: 2%;
-/*  background-color: #ccf5ff;*/
-  border-radius: 15px;
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0 0 3px black;
 }
 
 td {
-  border: solid black 1px;
+  border-top: solid black 1px;
+  border-bottom: solid black 1px;
   padding: 5%;
-  text-align: center;
+  text-align: left;
   vertical-align: center;
+}
+
+span {
+  display: block;
+}
+
+.selected {
+  background-color: #ccf5ff;
+}
+
+.selectedMovieDetails {
+  background-color: #ccffe6;
+}
+
+.toggleCompletion {
+  text-align: right;
+  border-right: solid black 1px;
+  font-size: 10px;
+}
+
+.movieTitle {
+  border-left: solid black 1px;
+}
+
+.movieDetails {
+  font-size: 12px;
+  border: solid black 1px;
+}
+
+.hidden {
+  display: none;
 }
 
 #search, #addMovie {

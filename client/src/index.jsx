@@ -10,12 +10,14 @@ class MovieList extends React.Component {
     super(props);
     this.state = {
       movies: [
-        {title: 'Mean Girls'},
-        {title: 'Hackers'},
-        {title: 'The Grey'},
-        {title: 'Sunshine'},
-        {title: 'Ex Machina'},
-      ]
+        {id: 0, title: 'Mean Girls', watched: false, details: {year: '2004', runtime: '97 minutes', 'RT Score': '84%', 'box office': '$129 million'}},
+        {id: 1, title: 'Hackers', watched: false, details: {year: '1995', runtime: '107 minutes', 'RT Score': '32%', 'box office': '$7.5 million'}},
+        {id: 2, title: 'The Grey', watched: false, details: {year: '2012', runtime: '117 minutes', 'RT Score': '78%', 'box office': '$77.3 million'}},
+        {id: 3, title: 'Sunshine', watched: false, details: {year: '2007', runtime: '107 minutes', 'RT Score': '75%', 'box office': '$32 million'}},
+        {id: 4, title: 'Ex Machina', watched: false, details: {year: '2015', runtime: '108 minutes', 'RT Score': '93%', 'box office': '$36.9 million'}},
+      ],
+      nextMovieId: 5,
+      view: false
     }
   }
 
@@ -40,12 +42,41 @@ class MovieList extends React.Component {
   handleAddition(movieTitle, event, callback) {
     event.preventDefault();
     var newMovie = {
-      title: movieTitle
+      id: this.state.nextMovieId,
+      title: movieTitle,
+      watched: false,
+      details: {year: 'not available', runtime: 'not available', 'RT Score': 'not available', 'box office': 'not available'}
     }
     this.setState({
-      movies: this.state.movies.concat( newMovie )
+      movies: this.state.movies.concat( newMovie ),
+      nextMovieId: this.nextMovieId + 1
     });
     callback();
+  }
+
+  toggleWatched(movieId) {
+    var updatedMovies = JSON.parse(JSON.stringify(this.state.movies));
+    updatedMovies[movieId].watched = !updatedMovies[movieId].watched;
+    this.setState({
+      movies: updatedMovies,
+      nextMovieId: this.nextMovieId
+    });
+  }
+
+  viewCompleted() {
+    this.setState({
+      movies: this.state.movies,
+      nextMovieId: this.state.nextMovieId,
+      view: true
+    });
+  }
+
+  viewToWatch() {
+    this.setState({
+      movies: this.state.movies,
+      nextMovieId: this.state.nextMovieId,
+      view: false
+    });
   }
 
   render() {
@@ -55,12 +86,12 @@ class MovieList extends React.Component {
         <AddMovie handleAddition={this.handleAddition.bind(this)} />
         <table>
           <tr>
-            <th> To Watch </th>
-            <th> Completed </th>
+            <th id="moviesToWatch" className={!this.state.view ? 'selected' : ''} onClick={this.viewToWatch.bind(this)}> To Watch </th>
+            <th id="moviesCompleted" className={this.state.view ? 'selected' : ''} onClick={this.viewCompleted.bind(this)}> Completed </th>
           </tr>
-          {
-            this.state.movies.map( (movie) => <Movie movie={movie} /> )
-          }
+          {this.state.movies.map( (movie) => 
+            this.state.view === movie.watched ? <Movie movie={movie} handleToggleWatched={this.toggleWatched.bind(this)} /> : null
+          )}
         </table>
       </div>
     );
