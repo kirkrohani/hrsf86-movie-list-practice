@@ -1,0 +1,33 @@
+h2 {
+  text-align: center;
+  margin: 2%;
+}
+
+table {
+  width: 43%;
+  margin: 0 auto;
+}
+
+th {
+  text-align: center;
+  vertical-align: center;
+  padding-bottom: 2%;
+/*  background-color: #ccf5ff;*/
+  border-radius: 15px;
+}
+
+td {
+  border: solid black 1px;
+  padding: 5%;
+  text-align: center;
+  vertical-align: center;
+}
+
+#search, #addMovie {
+  text-align: center;
+  margin: 2%
+}
+
+#searchField, #addMovieField {
+  width: 35%;
+}
