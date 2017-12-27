@@ -4,6 +4,7 @@ import ReactDOM  from 'react-dom';
 import {Movie} from './components/Movie.jsx';
 import {Search} from './components/Search.jsx';
 import {AddMovie} from './components/AddMovie.jsx';
+import {WatchedBar} from './components/WatchedBar.jsx';
 
 var movies = [
   {title: 'Mean Girls'},
@@ -19,13 +20,15 @@ class MovieList extends React.Component {
     this.state = {
       'currMovies': movies,
       'addMovie': '',
-      'watchList': []
+      'watchList': [],
+      'watchSelected': null
     };
 
     this.addMovie = this.addMovie.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.toggleFromWatchList = this.toggleFromWatchList.bind(this);
+    this.toggleWatchedView = this.toggleWatchedView.bind(this);
   }
 
   handleChange (event) {
@@ -52,18 +55,33 @@ class MovieList extends React.Component {
   toggleFromWatchList (movie) {
     const {watchList} = this.state;
     if (!watchList.includes(movie)) {
-      this.setState({'watchList': [...watchList, movie]});
+      this.setState({'watchList': [...watchList, {'title': movie}]});
     } else {
-      this.setState({'watchList': watchList.filter(title => title !== movie)});
+      this.setState({'watchList': watchList.filter(movieObj => movieObj.title !== movie)});
+    }
+  }
+
+  toggleWatchedView (e) {
+    console.log(e);
+    const {watchSelected, watchList} = this.state;
+    const watchListTitles = watchList.map(mov => mov.title);
+    if (watchSelected === true) {
+      this.setState({'watchSelected': false, 'currMovies': movies.filter(movieObj => !watchListTitles.includes(movieObj.title))});
+    } else if (watchSelected === false) {
+      this.setState({'watchSelected': null, 'currMovies': movies});
+    } else {
+      this.setState({'watchSelected': true, 'currMovies': watchList});
     }
   }
 
   render() {
-    const {currMovies, addMovie, watchList} = this.state;
+    const {currMovies, addMovie, watchList, watchSelected} = this.state;
     return (
-      <div>
-      <AddMovie value = {addMovie} submit = {this.addMovie} change = {this.handleChange}/>
-      <Search submitSearch = {this.submitSearch} />
+      <div className="main">
+      <div className="nav">
+        <AddMovie value = {addMovie} submit = {this.addMovie} change = {this.handleChange}/>
+        <Search submitSearch = {this.submitSearch} /> <WatchedBar watchSelected={watchSelected} toggleWatchedView={this.toggleWatchedView}/>
+      </div>
       {
           currMovies.map(({title}) => 
           < Movie title={title} key={title} toggleFromWatchList={this.toggleFromWatchList} />
