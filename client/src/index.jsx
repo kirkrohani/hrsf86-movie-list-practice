@@ -1,6 +1,15 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
 
+import Movie from './components/Movie.jsx';
+
+var movies = [
+  {title: 'Mean Girls'},
+  {title: 'Hackers'},
+  {title: 'The Grey'},
+  {title: 'Sunshine'},
+  {title: 'Ex Machina'},
+];
 
 class MovieList extends React.Component {
   constructor() {
@@ -9,7 +18,13 @@ class MovieList extends React.Component {
 
   render() {
     return (
-      <div></div>
+      <div>
+      {
+        movies.map((movie, i) => 
+          < Movie title={movie.title} key={i}/>
+        )
+      }
+      </div>
     )
   }
 }
