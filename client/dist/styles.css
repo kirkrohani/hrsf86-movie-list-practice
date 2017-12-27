@@ -1,0 +1,19 @@
+#app {
+    margin: 20px;
+}
+
+.welcome {
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: darkgrey;
+}
+
+.movList {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 10px 0;
+};
+
+.searchBar {
+    padding: 10px 0;
+};
