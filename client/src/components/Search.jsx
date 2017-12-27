@@ -5,7 +5,7 @@ const Search = (props) => {
     props.searchMovies(document.getElementById('searchBox').value);
   }
   return (
-    <div>
+    <div className="searchBar">
       <input placeholder="Search..." type="text" id="searchBox" />
       <button onClick={getQuery}>Go!</button>
     </div>

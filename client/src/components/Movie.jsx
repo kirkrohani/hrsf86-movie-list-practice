@@ -1,15 +1,23 @@
 import React from 'react';
+import MovieDetails from './MovieDetails.jsx';
 
 class Movie extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      watched: false
+      watched: false,
+      show: false
     };
   }
   onWatchClick() {
     this.setState({
-      watched: true
+      watched: !this.state.watched
+    });
+    this.props.movie.watched = (this.props.movie.watched === 'Yes') ? 'No' : 'Yes';
+  }
+  showDetails() {
+    this.setState({
+      show: !this.state.show
     });
   }
   render() {
@@ -18,9 +26,14 @@ class Movie extends React.Component {
       color: this.state.watched ? 'white' : 'black'
     };
     return (
-      <div className="movieItem">
-        <p className="movieTitle">{this.props.movie.title}</p>
-        <button style={style} className="watchButton" onClick={this.onWatchClick.bind(this)}>Watched</button>
+      <div>
+        <div className="movieItem">
+          <p className="movieTitle" onClick={this.showDetails.bind(this)}>{this.props.movie.title}</p>
+          <button style={style} className="watchButton" onClick={this.onWatchClick.bind(this)}>Watched</button>
+        </div>
+        <div>
+          { this.state.show ? <MovieDetails movie={this.props.movie} /> : null }
+        </div>
       </div>
     );
   }

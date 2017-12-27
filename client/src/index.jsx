@@ -10,7 +10,11 @@ class MovieList extends React.Component {
     super(props);
     this.state = {
       list: movies,
-      filtered: []
+      filtered: [],
+      watched: [],
+      toWatch: [],
+      watchedClicked: false,
+      toWatchClicked: false
     }
   }
   searchMovies(input) {
@@ -22,7 +26,7 @@ class MovieList extends React.Component {
       }
     });
     this.setState({
-      list: this.state.filtered
+      list: this.state.filtered.length === 0 ? [{title: 'Sorry, couldn\'t find any movies! Please try a different title.'}] : this.state.filtered
     });
   }
   addMovie(movieTitle) {
@@ -38,24 +42,62 @@ class MovieList extends React.Component {
       }
     });
   }
-  onWatchClick() {
-
+  toggleWatched() {
+    this.state.toWatch = [];
+    this.state.list.forEach(movie => {
+      if (movie.watched === 'Yes') {
+        this.state.watched.push(movie);
+      } else {
+        this.state.toWatch.push(movie);
+      }
+    });
+    this.setState({
+      list: this.state.watched,
+      watchedClicked: !this.state.watchedClicked,
+      toWatchClicked: false
+    });
+  }
+  toggleToWatch() {
+    this.state.watched = [];
+    this.state.list.forEach(movie => {
+      if (movie.watched === 'No') {
+        this.state.toWatch.push(movie);
+      } else {
+        this.state.watched.push(movie);
+      }
+    });
+    this.setState({
+      list: this.state.toWatch,
+      toWatchClicked: !this.state.toWatchClicked,
+      watchedClicked: false
+    });
   }
   render() {
+    var watchedStyle = {
+      borderColor: this.state.watchedClicked ? '#01A9DB' : 'rgb(212, 212, 212)',
+    }
+    var toWatchStyle = {
+      borderColor: this.state.toWatchClicked ? '#01A9DB' : 'rgb(212, 212, 212)'
+    }
     return (
       <div>
         <AddMovie addMovie={this.addMovie.bind(this)} />
         <br />
+        <div>
+        <button style={watchedStyle} className="watchedTab" onClick={this.toggleWatched.bind(this)}>Watched</button>
+        <button style={toWatchStyle} className="toWatchTab" onClick={this.toggleToWatch.bind(this)}>To Watch</button>
         <Search searchMovies={this.searchMovies.bind(this)} />
-        {
-          this.state.list.map(movie => (
-            <Movie
-              movie={movie}
-              key={movie.title}
-              onWatchClick={this.onWatchClick.bind(this)}
-            />
-          ))
-        }
+        </div>
+        <div className="movieList">
+          {
+            this.state.list.map(movie => (
+              <Movie
+                movie={movie}
+                key={movie.title}
+              />
+            ))
+          }
+        </div>
       </div>
     );
   }

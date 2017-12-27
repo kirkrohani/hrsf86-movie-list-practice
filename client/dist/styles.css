@@ -5,22 +5,29 @@ body {
 .movieItem {
   padding-top: 2%;
   border: 3px solid rgb(212, 212, 212);
-  margin-top: 10px;
+  margin-top: -3px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
-
 #searchBox, #addBox {
-  width: 50%;
   padding-left: 1%;
 }
-
+#searchBox {
+  width: 85%;
+  margin-top: 20px;
+}
+#addBox {
+  width: 50%;
+}
 .movieTitle, .watchButton {
   display: inline-block;
   vertical-align: middle;
 }
-
-.movieTitle {
-  /* float: left; */
+.movieTitle, .movieDetails {
   margin-left: 10%;
+}
+.movieDetails {
+  padding-top: 2%;
 }
 .watchButton {
   float: right;
@@ -28,7 +35,26 @@ body {
 }
 button {
   border: 2px solid #01A9DB;
-  /* border: none; */
-  /* color: black; */
-  
+}
+.watchedTab, .toWatchTab, .searchBar {
+  display: inline-block;
+  vertical-align: middle;
+}
+.watchedTab, .toWatchTab {
+  padding: 20px;
+  margin-bottom: 1.5px;
+  border: 3px solid rgb(212, 212, 212)
+}
+.watchedTab {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.toWatchTab {
+  margin-left: 5px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.searchBar {
+  float: right;
+  width: 60%;
 }
