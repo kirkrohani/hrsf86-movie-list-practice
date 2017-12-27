@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-const Search = ({submitSearch}) => {
+export const Search = ({submitSearch}) => {
     return (
         <div className="search-bar"> 
           <form>
@@ -10,5 +9,3 @@ const Search = ({submitSearch}) => {
         </div>
     );
 };
-
-export default Search;

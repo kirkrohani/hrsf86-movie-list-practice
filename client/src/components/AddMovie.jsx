@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-const AddMovie = ({value, submit, change}) => {
+export const AddMovie = ({value, submit, change}) => {
     return (
       <div className = "add-movie">
           <form onSubmit={submit}>
@@ -11,5 +10,3 @@ const AddMovie = ({value, submit, change}) => {
       </div>
     );
 };
-
-export default AddMovie;

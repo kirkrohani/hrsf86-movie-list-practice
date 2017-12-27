@@ -1,10 +1,34 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-const Movie = ({title}) => {
-    return (
-        <div className = "mov-list">{title}</div>
-    )
-};
+export class Movie extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            watched: 'hide-icon'
+        };
+        this.watchClick = this.watchClick.bind(this);
+    }
 
-export default Movie;
+    watchClick () {
+        let {watched} = this.state;
+        const {toggleFromWatchList, title} = this.props;
+        toggleFromWatchList(title);
+        if (watched === 'hide-icon') {
+            this.setState({'watched': 'show-icon'});
+        } else {
+            this.setState({'watched': 'hide-icon'});
+        }
+    }
+
+    render() {
+        const {title} = this.props;
+        let {watched} = this.state;
+        return (
+            <div className = "mov-list">
+                <span className="mov-title">{title}</span>
+                <img className="watch-button" onClick={this.watchClick} src="./images/eye.png" />
+                <span className={watched}>Watched</span>
+            </div>
+        )
+    }
+} 

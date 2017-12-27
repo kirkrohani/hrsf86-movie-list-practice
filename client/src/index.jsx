@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
 
-import Movie from './components/Movie.jsx';
-import Search from './components/Search.jsx';
-import AddMovie from './components/AddMovie.jsx';
+import {Movie} from './components/Movie.jsx';
+import {Search} from './components/Search.jsx';
+import {AddMovie} from './components/AddMovie.jsx';
 
 var movies = [
   {title: 'Mean Girls'},
@@ -18,12 +18,14 @@ class MovieList extends React.Component {
     super();
     this.state = {
       'currMovies': movies,
-      'addMovie': ''
+      'addMovie': '',
+      'watchList': []
     };
 
     this.addMovie = this.addMovie.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.toggleFromWatchList = this.toggleFromWatchList.bind(this);
   }
 
   handleChange (event) {
@@ -31,9 +33,10 @@ class MovieList extends React.Component {
   }
 
   addMovie (event) {
+    const {currMovies, addMovie} = this.state;
     event.preventDefault();
-    var formatMovie = this.state.addMovie.toLowerCase().split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
-    this.state.currMovies.push({title: formatArray});
+    var formatMovie = addMovie.toLowerCase().split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
+    currMovies.push({title: formatArray});
     this.setState({'addMovie': ''});
   }
 
@@ -46,14 +49,24 @@ class MovieList extends React.Component {
     this.setState({'currMovies' : filteredList});
   }
 
+  toggleFromWatchList (movie) {
+    const {watchList} = this.state;
+    if (!watchList.includes(movie)) {
+      this.setState({'watchList': [...watchList, movie]});
+    } else {
+      this.setState({'watchList': watchList.filter(title => title !== movie)});
+    }
+  }
+
   render() {
+    const {currMovies, addMovie, watchList} = this.state;
     return (
       <div>
-      <AddMovie value = {this.state.addMovie} submit = {this.addMovie} change = {this.handleChange}/>
+      <AddMovie value = {addMovie} submit = {this.addMovie} change = {this.handleChange}/>
       <Search submitSearch = {this.submitSearch} />
       {
-        this.state.currMovies.map((movie, i) => 
-          < Movie title={movie.title} key={i}/>
+          currMovies.map(({title}) => 
+          < Movie title={title} key={title} toggleFromWatchList={this.toggleFromWatchList} />
         )
       }
       </div>

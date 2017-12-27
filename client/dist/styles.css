@@ -16,8 +16,29 @@
 .mov-list {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 10px 0;
+    background-color: aliceblue;
+    width: 40%;
 }
 
 .search-bar {
     padding: 10px 0;
+}
+
+.mov-title {
+    margin: 0 15px;
+}
+
+.watch-button {
+    margin: 0 15px;
+    float: right;
+}
+
+.show-icon {
+    float: right;
+    margin: 0 20px;
+    color: rgb(77, 187, 85);
+}
+
+.hide-icon {
+    display: none;
 }
