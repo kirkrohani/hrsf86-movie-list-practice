@@ -24,6 +24,9 @@ class MovieList extends React.Component {
     event.preventDefault();
     console.log('event val is', event.target.value);
     var selectedList = movies.filter(movie => movie.title.toLowerCase().includes(event.target.value));
+    if(!selectedList.length) {
+      selectedList = [{title: 'None Found'}];
+    } 
     this.setState({'currMovies' : selectedList});
   }
 
