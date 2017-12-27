@@ -1,0 +1,39 @@
+
+.watchButton {
+  background-color: red;
+
+}
+
+.watchButton.watched {
+  background-color: green;
+}
+
+.tabContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movieContainer {
+  border: 1px solid #ddd; 
+}
+
+.tab {
+  background: #eee; 
+  border: 1px solid #ddd; 
+  padding: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tab.active {
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.movieDetails {
+
+}
+
+.movieDetails.hide {
+  display: none;
+}
