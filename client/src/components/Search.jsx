@@ -8,12 +8,11 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-        <div className="wrap">
-           <div className="search">
-              <input type="text" className="searchTerm" placeholder="Search for a movie..."></input>
+        <div>
+           <div>
+              <input type="text" placeholder="Search for a movie..."></input>
               <button type="submit" className="searchButton">
-              <i className="fa fa-search"></i>
-              </button>
+              <i></i> GO </button>
            </div>
         </div>
       </div>

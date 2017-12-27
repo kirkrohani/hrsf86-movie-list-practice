@@ -16,17 +16,30 @@ window.movies = movies;
 class MovieList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      movies: movies, 
+      searchMovies: movies, 
+    }
+
+    filterMovies: (movieArray) => {
+      this.setState({
+        searchMovies: movieArray
+      })
+    }
   }
 
   render() {
     return (
       <div>
-        <div> Search for a Movie! 
-          <Search />
+        <div style={{marginBottom: 20}}> Search for a Movie! 
+          <Search 
+            searchMovies={this.state.searchMovies}
+            filterMovies={this.filterMovies}
+          />
         </div>
         
         <div> The actual list will go here </div>
-          {this.props.movies.map((movie) => <Movie movie={movie} key={movie.title}/> )}
+          {this.state.searchMovies.map((movie) => <Movie movie={movie} key={movie.title}/> )}
       </div>
     )
   }
