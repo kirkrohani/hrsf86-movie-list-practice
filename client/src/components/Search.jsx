@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Search = (props) => {
+const Search = ({submitSearch}) => {
     return (
         <div className="searchBar"> 
           <form>
-            <input type="text" placeholder="search" /><input type="submit" value="Go" />
+            <input type="text" placeholder="search" onChange = {submitSearch} />
           </form>
         </div>
     );

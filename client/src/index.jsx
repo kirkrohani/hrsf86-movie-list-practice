@@ -15,14 +15,24 @@ var movies = [
 class MovieList extends React.Component {
   constructor() {
     super();
+    this.state = {
+      'currMovies': movies
+    };
+  }
+
+  submitSearch (event) {
+    event.preventDefault();
+    console.log('event val is', event.target.value);
+    var selectedList = movies.filter(movie => movie.title.toLowerCase().includes(event.target.value));
+    this.setState({'currMovies' : selectedList});
   }
 
   render() {
     return (
       <div>
-      <Search />
+      <Search submitSearch = {this.submitSearch.bind(this)} />
       {
-        movies.map((movie, i) => 
+        this.state.currMovies.map((movie, i) => 
           < Movie title={movie.title} key={i}/>
         )
       }
