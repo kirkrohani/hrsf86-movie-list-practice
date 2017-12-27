@@ -1,21 +1,33 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
 import Movie from './components/Movie.jsx';
-import { movies } from './exampleMovieData.js';
+// import { movies } from './exampleMovieData.js';
 import Search from './components/Search.jsx';
 import AddMovie from './components/AddMovie.jsx';
+import axios from 'axios';
 
 class MovieList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: movies,
+      list: [],
       filtered: [],
       watched: [],
       toWatch: [],
       watchedClicked: false,
       toWatchClicked: false
-    }
+    };
+  }
+  componentDidMount() {
+    axios.get('/movies')
+      .then(response => {
+        this.setState({
+          list: response.data
+        });
+      })
+      .catch(function(error) {
+        console.log(error)
+      });
   }
   searchMovies(input) {
     this.state.list.forEach(movie => {
@@ -30,17 +42,21 @@ class MovieList extends React.Component {
     });
   }
   addMovie(movieTitle) {
-    this.state.list.forEach(movie => {
-      if (movie.title.toLowerCase() !== movieTitle) {
-        this.setState({
-          list: this.state.list.concat([
-            {
-              title: movieTitle
-            }
-          ])
+    axios.post('/movie')
+        .then(response => {
+          if (movieTitle) {
+            this.setState({
+              list: this.state.list.concat([
+                {
+                  title: movieTitle
+                }
+              ])
+            });
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
         });
-      }
-    });
   }
   toggleWatched() {
     this.state.toWatch = [];
@@ -93,7 +109,7 @@ class MovieList extends React.Component {
             this.state.list.map(movie => (
               <Movie
                 movie={movie}
-                key={movie.title}
+                key={movie.title ? movie.title : 'New Title'}
               />
             ))
           }

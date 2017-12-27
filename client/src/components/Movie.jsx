@@ -28,7 +28,7 @@ class Movie extends React.Component {
     return (
       <div>
         <div className="movieItem">
-          <p className="movieTitle" onClick={this.showDetails.bind(this)}>{this.props.movie.title}</p>
+          <p className="movieTitle" onClick={this.showDetails.bind(this)}>{this.props.movie.title ? this.props.movie.title : 'New Title'}</p>
           <button style={style} className="watchButton" onClick={this.onWatchClick.bind(this)}>Watched</button>
         </div>
         <div>
