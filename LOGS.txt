@@ -1,0 +1,7 @@
+START TIME 12/27 1PM
+
+LEVEL 1 - FRONT END
+====================
+- looked up proper exporting
+  - export default <Component Class>
+  - Looked at GroceryList (ugh...I'm sorry)
