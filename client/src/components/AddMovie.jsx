@@ -7,17 +7,21 @@ class AddMovie extends React.Component {
       newMovie: ''
     }
   }
-
+  updateList() {
+    this.setState({
+      newMovie: document.getElementById('addBox').value
+    });
+  }
   handleSubmit(event) {
     event.preventDefault();
+    this.props.addMovie(this.state.newMovie);
   }
-
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <input placeholder="Add movie title here" id="addBox" />
-          <button>Add</button>
+          <button onClick={this.updateList.bind(this)}>Add</button>
         </form>
       </div>
     );

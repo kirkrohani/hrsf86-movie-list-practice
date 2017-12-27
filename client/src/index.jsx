@@ -25,16 +25,34 @@ class MovieList extends React.Component {
       list: this.state.filtered
     });
   }
+  addMovie(movieTitle) {
+    this.state.list.forEach(movie => {
+      if (movie.title.toLowerCase() !== movieTitle) {
+        this.setState({
+          list: this.state.list.concat([
+            {
+              title: movieTitle
+            }
+          ])
+        });
+      }
+    });
+  }
+  onWatchClick() {
+
+  }
   render() {
     return (
       <div>
-        <AddMovie />
+        <AddMovie addMovie={this.addMovie.bind(this)} />
+        <br />
         <Search searchMovies={this.searchMovies.bind(this)} />
         {
           this.state.list.map(movie => (
             <Movie
               movie={movie}
               key={movie.title}
+              onWatchClick={this.onWatchClick.bind(this)}
             />
           ))
         }
