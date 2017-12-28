@@ -5,30 +5,28 @@ import Search from './components/Search.jsx';
 import AddMovie from './components/AddMovie.jsx';
 var http = require('http');
 
-var movies = '';
+var movies = [];
 
 class MovieList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       movies: [],
-      nextMovieId: 5,
       view: false
     }
   }
 
   getMovieData() {
-    var req = http.get('http://127.0.0.1:3000/movies', (res) => {
+    var req = http.get('http://127.0.0.1:3000/load', (res) => {
       var rawData = '';
       res.on('data', function(chunk) {
         rawData += chunk
       })
       res.on('end', () => {
         var parsedData = JSON.parse(rawData);
-        movies = parsedData;
+        movies = parsedData.results;
         this.setState({
           movies: movies,
-          nextMovieId: this.state.nextMovieId,
           view: this.state.view
         })
       })
@@ -37,6 +35,30 @@ class MovieList extends React.Component {
     req.on('error', (e) => {
       console.error('Error: ', e.message)
     });
+  }
+
+  postMovieData(movie, callback) {
+    fetch('http://127.0.0.1:3000/movies', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(movie),
+    });
+    callback();
+  }
+
+  patchMovieData(id, callback) {
+    fetch('http://127.0.0.1:3000/movies', {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(id),
+    });
+    callback();
   }
 
   componentDidMount() {
@@ -63,25 +85,26 @@ class MovieList extends React.Component {
 
   handleAddition(movieTitle, event, callback) {
     event.preventDefault();
+
     var newMovie = {
-      id: this.state.nextMovieId,
+      id: 1,
       title: movieTitle,
       watched: false,
       details: {year: 'not available', runtime: 'not available', 'RT Score': 'not available', 'box office': 'not available'}
     }
-    this.setState({
-      movies: this.state.movies.concat( newMovie ),
-      nextMovieId: this.nextMovieId + 1
-    });
+
+    this.postMovieData(newMovie, this.getMovieData.bind(this));
+
     callback();
   }
 
   toggleWatched(movieId) {
     var updatedMovies = JSON.parse(JSON.stringify(this.state.movies));
     updatedMovies[movieId].watched = !updatedMovies[movieId].watched;
+    // this.patchMovieData(movieId, this.getMovieData.bind(this));
     this.setState({
       movies: updatedMovies,
-      nextMovieId: this.nextMovieId
+      view: false
     });
   }
 
@@ -102,6 +125,7 @@ class MovieList extends React.Component {
   }
 
   render() {
+    console.log(this.state.movies);
     return (
       <div>
         <Search handleSearch={this.handleSearch.bind(this)} />
@@ -112,7 +136,8 @@ class MovieList extends React.Component {
             <th id="moviesCompleted" className={this.state.view ? 'selected' : ''} onClick={this.viewCompleted.bind(this)}> Completed </th>
           </tr>
           {this.state.movies.map( (movie) => 
-            this.state.view === movie.watched ? <Movie movie={movie} handleToggleWatched={this.toggleWatched.bind(this)} /> : null
+            // this.state.view === movie.watched ? <Movie movie={movie} handleToggleWatched={this.toggleWatched.bind(this)} /> : null
+            <Movie movie={movie} handleToggleWatched={this.toggleWatched.bind(this)} />
           )}
         </table>
       </div>

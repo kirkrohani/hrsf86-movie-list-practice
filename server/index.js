@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+var getMoviesFromAPI = require('../lib/movieAPI.js')
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -14,9 +15,32 @@ var movies = [
   {id: 4, title: 'Ex Machina', watched: false, details: {year: '2015', runtime: '108 minutes', 'RT Score': '93%', 'box office': '$36.9 million'}},
 ];
 
+var apiMovies;
+
+getMoviesFromAPI(
+  function(body) {
+    apiMovies = body;
+  }  
+);
+
 app.get('/movies', (req, res) => {
   res.send(JSON.stringify(movies))
 })
+
+app.get('/load', (req, res) => {
+  res.send(apiMovies);
+})
+
+app.post('/movies', (req, res) => {
+  res.send('POST request received!');
+  movies.push(req.body);
+})
+
+// app.patch('/movies', (req, res) => {
+//   res.send('PATCH request received!')
+//   console.log(req.body);
+//   movies[req.body].watched = !movies[JSON.parse(req.body)].watched;
+// })
 
 app.listen(3000, function () { console.log('MovieList app listening on port 3000!') });
 

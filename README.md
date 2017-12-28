@@ -35,15 +35,15 @@ var movies = [
 - [x] Move the hardcoded data from index.jsx to your Express Server js file
 - [x] In your Express Server code a GET route called /movies which will be used to get the hardcoded list of movies
 - [x] Modify your index.jsx to call this /movies GET route to do an initial load of your data
-- [ ] In your Express Server code a POST route called /movie. This route will allow the user to create a new movie
-- [ ] Modify your index.jsx use the /movie POST route
+- [x] In your Express Server code a POST route called /movie. This route will allow the user to create a new movie
+- [x] Modify your index.jsx use the /movie POST route
 
 
 ## Level 3 - API
-- [ ] Go to https://www.themoviedb.org/documentation/api to learn more about the API you will be using. Sign-up for a new API Key. If you do not receive one within 15 minutes ask a proctor for assistance.
-- [ ] Write code in movieAPI.js necessary to call the API (you may use the 'now_playing' endpoint) and retrieve movie results
-- [ ] Create a new Express GET route called /load in which you make a call to the API. Put the retrieved data into the hardcoded movies array in Express index.js
-- [ ] Modify your index.jsx file accordingly to handle the loaded API data. You should no longer have dummy data anywhere.
+- [x] Go to https://www.themoviedb.org/documentation/api to learn more about the API you will be using. Sign-up for a new API Key. If you do not receive one within 15 minutes ask a proctor for assistance.
+- [x] Write code in movieAPI.js necessary to call the API (you may use the 'now_playing' endpoint) and retrieve movie results
+- [x] Create a new Express GET route called /load in which you make a call to the API. Put the retrieved data into the hardcoded movies array in Express index.js
+- [x] Modify your index.jsx file accordingly to handle the loaded API data. You should no longer have dummy data anywhere.
 
 
 ## Level 4 - Database

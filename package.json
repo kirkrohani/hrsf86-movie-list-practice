@@ -19,6 +19,7 @@
     "node-fetch": "^1.7.3",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
+    "request": "^2.83.0",
     "webpack": "^3.8.1"
   }
 }
