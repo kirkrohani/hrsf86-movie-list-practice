@@ -21,6 +21,20 @@ app.updateDb = (component) => {
   });
 };
 
-app.postToDb;
+app.postReq = {
+  method: 'POST',
+  headers: app.headers,
+};
+
+app.postToDb = (data) => {
+  app.postReq.body = data;
+  fetch(app.server, app.postReq)
+  .then((res) => {
+    console.log('Post successful');
+  })
+  .catch((err)=> {
+    console.log('Post failed');
+  });
+};
 
 export default app;

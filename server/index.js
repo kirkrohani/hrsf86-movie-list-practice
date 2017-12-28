@@ -21,5 +21,5 @@ app.route('/movies')
   })
   .post((req, res) => {
     res.send('received POST data');
-    console.log(req.body());
+    db.push(req.body);
   });

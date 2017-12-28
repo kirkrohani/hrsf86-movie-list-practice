@@ -6,7 +6,7 @@ import {Search} from './components/Search.jsx';
 import {AddMovie} from './components/AddMovie.jsx';
 import {WatchedBar} from './components/WatchedBar.jsx';
 
-import app from './app';
+import app from './requests';
 
 // var db = [
 //   {title: 'Mean Girls', year: '2002', description: 'its about high school', url:'./images/heart.jpg'},
@@ -50,12 +50,14 @@ class MovieList extends React.Component {
     event.preventDefault();
     var formatMovie = addMovie.toLowerCase().split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
     currMovies.push({title: formatMovie});
+    app.postToDb({title: formatMovie});
     this.setState({'addMovie': ''});
   }
 
   submitSearch (event) {
     event.preventDefault();
-    var filteredList = app.db.filter(movie => movie.title.toLowerCase().includes(event.target.value));
+    const {allMovies} = this.state;
+    var filteredList = allMovies.filter(movie => movie.title.toLowerCase().includes(event.target.value));
     if(!filteredList.length) {
       filteredList = [{title: 'None Found'}];
     } 
