@@ -10,14 +10,26 @@ module.exports = {
   },
   module : {
     loaders : [
+      { 
+        test: /bootstrap.+\.(jsx|js)$/, 
+        loader: 'imports?jQuery=jquery,$=jquery,this=>window' 
+      },
       {
         test : /\.jsx?/,
         include : SRC_DIR,
-        loader : 'babel-loader',      
+        loader : 'babel-loader',
         query: {
           presets: ['react', 'es2015']
-       }
+        }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'],
+    })
+  ]
 };
