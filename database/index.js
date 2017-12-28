@@ -38,7 +38,7 @@ movies = {
 		var query = 'UPDATE movies SET watched = NOT watched WHERE (title = ?)';
 		connection.query(query, parameters, function(error, result) {
 			if(error) {throw error;}
-			callback(result);
+			callback(error, result);
 		})
 	}
 }

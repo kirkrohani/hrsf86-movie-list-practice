@@ -30,7 +30,10 @@ app.get('/load', function(req, res) {
 		var parameters = [sqlMovieList];
 		db.movies.post(parameters, function(error, result) {
 			if(error) {throw error;}
-			res.send(movies);
+		});
+		db.movies.get(function(error, result){
+			if(error) {throw error;}
+			res.send(result);
 		});
 	});
 });
@@ -42,28 +45,22 @@ app.get('/messages', function(req, res) {
 });
 
 app.post('/messages', function(req, res) {
-	var matchingArray = [];
-	const myPromise = new Promise((resolve, reject) => {
-		db.movies.get(function(error, result) {
-			error ? reject(error) : resolve(result);
-		});	
-	}); 
-	return myPromise.then(function(result) {
-		result.forEach((movie) => {matchingArray.push(movie.title)});
-		if(matchingArray.indexOf(req.body.title) >= 0) {
-			var parameter = [req.body.title]
-			db.movies.toggleWatched(parameter, function(error, result) {
+	var currentMovieTitles = [];
+	db.movies.get(function(error, result){
+		if(error) {throw error;}
+		result.forEach((movie) => {
+			currentMovieTitles.push(movie.title);
+		});
+		if(currentMovieTitles.indexOf(req.body.title) >= 0) {
+			var parameters = req.body.title
+			db.movies.toggleWatched(parameters, function(error, result) {
 				if(error) {throw error;}
-				console.log('THIS IS THE RESULT', JSON.stringify(result));
-		})
-			} else {
-				var parameters = [req.body.title]
-				db.movies.postNewMovie(parameters, function(error, result) {
-					if(error) {throw error;}
-					console.log(JSON.stringify(result));
-				});
-			}
-		})
+			})
+			db.movies.get(function(error, result) {
+				res.send(result);
+			});
+		}
+	});
 	// for(var i = 0; i < movies.length; i++) {
 	// 	matchingArray.push(movies[i].title);
 	// }
