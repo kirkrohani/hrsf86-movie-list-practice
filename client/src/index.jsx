@@ -1,19 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
 import ReactDOM  from 'react-dom';
-import Movie from './components/Movie.jsx'
-import AddMovie from './components/AddMovie.jsx'
-import Search from './components/Search.jsx'
-import MovieDetails from './components/MovieDetails.jsx'
-
-
-var movies = [
-  { title: 'Mean Girls', watched:true},
-  { title: 'Hackers', watched: true},
-  { title: 'The Grey', watched: false},
-  { title: 'Sunshine', watched: false},
-  { title: 'Ex Machina', watched: true}
-];
+import Movie from './components/Movie.jsx';
+import AddMovie from './components/AddMovie.jsx';
+import Search from './components/Search.jsx';
+import MovieDetails from './components/MovieDetails.jsx';
+import axios from 'axios';
 
 class MovieList extends React.Component {
   constructor() {
@@ -22,8 +14,8 @@ class MovieList extends React.Component {
       //you may need to not have movies be props later, could cause issues with re-rendering and won't update propery
       showWatched: true,
       showUnwatched: true,
-      movies: movies,
       moviesToDisplay: [],
+      movies: [],
       movieDetail: {title: null}
     };
     this.showAll = this.showAll.bind(this);
@@ -35,10 +27,28 @@ class MovieList extends React.Component {
     this.toggleDetails = this.toggleDetails.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.resetDetails = this.resetDetails.bind(this);
+    this.getMovies = this.getMovies.bind(this);
+  }
+  getMovies() {
+    let stupidHackyThisBinding = this; //so tired of async calls. WHY DOESN'T BIND WORK HERE
+    axios.get('/movies')
+    .then(function(res) {
+      stupidHackyThisBinding.setState({movies: res.data}, stupidHackyThisBinding.filterList);
+    })
+    .catch(function(error) {
+      console.log('there was an error with get request', error);
+    });
   }
   addMovie(val) {
     if (val) {
-      this.setState({ movies: this.state.movies.concat({title: val })}, this.filterList);
+      axios.post('/movie', {title: val})
+      .then((res) => {
+        console.log(res);
+        this.getMovies();
+      })
+      .catch(function(error) {
+        console.log('there was an error with post request', error);
+      });
     }
   }
   search(val) {
@@ -77,7 +87,8 @@ class MovieList extends React.Component {
     this.setState({ movieDetail: { title: null } });    
   }
   componentDidMount() {
-    this.moviesToDisplay = this.filterList();
+    this.getMovies();
+    // this.moviesToDisplay = this.filterList();
   }
   showUnwatched() {
     this.setState({showWatched: false, showUnwatched: true}, this.filterList);
@@ -89,6 +100,7 @@ class MovieList extends React.Component {
     this.setState({showWatched: true, showUnwatched: true}, this.filterList);
   }
   handleCheck(movie) {
+    let movies = this.state.movies; //this shouldn't be necessary but getting movies async breaks effffffffffferything
     movie.watched = !movie.watched;
     this.setState({movies});
     if (!(this.state.showUnwatched && this.state.showWatched)) {

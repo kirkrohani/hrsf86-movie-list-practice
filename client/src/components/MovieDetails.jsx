@@ -3,7 +3,6 @@ import React from 'react';
 module.exports = (props) => {
   let show = props.show;
   let change = function(e) {
-    console.log(e);
     props.handleCheck(props.movie);
   };
   if (show) {
