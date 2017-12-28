@@ -1,5 +1,5 @@
 var app = {};
-app.server = 'http://localhost:3000/movies';
+app.server = 'http://localhost:3000/load';
 app.db = [];
 
 app.headers = {
@@ -17,6 +17,7 @@ app.updateDb = (component) => {
     return response.json();
   })
   .then((rJson)=>{
+    console.log(rJson);
     component.setState({'allMovies': rJson, 'currMovies': rJson});
   });
 };

@@ -33,14 +33,18 @@ export class Movie extends React.Component {
         const {movie} = this.props;
         const {watched, selected} = this.state;
         return (
-            <div className = "mov-list">
-                <span className="mov-title" onClick={this.selectMe}>{movie.title}</span>
-                <img className="watch-button" onClick={this.watchClick} src="./images/eye.png" />
-                <span className={watched}>Watched</span>
-                {(selected && movie.description) &&
+            <div onClick={this.selectMe} className = "mov-list" style={movie.vote_average >= 7 ? {'background-color' : '#b1efe3'} : movie.vote_average > 5 ? {'background-color': '#fcefde'} : {'background-color': '#ff8282'}}>
+                <div className = "container">
+                    <img src={`https://image.tmdb.org/t/p/w185/${movie.backdrop_path}`} />
+                    <span className="mov-title" >{movie.title}</span>
+                    <img className="watch-button" onClick={this.watchClick} src="./images/eye.png" />
+                    <span className={watched}>Watched</span>
+                </div>
+                {selected &&
                 <div className = "mov-info">
-                    <img src={movie.url} alt={movie.title}/>
-                    <span>{movie.year} | {movie.description}</span>
+                    <div className="movie-rating" style={movie.vote_average >= 7 ? {'color' : 'green'} : movie.vote_average > 5 ? {'color': 'orange'} : {'color': 'red'}}>{movie.vote_average}</div>
+                    <div className="release-date">Released: {movie.release_date} </div> 
+                    <div className="movie-overview"> {movie.overview}</div>
                 </div>
                 }
             </div>

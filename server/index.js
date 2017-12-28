@@ -1,3 +1,5 @@
+const movieDb = require('../lib/movieAPI');
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -22,4 +24,13 @@ app.route('/movies')
   .post((req, res) => {
     res.send('received POST data');
     db.push(req.body);
+  });
+
+app.route('/load')
+  .get((req, res) => {
+    return movieDb.getMovieData()
+    .then((data) =>{
+      db.push(data);
+      res.send(JSON.stringify(data))
+    });
   });
