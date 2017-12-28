@@ -6,6 +6,8 @@ import {Search} from './components/Search.jsx';
 import {AddMovie} from './components/AddMovie.jsx';
 import {WatchedBar} from './components/WatchedBar.jsx';
 
+import app from './app';
+
 // var db = [
 //   {title: 'Mean Girls', year: '2002', description: 'its about high school', url:'./images/heart.jpg'},
 //   {title: 'Hackers', year: '2010', description: 'IT is a stable career path', url:'./images/robo.jpg'},
@@ -14,31 +16,6 @@ import {WatchedBar} from './components/WatchedBar.jsx';
 //   {title: 'Ex Machina', year:'2000', description: 'Do Androids Dream of Electric Sheep?', url:'./images/droid.jpg'},
 // ];
 
-//fetch data
-//==========
-var app = {};
-app.server = 'http://localhost:3000/movies';
-app.db = [];
-app.headers = {
-  'Content-Type': 'application/json'
-};
-app.initObj = {
-  method: 'GET',
-  headers: app.headers
-};
-
-app.updateDb = (db, component) => {
-  fetch(app.server, app.initObj)
-  .then((response) => {
-    return response.json();
-  })
-  .then((rJson)=>{
-    app.db = rJson;
-    console.log(app.db);
-    component.setState({'currMovies': app.db});
-  });
-};
-
 //render app
 //==========
 
@@ -46,6 +23,7 @@ class MovieList extends React.Component {
   constructor() {
     super();
     this.state = {
+      'allMovies': app.db,
       'currMovies': app.db,
       'addMovie': '',
       'watchList': [],
@@ -53,7 +31,7 @@ class MovieList extends React.Component {
       'selected': {title: null}
     };
 
-    app.updateDb(app.db, this);
+    app.updateDb(this);
 
     this.addMovie = this.addMovie.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
@@ -96,12 +74,12 @@ class MovieList extends React.Component {
 
   toggleWatchedView (e) {
     e.preventDefault();
-    const {watchSelected, watchList} = this.state;
+    const {watchSelected, watchList, allMovies} = this.state;
     const watchListTitles = watchList.map(mov => mov.title);
     if (watchSelected === true) {
-      this.setState({'watchSelected': false, 'currMovies': app.db.filter(movieObj => !watchListTitles.includes(movieObj.title))});
+      this.setState({'watchSelected': false, 'currMovies': allMovies.filter(movieObj => !watchListTitles.includes(movieObj.title))});
     } else if (watchSelected === false) {
-      this.setState({'watchSelected': null, 'currMovies': app.db});
+      this.setState({'watchSelected': null, 'currMovies': allMovies});
     } else {
       this.setState({'watchSelected': true, 'currMovies': watchList});
     }
