@@ -40,7 +40,13 @@ class App extends React.Component {
       title: addInput
     }
 
-    newList.push(movie);
+    axios.post('/movies', movie)
+      .then(response => {
+        this.componentDidMount();
+      })
+      .catch(error => {
+        console.error(error);
+      });
 
     this.setState({ movies: newList });
   }

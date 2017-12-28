@@ -13,12 +13,17 @@ var movies = [
   {title: 'This Means War'}
 ];
 
+app.use(bodyParser.json());
+
 app.get('/movies', function(request, response) {
-  console.log('getting');
   response.send(movies);
 });
 
-app.use(bodyParser.json());
+app.post('/movies', function(request, response) {
+  movies.push(request.body);
+  response.send('posted');
+})
+
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.listen(3000, function () { console.log('MovieList app listening on port 3000!') });
 
