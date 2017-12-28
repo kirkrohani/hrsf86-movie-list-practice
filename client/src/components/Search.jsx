@@ -3,6 +3,24 @@ import React from 'react'
 class Search extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleFilter = this.handleFilter.bind(this);
+  }
+
+  handleFilter (e) {
+    var movieArray = [];
+
+    if (e.key === 'Enter') {
+      var searchTerm = e.currentTarget.value.toLowerCase();
+      for (var i = 0; i < this.props.movies.length; i++) {
+        var curMovie = this.props.movies[i];
+        var curMovieTitle = this.props.movies[i].title.toLowerCase();
+        if (curMovieTitle.indexOf(searchTerm) >= 0) {
+          movieArray.push(curMovie);
+        }
+      }
+      this.props.filterMovies(movieArray);
+    }
   }
 
   render() {
@@ -10,9 +28,12 @@ class Search extends React.Component {
       <div>
         <div>
            <div>
-              <input type="text" placeholder="Search for a movie..."></input>
-              <button type="submit" className="searchButton">
-              <i></i> GO </button>
+              <input 
+                placeholder="Search for a movie..."
+                onKeyPress={this.handleFilter}
+                >
+              </input>
+              <button> GO </button>
            </div>
         </div>
       </div>

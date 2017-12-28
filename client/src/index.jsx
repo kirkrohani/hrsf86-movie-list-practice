@@ -21,11 +21,13 @@ class MovieList extends React.Component {
       searchMovies: movies, 
     }
 
-    filterMovies: (movieArray) => {
-      this.setState({
-        searchMovies: movieArray
-      })
-    }
+    this.filterMovies = this.filterMovies.bind(this);
+  }
+
+  filterMovies (movieArray) {
+    this.setState({
+      searchMovies: movieArray
+    })
   }
 
   render() {
@@ -35,6 +37,7 @@ class MovieList extends React.Component {
           <Search 
             searchMovies={this.state.searchMovies}
             filterMovies={this.filterMovies}
+            movies={this.state.movies}
           />
         </div>
         
