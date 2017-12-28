@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
+import Movie from './Movie.jsx';
+import MovieDetails from './MovieDetails.jsx'
 
-class AddMovie extends React.Component {
+class Movies extends React.Component {
   constructor() {
     super(props);
     this.state = {
@@ -12,10 +14,11 @@ class AddMovie extends React.Component {
   render() {
     return (
       <div>
-      AddMovie
+        Movies
+        <Movie />
       </div>
     )
   }
 }
 
-export default AddMovie;
+export default Movies;
