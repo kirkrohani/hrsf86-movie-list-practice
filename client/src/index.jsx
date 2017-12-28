@@ -94,15 +94,25 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Search filterMovies={this.filterMovies.bind(this)} clearFilter={this.clearFilter.bind(this)}/>
-        <AddMovie addMovieToList={this.addMovieToList.bind(this)}/>
-        <div className="watchListButton">
-          <button type="button" onClick={(e) => this.renderWatched()}>Watched List</button>
-          <button type="button" onClick={(e) => this.renderToWatch()}>To Watch List</button>
-          <button type="button" onClick={(e) => this.renderAll()}>View All</button>
+      <div className="font">
+        <div className="container">
+          <div className="row justify-content-md-center">
+            <div className="col-sm-auto">
+              <AddMovie addMovieToList={this.addMovieToList.bind(this)}/>
+            </div>
+            <div className="col-sm-auto">
+              <Search filterMovies={this.filterMovies.bind(this)} clearFilter={this.clearFilter.bind(this)}/>
+            </div>
+            <div className="col-sm-auto">
+              <button type="button" className="btn btn-dark btn-sm" onClick={(e) => this.renderWatched()}>Watched</button>
+              <button type="button" className="btn btn-dark btn-sm" onClick={(e) => this.renderToWatch()}>To Watch</button>
+              <button type="button" className="btn btn-dark btn-sm" onClick={(e) => this.renderAll()}>View All</button>
+            </div>
+            <div className="col-lg-auto">
+              <MovieList movies={this.state.movies}/>
+            </div>
+          </div>  
         </div>
-        <MovieList movies={this.state.movies}/>
       </div>
     )
   }

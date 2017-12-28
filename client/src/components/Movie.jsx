@@ -7,52 +7,64 @@ class Movie extends React.Component {
     super(props);
     this.state = {
       watched: false,
-      towatch: true
+      towatch: true,
+      showDetails: false,
     };
   }
 
-  toggleWatched () {
-    if (!this.state.watched){
-      this.setState ({
+  toggleWatched() {
+    if (!this.state.watched) {
+      this.setState({
         watched: true,
-        towatch: false
-      })
+        towatch: false,
+      });
     } else {
-      this.setState ({
+      this.setState({
         watched: false,
-        towatch: true
-      })
+        towatch: true,
+      });
     }
   }
 
-  renderButton () {
+  renderButton() {
     if (this.state.watched) {
       return (
-        <button type="button" onClick={() => this.toggleWatched()}>Watched</button>
+        <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => this.toggleWatched()}>Watched</button>
       );
-    } else {
-      return (
-        <button type="button" onClick={() => this.toggleWatched()}>To watch</button>
-      )
     }
+    return (
+      <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => this.toggleWatched()}>To watch</button>
+    )
   }
 
-  // showDetails () {
-  //   console.log('show');
-  //   return <MovieDetails movie={this.props.movie}/>
-  // }
+  showDetails(prevState) {
+    this.setState({
+      showDetails: !prevState,
+    });
 
-  render () {
+  }
+  renderDetails() {
+    if (this.state.showDetails) {
+      return <MovieDetails movie={this.props.movie}/>
+    }
+  }
+  
+  render() { 
     let classes = ClassNames('movie', {watched: this.state.watched}, {towatch: this.state.towatch});
     return (
       <div className={classes}>
-        <li onClick={() => (<MovieDetails movie={this.props.movie}/>)}>{this.props.movie.title}</li>
-        {this.renderButton()}
+        <div className="row justify-content-md-center">
+          <div className="col col-sm-">
+            <li  onClick={() => this.showDetails(this.state.showDetails)}>{this.props.movie.title}</li>
+           {this.renderDetails()}
+          </div>
+          <div className="col col-sm-auto">
+            {this.renderButton()}
+          </div>
+        </div>
       </div>
     )
   }
 }
-
-
 
 export default Movie;

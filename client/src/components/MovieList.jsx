@@ -5,11 +5,11 @@ const MovieList = (props) => {
   if (props.movies.length !== 0) {
     return (
       <div>
-      <ul>
-      {props.movies.map((movie, idx) =>
-        <Movie key={idx} movie={movie}/>
-      )}
-      </ul>
+        <ul>
+          {props.movies.map((movie, idx) =>
+            <Movie key={idx} movie={movie}/>
+          )}
+        </ul>
       </div>
     );
   } else {

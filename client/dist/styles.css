@@ -1,7 +1,7 @@
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
-*/
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -39,26 +39,33 @@ blockquote, q {
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
+  content: '';
 	content: none;
 }
 table {
-	border-collapse: collapse;
+  border-collapse: collapse;
 	border-spacing: 0;
 }
+*/
 
 h1 {
   font-size: 30px;
   padding: 30px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  text-align: center;
+}
+
+.font {
+  font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 form {
-  padding: 5px 30px ;
+  padding: 5px;
 }
 
 ul {
   list-style: none;
-  margin: 30px;
+  margin-top: 10px;
 }
 
 button {
@@ -75,7 +82,11 @@ li {
   margin: 5px;
 }
 
-.watchListButton {
-  margin-left: 30px;
-  margin-top: 20px;
+.details {
+  margin-left: 10px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }
