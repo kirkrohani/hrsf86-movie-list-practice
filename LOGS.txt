@@ -5,3 +5,7 @@ LEVEL 1 - FRONT END
 - looked up proper exporting
   - export default <Component Class>
   - Looked at GroceryList (ugh...I'm sorry)
+
+- 1.3 Search functionality
+  - spent WAY too much time deciding how to implement partial search.
+  - need to keep MVP in mind
