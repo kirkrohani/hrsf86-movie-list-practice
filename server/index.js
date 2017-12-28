@@ -39,7 +39,7 @@ app.get('/load', (request, response) => {
         console.log(err);
       }
     });
-    // response.send(movies);
+    response.send(movies);
   });
   console.log('Sent a GET request!');
 });
@@ -52,7 +52,6 @@ app.post('/movie', (request, response) => {
   });
   // movies.push(request.body);
   response.send('Sent a POST request!');
-  // response.status(201).end();
   console.log('New movie is ', request.body);
 });
 

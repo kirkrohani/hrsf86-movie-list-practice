@@ -46,10 +46,15 @@ class MovieList extends React.Component {
       });
   }
   addMovie(movieTitle) {
-    this.state.list = [];
+    // this.state.list = [];
     axios.post('/movie', { title: movieTitle, release_date: "2017-12-28", overview: "Movie about fish", popularity: 9, vote_average: 8 })
         .then(response => {
-          this.getMovies();
+          // this.getMovies();
+          this.state.list.push(response);
+          console.log('This is the list ', this.state.list);
+          // this.setState({
+          //   list: this.state.list
+          // })
         })
         .catch(function(error) {
           console.log(error);
