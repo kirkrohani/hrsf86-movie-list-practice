@@ -1,25 +1,36 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
-import MovieItem from './components/Movie.jsx';
+import axios from 'axios';
+import MovieList from './components/MovieList.jsx';
 import Search from './components/Search.jsx';
 import AddMovie from './components/AddMovie.jsx';
 
-//// HARD CODE DATA ////
-var movies = [
-  {title: 'Mean Girls'},
-  {title: 'Hackers'},
-  {title: 'The Grey'},
-  {title: 'Sunshine'},
-  {title: 'Ex Machina'},
-  {title: 'This Means War'}
-];
+// //// HARD CODE DATA ////
+// var movies = [
+//   {title: 'Mean Girls'},
+//   {title: 'Hackers'},
+//   {title: 'The Grey'},
+//   {title: 'Sunshine'},
+//   {title: 'Ex Machina'},
+//   {title: 'This Means War'}
+// ];
 
-class MovieList extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      movies: movies,
-    };
+      movies: []
+    }
+  }
+
+  componentDidMount() {
+    axios.get('/movies')
+      .then(response => {
+        this.setState({ movies: response.data });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   addMovie(addInput) {
@@ -64,14 +75,11 @@ class MovieList extends React.Component {
           <Search search={ this.searchList.bind(this) }/>
         </div>
         <div className="movie-list">
-          { this.state.movies.map(movie => {
-              return <MovieItem movie={ movie } key={ movie.title }/>
-            })
-          }
+          <MovieList movies={ this.state.movies }/>
         </div>
       </div>
     )
   }
 }
 
-ReactDOM.render(<MovieList />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

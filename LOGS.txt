@@ -9,3 +9,5 @@ LEVEL 1 - FRONT END
 - 1.3 Search functionality
   - spent WAY too much time deciding how to implement partial search.
   - need to keep MVP in mind
+
+- Having a ton of trouble with the styling.
