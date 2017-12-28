@@ -1,8 +1,6 @@
 var models = require('./models');
 const path = require('path');
-// var React = require('react');
-// var ReactDOMServer = require('react-dom/server');
-// var App = require('./../client/src/index.jsx');
+const API = require('../lib/movieAPI');
 
 var movies = [
     {title: 'Mean Girls', year: '2012', rating: '8'},
@@ -16,12 +14,24 @@ var movies = [
 module.exports = {
     movies: {
         get: (req, res) => {
-            res.send(movies);
+            module.exports.load.get((movies) => {
+                res.send(movies);
+            });
         },
 
         post: (req, res) => {
             movies.push(req.body);
             res.send(req.body);
+        }
+    },
+
+    load: {
+        get: (cb) => {
+            API.getMovie((data) => {
+                let parsedData = JSON.parse(data);
+                movies = parsedData.results;
+                cb(movies);
+            });
         }
     }
 }

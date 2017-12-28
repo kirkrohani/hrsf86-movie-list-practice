@@ -74,8 +74,6 @@ class App extends React.Component {
       data: target,
       contentType: 'application/json',
       success: (data) => {
-        console.log(target);
-        console.log(data);
         this.getMovies();
       },
       error: (error) => {
