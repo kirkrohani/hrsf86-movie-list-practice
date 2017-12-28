@@ -7,6 +7,7 @@ import {AddMovie} from './components/AddMovie.jsx';
 import {WatchedBar} from './components/WatchedBar.jsx';
 
 import app from './requests';
+import movieDb from '../../lib/movieAPI';
 
 // var db = [
 //   {title: 'Mean Girls', year: '2002', description: 'its about high school', url:'./images/heart.jpg'},
@@ -31,6 +32,7 @@ class MovieList extends React.Component {
       'selected': {title: null}
     };
 
+    movieDb.getMovieData();
     app.updateDb(this);
 
     this.addMovie = this.addMovie.bind(this);
