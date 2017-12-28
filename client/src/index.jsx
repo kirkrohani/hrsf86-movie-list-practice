@@ -19,7 +19,16 @@ class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    this.refreshMovies();
+    axios.get('/load')
+      .then((response) => {
+        this.setState({
+          allMovies: response.data
+        })
+        // callback && callback();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   refreshMovies(callback) {
@@ -28,7 +37,7 @@ class MovieList extends React.Component {
         this.setState({
           allMovies: response.data
         })
-        callback();
+        callback && callback();
       })
       .catch((error) => {
         console.log(error);
@@ -109,8 +118,8 @@ class MovieList extends React.Component {
         key={movie.title}
         watched={movie.watched ? true : false}
         title={movie.title}
-        year={movie.year}
-        rating={movie.rating}
+        year={movie.release_date}
+        rating={movie.vote_average}
         toggleWatched={this.toggleWatched.bind(this)}/>
     })
 
