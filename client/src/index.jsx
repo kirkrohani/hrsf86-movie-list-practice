@@ -5,24 +5,34 @@ import Search from './components/Search.jsx';
 import AddMovie from './components/AddMovie.jsx';
 import Tabs from './components/Tabs.jsx';
 import _ from 'underscore';
-
-const movies = [
-  {id: 1, title: 'Mean Girls', year: '1997', rating: '55'},
-  {id: 2, title: 'Hackers', year: '2005', rating: '65'},
-  {id: 3, title: 'The Grey', year: '1889', rating: '52'},
-  {id: 4, title: 'Sunshine', year: '1776', rating: '78'},
-  {id: 5, title: 'Ex Machina', year: '42 B.C', rating: '35'},
-]
+import axios from 'axios';
 
 class MovieList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      allMovies: this.props.movies,
+      allMovies: [],
       filteredBy: null,
       activeTab: 'toWatch'
     }
+  }
+
+  componentDidMount() {
+    this.refreshMovies();
+  }
+
+  refreshMovies(callback) {
+    axios.get('/movies')
+      .then((response) => {
+        this.setState({
+          allMovies: response.data
+        })
+        callback();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   addNewMovie(title) {
@@ -33,12 +43,20 @@ class MovieList extends React.Component {
 
     /// clear filter and display all movies
     if (!existsInList) {
-      var newMovie = {title: title, year: 'unknown', rating: 'unknown'};
-      var copyOfMovies = this.state.allMovies.concat(newMovie);
-      this.setState({
-        allMovies: copyOfMovies,
-        filteredBy: null
-      });
+      axios.post('/movie', {
+        title: title
+      })
+      .then((response)=> {
+        console.log(response);
+        this.refreshMovies(() => {
+           this.setState({
+            filteredBy: null
+          }); 
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     }
   }
 
@@ -113,4 +131,4 @@ class MovieList extends React.Component {
   }
 }
 
-ReactDOM.render( <MovieList movies={movies} />, document.getElementById('app'));
+ReactDOM.render( <MovieList />, document.getElementById('app'));
