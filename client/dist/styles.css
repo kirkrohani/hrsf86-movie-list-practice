@@ -7,7 +7,7 @@
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: darkgrey;
+    color: #16A086;
 }
 
 span {
@@ -23,19 +23,38 @@ span {
     padding: 10px;
 }
 
+.add-movie input[type=text] {
+    padding: 10px;
+    border-radius: 3%;
+}
+
+.add-movie input[type=submit] {
+    background-color: #16A086;
+    color: white;
+    border-radius: 20%;
+    padding: 10px;
+}
+
 .mov-list {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 10px 0;
-    background-color: aliceblue;
+    background-color: #f4fcfa;
     width: 40%;
     margin: 0 auto;
     text-align: left;
     clear: both;
+    border: 1px solid #f1f1f1;
 }
 
 .search-bar {
     float: left;
     padding: 10px;
+}
+
+.inputbar {
+    padding: 9.5px;
+    width: 140%;
+    border-radius: 2%;
 }
 
 .mov-title {
@@ -59,8 +78,16 @@ span {
 
 .watched-bar {
     float: right;
-    padding: 10px;
-    border: 1px solid grey;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    border-top: 1px solid grey;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+
+    background-color: #f4fcfa;
+    
+    /* border-bottom: 1px solid grey; */
+    font-size: 14px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: darkgrey;
+    cursor: pointer;
 }

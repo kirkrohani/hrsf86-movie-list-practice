@@ -63,7 +63,7 @@ class MovieList extends React.Component {
   }
 
   toggleWatchedView (e) {
-    console.log(e);
+    e.preventDefault();
     const {watchSelected, watchList} = this.state;
     const watchListTitles = watchList.map(mov => mov.title);
     if (watchSelected === true) {
@@ -84,11 +84,13 @@ class MovieList extends React.Component {
         <AddMovie value = {addMovie} submit = {this.addMovie} change = {this.handleChange}/>
         <Search submitSearch = {this.submitSearch} /> <WatchedBar watchSelected={watchSelected} toggleWatchedView={this.toggleWatchedView}/>
       </div>
+      <div className="all-movs"> 
       {
           currMovies.map(({title}) => 
           < Movie title={title} key={title} toggleFromWatchList={this.toggleFromWatchList} watchListTitles={watchListTitles} />
         )
       }
+      </div>
       </div>
     )
   }

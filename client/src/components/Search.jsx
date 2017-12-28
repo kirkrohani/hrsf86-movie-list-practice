@@ -4,7 +4,7 @@ export const Search = ({submitSearch}) => {
     return (
         <div className="search-bar"> 
           <form>
-            <input type="text" placeholder="Search List" onChange = {submitSearch} />
+            <input className="inputbar" type="text" placeholder="Search List" onChange = {submitSearch} />
           </form>
         </div>
     );
