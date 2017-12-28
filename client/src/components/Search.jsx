@@ -1,6 +1,12 @@
-export const search = (props) => {
-	return <div>
-		<input type="text" />
-		<button onClick={this.props.onClick}>Search</button>
-	</div>
+import React from 'react';
+import ReactDOM  from 'react-dom';
+
+
+const Search = (props) => {
+	return (<div>
+		<input type="text"/>
+		<button onClick={props.handleClick}>Search</button>
+	</div>);
 }
+
+export default Search
