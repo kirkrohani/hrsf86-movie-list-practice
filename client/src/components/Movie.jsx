@@ -30,7 +30,6 @@ class Movie extends React.Component {
   	var button = null;
   	var displayDiv = null;
 
-  	if (this.props.watchedMoviesShown === 'neither') {
   	  if (isWatched) {
   	  	 button = <button className = 'watchedButton' onClick = {() => this.toggleWatchButton()}> Watched </button> ; 
   	  } else {
@@ -52,28 +51,13 @@ class Movie extends React.Component {
 	    </div>
   	  }
 
-  	  return (
-	  	displayDiv
-	  )
+
+
+  	if (this.props.watchedMoviesShown === 'neither') {
+  	  return (displayDiv)
   	}
   	if (this.props.watchedMoviesShown === 'yes') {
 	  	if (isWatched) {
-	  	  button = <button className = 'watchedButton' onClick = {() => this.toggleWatchButton()}> Watched </button> ;
-
-	  	  if (isClicked) {
-	  	  	displayDiv = <div className = 'movieEntry'> 
-	  	  	  <div onClick = {() => this.renderMovieDetails()}> 
-		        {this.props.movie.title}
-		      </div> 
-		      <div className = 'watchedDiv'> {button} </div>
-		      <MovieDetails movie = {this.props.movie}/> 
-		    </div>
-	  	  } else {
-	  	  	displayDiv = <div className = 'movieEntry'>
-	  	  	<div onClick = {() => this.renderMovieDetails()}> {this.props.movie.title} </div> 
-	  	  	<div className = 'watchedDiv'> {button} </div>
-		    </div>
-	  	  }
 	  	  return (
 	  	    displayDiv
 	  	  )
@@ -85,22 +69,6 @@ class Movie extends React.Component {
     } else {
     	// render all movies which havent been watched (isWatched: false)
     	if (!isWatched) {
-    	   button = <button onClick = {() => this.toggleWatchButton()}> To Watch </button> ;
-
-	  	  if (isClicked) {
-	  	  	displayDiv = <div className = 'movieEntry'> 
-	  	  	  <div onClick = {() => this.renderMovieDetails()}> 
-		        {this.props.movie.title}
-		      </div> 
-		      <div className = 'watchedDiv'> {button} </div>
-		      <MovieDetails movie = {this.props.movie}/> 
-		    </div>
-	  	  } else {
-	  	  	displayDiv = <div className = 'movieEntry'>
-	  	  	<div onClick = {() => this.renderMovieDetails()}> {this.props.movie.title} </div> 
-	  	  	<div className = 'watchedDiv'> {button} </div>
-		    </div>
-	  	  }
 	  	  return (
 	  	    displayDiv
 	  	  )
