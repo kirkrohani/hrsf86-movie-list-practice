@@ -8,11 +8,11 @@ class MovieList extends React.Component {
   constructor() {
     super();
     this.state = {movies:[
-        {title: 'Mean Girls', runtime: '107 minutes', year: 2005},
+        {title: 'Mean Girls', runtime: '150 minutes', year: 2005},
         {title: 'Hackers', runtime: '107 minutes', year: 1995},
-  	    {title: 'The Grey', runtime: '107 minutes', year: 2000},
-  	    {title: 'Sunshine', runtime: '107 minutes', year: 1984},
-  	    {title: 'Ex Machina', runtime: '107 minutes', year: 2014},
+  	    {title: 'The Grey', runtime: '112 minutes', year: 2000},
+  	    {title: 'Sunshine', runtime: '92 minutes', year: 1984},
+  	    {title: 'Ex Machina', runtime: '84 minutes', year: 2014},
 	  ], watchedMoviesShown: 'neither'
 	}
   }

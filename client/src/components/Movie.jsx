@@ -19,7 +19,6 @@ class Movie extends React.Component {
 
   renderMovieDetails() {
   	// render details elements 
-  	console.log('here')
   	this.setState((prevState) => {
   		return {isClicked: !prevState.isClicked};
   	});
@@ -39,13 +38,17 @@ class Movie extends React.Component {
   	  }
 
   	  if (isClicked) {
-  	  	displayDiv = <div className = 'movieEntry' onClick = {() => this.renderMovieDetails()}> 
-	      {this.props.movie.title} <div className = 'watchedDiv'> {button} </div>
+  	  	displayDiv = <div className = 'movieEntry'> 
+  	  	  <div onClick = {() => this.renderMovieDetails()}> 
+	        {this.props.movie.title}
+	      </div> 
+	      <div className = 'watchedDiv'> {button} </div>
 	      <MovieDetails movie = {this.props.movie}/> 
 	    </div>
   	  } else {
-  	  	displayDiv = <div className = 'movieEntry' onClick = {() => this.renderMovieDetails()}> 
-	      {this.props.movie.title} <div className = 'watchedDiv'> {button} </div>
+  	  	displayDiv = <div className = 'movieEntry'>
+  	  	<div onClick = {() => this.renderMovieDetails()}> {this.props.movie.title} </div> 
+  	  	<div className = 'watchedDiv'> {button} </div>
 	    </div>
   	  }
 
@@ -56,10 +59,23 @@ class Movie extends React.Component {
   	if (this.props.watchedMoviesShown === 'yes') {
 	  	if (isWatched) {
 	  	  button = <button className = 'watchedButton' onClick = {() => this.toggleWatchButton()}> Watched </button> ;
-	  	  return (
-	  	    <div className = 'movieEntry'> 
-			  {this.props.movie.title} <div className = 'watchedDiv'> {button} </div>
+
+	  	  if (isClicked) {
+	  	  	displayDiv = <div className = 'movieEntry'> 
+	  	  	  <div onClick = {() => this.renderMovieDetails()}> 
+		        {this.props.movie.title}
+		      </div> 
+		      <div className = 'watchedDiv'> {button} </div>
+		      <MovieDetails movie = {this.props.movie}/> 
 		    </div>
+	  	  } else {
+	  	  	displayDiv = <div className = 'movieEntry'>
+	  	  	<div onClick = {() => this.renderMovieDetails()}> {this.props.movie.title} </div> 
+	  	  	<div className = 'watchedDiv'> {button} </div>
+		    </div>
+	  	  }
+	  	  return (
+	  	    displayDiv
 	  	  )
 	    } else {
 	    	return (
@@ -70,11 +86,23 @@ class Movie extends React.Component {
     	// render all movies which havent been watched (isWatched: false)
     	if (!isWatched) {
     	   button = <button onClick = {() => this.toggleWatchButton()}> To Watch </button> ;
-	  	  return (
-	  	    <div className = 'movieEntry'> 
-			  {this.props.movie.title} <div className = 'watchedDiv'> {button} </div>
 
+	  	  if (isClicked) {
+	  	  	displayDiv = <div className = 'movieEntry'> 
+	  	  	  <div onClick = {() => this.renderMovieDetails()}> 
+		        {this.props.movie.title}
+		      </div> 
+		      <div className = 'watchedDiv'> {button} </div>
+		      <MovieDetails movie = {this.props.movie}/> 
 		    </div>
+	  	  } else {
+	  	  	displayDiv = <div className = 'movieEntry'>
+	  	  	<div onClick = {() => this.renderMovieDetails()}> {this.props.movie.title} </div> 
+	  	  	<div className = 'watchedDiv'> {button} </div>
+		    </div>
+	  	  }
+	  	  return (
+	  	    displayDiv
 	  	  )
 	    } else {
 	    	return (
