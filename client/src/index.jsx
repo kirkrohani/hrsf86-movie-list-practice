@@ -10,13 +10,15 @@ class MovieList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: []
+      movies: [],
+      currentMovies: []
     }
   }
 
   componentDidMount() {
     this.setState({
-      movies: this.props.movies
+      movies: this.props.movies,
+      currentMovies: this.props.movies
     })
   }
 

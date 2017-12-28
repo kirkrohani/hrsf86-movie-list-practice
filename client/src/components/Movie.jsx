@@ -10,10 +10,22 @@ class Movie extends React.Component {
     }
   }
 
+  handleWatchToggle(){
+    this.setState({
+      showDescription: this.state.showDescription,
+      watched: !this.state.watched
+    })
+  }
+
   render() {
     return (
       <tr>
         <td id="movie-title">{this.props.movie.title}</td>
+        {
+          this.state.watched 
+            ? <td><button class="watched" onClick={this.handleWatchToggle.bind(this)}>watched!</button></td> 
+            : <td><button class="not-watched" onClick={this.handleWatchToggle.bind(this)}>watched</button></td>    
+        }
       </tr>
     );
   }
