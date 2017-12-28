@@ -63,8 +63,12 @@ class MovieList extends React.Component {
           />
         </div>
         
-        <div> The actual list will go here </div>
-          {this.state.searchMovies.map((movie) => <Movie movie={movie} key={movie.title}/> )}
+        <div> Current Movie List! </div>
+        <table>
+          <tbody>
+            {this.state.searchMovies.map((movie) => <Movie movie={movie} key={movie.title}/> )}
+          </tbody>
+        </table>
       </div>
     )
   }
