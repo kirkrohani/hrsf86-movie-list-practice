@@ -4,7 +4,7 @@ export class Movie extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            watched: 'hide-icon'
+            watched: this.props.watchListTitles.includes(this.props.title) ? 'show-icon' : 'hide-icon'
         };
         this.watchClick = this.watchClick.bind(this);
     }

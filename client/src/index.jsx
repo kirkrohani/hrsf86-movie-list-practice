@@ -39,7 +39,7 @@ class MovieList extends React.Component {
     const {currMovies, addMovie} = this.state;
     event.preventDefault();
     var formatMovie = addMovie.toLowerCase().split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
-    currMovies.push({title: formatArray});
+    currMovies.push({title: formatMovie});
     this.setState({'addMovie': ''});
   }
 
@@ -77,6 +77,7 @@ class MovieList extends React.Component {
 
   render() {
     const {currMovies, addMovie, watchList, watchSelected} = this.state;
+    const watchListTitles = watchList.map(mov => mov.title);
     return (
       <div className="main">
       <div className="nav">
@@ -85,7 +86,7 @@ class MovieList extends React.Component {
       </div>
       {
           currMovies.map(({title}) => 
-          < Movie title={title} key={title} toggleFromWatchList={this.toggleFromWatchList} />
+          < Movie title={title} key={title} toggleFromWatchList={this.toggleFromWatchList} watchListTitles={watchListTitles} />
         )
       }
       </div>
