@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 import Search from './components/Search.jsx';
 import Movie from './components/Movie.jsx';
+import AddMovie from './components/AddMovie.jsx'
 
 var movies = [
   {title: 'Mean Girls'},
@@ -22,6 +23,7 @@ class MovieList extends React.Component {
     }
 
     this.filterMovies = this.filterMovies.bind(this);
+    this.addNewMovie = this.addNewMovie.bind(this);
   }
 
   filterMovies (movieArray) {
@@ -30,9 +32,29 @@ class MovieList extends React.Component {
     })
   }
 
+  addNewMovie(movieName) {
+    var movieObj = {
+      title: movieName
+    }
+    for (var i = 0; i < this.state.movies.length; i++) {
+      var curMovieTitle = this.state.movies[i].title;
+      if (curMovieTitle !== movieObj.title) {
+        continue;
+      } else {
+        break;
+      }
+    }
+
+    this.state.movies.push(movieObj);
+    this.setState(this.state);
+  }
+
   render() {
     return (
       <div>
+        <div style={{marginBottom:10}}> Add a Movie! 
+          <AddMovie addNewMovie={this.addNewMovie}/>
+        </div>
         <div style={{marginBottom: 20}}> Search for a Movie! 
           <Search 
             searchMovies={this.state.searchMovies}
