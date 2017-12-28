@@ -1,7 +1,6 @@
 import React from 'react';
 
 module.exports = (props) => {
-  console.log(props);
   let show = props.show;
   if (show) {
     return (

@@ -1,10 +1,8 @@
 import React from 'react';
 
 let Movie = (props) => {
-  console.log(props);
   let handleClick = (mov) => {
-    console.log(mov);
-    props.toggleDetails(props.movie);
+    props.handler(props.movie);
   }
   if (props.show) {
     return (
@@ -14,7 +12,6 @@ let Movie = (props) => {
       onClick={handleClick}
       >
         <div>{props.movie.title}</div>
-        {/* <MovieDetails movie={props.movie} clickHandler="handleClick"/> */}
       </li>
     );
   }
