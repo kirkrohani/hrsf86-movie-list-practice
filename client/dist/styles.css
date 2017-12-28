@@ -59,11 +59,14 @@ span {
 
 .mov-title {
     margin: 0 15px;
+    cursor: pointer;
+    font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
 .watch-button {
     margin: 0 15px;
     float: right;
+    cursor: pointer;
 }
 
 .show-icon {
@@ -90,4 +93,16 @@ span {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: darkgrey;
     cursor: pointer;
+}
+
+.mov-info {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    padding: 20px;
+    position: relative;
+}
+
+.mov-info span {
+    position: absolute;
+    top: 50%;
 }

@@ -7,11 +7,11 @@ import {AddMovie} from './components/AddMovie.jsx';
 import {WatchedBar} from './components/WatchedBar.jsx';
 
 var movies = [
-  {title: 'Mean Girls'},
-  {title: 'Hackers'},
-  {title: 'The Grey'},
-  {title: 'Sunshine'},
-  {title: 'Ex Machina'},
+  {title: 'Mean Girls', year: '2002', description: 'its about high school', url:'./images/heart.jpg'},
+  {title: 'Hackers', year: '2010', description: 'IT is a stable career path', url:'./images/robo.jpg'},
+  {title: 'The Grey', year:'1999', description: 'A coming of age movie', url:'./images/gandalf.jpg'},
+  {title: 'Sunshine', year: '2009', description: 'Generally accepted as favorable weather', url:'./images/sun.jpg'},
+  {title: 'Ex Machina', year:'2000', description: 'Do Androids Dream of Electric Sheep?', url:'./images/droid.jpg'},
 ];
 
 class MovieList extends React.Component {
@@ -21,7 +21,8 @@ class MovieList extends React.Component {
       'currMovies': movies,
       'addMovie': '',
       'watchList': [],
-      'watchSelected': null
+      'watchSelected': null,
+      'selected': {title: null}
     };
 
     this.addMovie = this.addMovie.bind(this);
@@ -29,6 +30,7 @@ class MovieList extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.toggleFromWatchList = this.toggleFromWatchList.bind(this);
     this.toggleWatchedView = this.toggleWatchedView.bind(this);
+    this.selectThis = this.selectThis.bind(this);
   }
 
   handleChange (event) {
@@ -52,13 +54,13 @@ class MovieList extends React.Component {
     this.setState({'currMovies' : filteredList});
   }
 
-  toggleFromWatchList (movie) {
+  toggleFromWatchList (movieTitle) {
     const {watchList} = this.state;
     const watchListTitles = watchList.map(mov => mov.title);
-    if (!watchListTitles.includes(movie)) {
-      this.setState({'watchList': [...watchList, {'title': movie}]});
+    if (!watchListTitles.includes(movieTitle)) {
+      this.setState({'watchList': [...watchList, {'title': movieTitle}]});
     } else {
-      this.setState({'watchList': watchList.filter(movieObj => movieObj.title !== movie)});
+      this.setState({'watchList': watchList.filter(movieObj => movieObj.title !== movieTitle)});
     }
   }
 
@@ -75,8 +77,12 @@ class MovieList extends React.Component {
     }
   }
 
+  selectThis(movie) {
+    this.setState({'selected': movie});
+  }
+
   render() {
-    const {currMovies, addMovie, watchList, watchSelected} = this.state;
+    const {currMovies, addMovie, watchList, watchSelected, selected} = this.state;
     const watchListTitles = watchList.map(mov => mov.title);
     return (
       <div className="main">
@@ -86,8 +92,8 @@ class MovieList extends React.Component {
       </div>
       <div className="all-movs"> 
       {
-          currMovies.map(({title}) => 
-          < Movie title={title} key={title} toggleFromWatchList={this.toggleFromWatchList} watchListTitles={watchListTitles} />
+          currMovies.map((movie) => 
+          < Movie movie={movie} key={movie.title} toggleFromWatchList={this.toggleFromWatchList} watchListTitles={watchListTitles} selected={selected} selectThis={this.selectThis}/>
         )
       }
       </div>
