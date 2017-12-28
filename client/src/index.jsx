@@ -77,7 +77,7 @@ class MovieList extends React.Component {
 
   submitSearch (event) {
     event.preventDefault();
-    var filteredList = db.filter(movie => movie.title.toLowerCase().includes(event.target.value));
+    var filteredList = app.db.filter(movie => movie.title.toLowerCase().includes(event.target.value));
     if(!filteredList.length) {
       filteredList = [{title: 'None Found'}];
     } 
@@ -99,9 +99,9 @@ class MovieList extends React.Component {
     const {watchSelected, watchList} = this.state;
     const watchListTitles = watchList.map(mov => mov.title);
     if (watchSelected === true) {
-      this.setState({'watchSelected': false, 'currMovies': db.filter(movieObj => !watchListTitles.includes(movieObj.title))});
+      this.setState({'watchSelected': false, 'currMovies': app.db.filter(movieObj => !watchListTitles.includes(movieObj.title))});
     } else if (watchSelected === false) {
-      this.setState({'watchSelected': null, 'currMovies': db});
+      this.setState({'watchSelected': null, 'currMovies': app.db});
     } else {
       this.setState({'watchSelected': true, 'currMovies': watchList});
     }

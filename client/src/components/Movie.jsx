@@ -37,7 +37,7 @@ export class Movie extends React.Component {
                 <span className="mov-title" onClick={this.selectMe}>{movie.title}</span>
                 <img className="watch-button" onClick={this.watchClick} src="./images/eye.png" />
                 <span className={watched}>Watched</span>
-                {selected &&
+                {(selected && movie.description) &&
                 <div className = "mov-info">
                     <img src={movie.url} alt={movie.title}/>
                     <span>{movie.year} | {movie.description}</span>
