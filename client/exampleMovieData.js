@@ -5,24 +5,24 @@ var exampleMovieData = [
     imdbRating: '6.8'
   },
   {title: 'Hackers',
-    year: '2000',
-    runtime: '100 minutes',
-    imdbRating: '6.8'
+    year: '2001',
+    runtime: '101 minutes',
+    imdbRating: '7.8'
   },
   {title: 'The Grey',
-    year: '2000',
-    runtime: '100 minutes',
-    imdbRating: '6.8'
+    year: '2002',
+    runtime: '102 minutes',
+    imdbRating: '8.8'
   },
   {title: 'Sunshine',
-    year: '2000',
-    runtime: '100 minutes',
-    imdbRating: '6.8'
+    year: '2003',
+    runtime: '103 minutes',
+    imdbRating: '9.8'
   },
   {title: 'Ex Machina',
-    year: '2000',
-    runtime: '100 minutes',
-    imdbRating: '6.8'
+    year: '2004',
+    runtime: '104 minutes',
+    imdbRating: '0.8'
   },
 ];
 

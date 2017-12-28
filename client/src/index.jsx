@@ -29,9 +29,12 @@ class MovieList extends React.Component {
     });
     if (filteredList.length) {
       this.setState({
-        movies: filteredList
+        currentMovies: filteredList
       });
     } else {
+      this.setState({
+        currentMovies: this.state.movies
+      })
       window.alert('Movie list doesn\'t contain any matches, please try a different search.');
     }
   }
@@ -40,8 +43,20 @@ class MovieList extends React.Component {
     var moviesList = this.state.movies;
     moviesList.push({title: titleText});
     this.setState({
-      movies: moviesList
+      movies: moviesList,
+      currentMovies: moviesList
     })
+  }
+
+  handleWatchedClick(){
+    //set state to only watched movies
+    console.log('set state to only watched movies')
+  }
+
+  handleToWatchClick(){
+    //set state to only unwatched movies
+    console.log('set state to only unwatched movies')
+    
   }
 
   render() {
@@ -58,11 +73,13 @@ class MovieList extends React.Component {
             handleMovieSearch={this.handleMovieSearch.bind(this)}
           />
         </div>
+        <button class="watch-to-watch" onClick={() => this.handleWatchedClick()}>Watched</button>
+        <button class="watch-to-watch" onClick={() => this.handleToWatchClick()}>To Watch</button>
 
         <table>
           <tbody>
             {
-              this.state.movies.map((movie, index) =>           
+              this.state.currentMovies.map((movie, index) =>           
                 <MovieComponent.Movie
                   key={index}
                   movie={movie}
