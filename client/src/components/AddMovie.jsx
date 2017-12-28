@@ -17,11 +17,6 @@ class AddMovie extends React.Component {
   }
 
 
-
-
-
-
-
 }
 
 

@@ -30,5 +30,10 @@ h1 {
 }
 
 .toggle {
-  
+  color: blue;
+  margin-left: 33%;
+}
+
+.toggleDiv {
+  padding-top: 10px;
 }
