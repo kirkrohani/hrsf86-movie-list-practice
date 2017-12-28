@@ -47,7 +47,7 @@ class MovieList extends React.Component {
   }
   addMovie(movieTitle) {
     this.state.list = [];
-    axios.post('/movie', {title: movieTitle})
+    axios.post('/movie', { title: movieTitle, release_date: "2017-12-28", overview: "Movie about fish", popularity: 9, vote_average: 8 })
         .then(response => {
           this.getMovies();
         })

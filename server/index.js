@@ -5,6 +5,7 @@ const path = require('path');
 const movieAPI = require('../lib/movieAPI.js');
 // var controller = require('./controllers.js');
 var router = require('express').Router();
+var db = require('../database/index.js');
 
 var movies = [];
 // var movies = [
@@ -21,7 +22,10 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 app.listen(3000, function () { console.log('MovieList app listening on port 3000!') });
 
 app.get('/movies', (request, response) => {
-  response.send(movies);
+  db.selectAll(result => {
+    response.send(result);
+  })
+  // response.send(movies);
   console.log('Sent a GET request!');
 });
 
@@ -29,15 +33,27 @@ app.get('/load', (request, response) => {
   movieAPI.getRequest((body) => {
     // console.log(body);
     movies = body.results;
-    response.send(movies);
+    // console.log(movies);
+    db.insertMany(movies, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+    // response.send(movies);
   });
   console.log('Sent a GET request!');
 });
 
 app.post('/movie', (request, response) => {
-  movies.push(request.body);
+  // movies.push(request.body);
+  // var newMovie = { title: request.body, release_date: "2017-12-28", overview: "Movie about fish", popularity: 9, vote_average: 8 };
+  db.insertOne(request.body, (err) => {
+    if (err) { console.log(err); }
+  });
+  // movies.push(request.body);
   response.send('Sent a POST request!');
-  console.log(request.body);
+  // response.status(201).end();
+  console.log('New movie is ', request.body);
 });
 
 module.exports = app;

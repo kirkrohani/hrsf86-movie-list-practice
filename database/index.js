@@ -14,7 +14,7 @@ connection.connect(error => {
 
 module.exports = {
   selectAll: (callback) => {
-    var query = 'SELECT * FROM movies';
+    var query = 'SELECT * FROM movies;';
     connection.query(query, (error, result) => {
       if (error) { console.log('selectAll Error: ', error); }
       callback(result);
@@ -22,10 +22,10 @@ module.exports = {
   },
   insertOne: (movie, callback) => {
     // let {title, overview, release_date, popularity, vote_average} = movie;
-    var query = `INSERT INTO movies VALUES (NULL, "${movie[1]}", "${movie[2]}", "${movie[3]}", ${movie[4]}, ${movie[5]}, FALSE)`;
+    var query = `INSERT INTO movies VALUES (NULL, "${movie.title}", "${movie.release_date}", "${movie.overview}", ${movie.popularity}, ${movie.vote_average}, FALSE);`;
     connection.query(query, (error, result) => {
       if (error) { console.log('insertOne Error: ', error); }
-      callback(result);
+      if (callback) { callback(result); }
     })
   },
   insertMany: (movies, callback) => {
