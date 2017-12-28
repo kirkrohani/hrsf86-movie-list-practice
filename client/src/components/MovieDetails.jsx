@@ -2,6 +2,10 @@ import React from 'react';
 
 module.exports = (props) => {
   let show = props.show;
+  let change = function(e) {
+    console.log(e);
+    props.handleCheck(props.movie);
+  };
   if (show) {
     return (
       <li className="list-group-item">
@@ -9,13 +13,15 @@ module.exports = (props) => {
         <div>Runtime: {props.runtime}</div>
         <div>Metascore: {props.metascore}</div>
         <div>IMDB Rating: {props.imdbrating}</div>
-        <div className="form-check">
-          <label className="form-check-label">
-            Watched:
-            <input className="form-check-input" type="checkbox" value=""/>
-          </label>
+        <div className="checkbox checkbox-inline">
+          Watched:
+          <input 
+          className="" 
+          type="checkbox" 
+          checked={props.movie.watched}
+          onChange={change}
+          />
         </div>
-        <div>{props.thumbnail}</div>
       </li>
     );
   }

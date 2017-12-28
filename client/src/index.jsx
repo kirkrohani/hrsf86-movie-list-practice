@@ -33,6 +33,8 @@ class MovieList extends React.Component {
     this.addMovie = this.addMovie.bind(this);
     this.search = this.search.bind(this);
     this.toggleDetails = this.toggleDetails.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
+    this.resetDetails = this.resetDetails.bind(this);
   }
   addMovie(val) {
     if (val) {
@@ -61,14 +63,18 @@ class MovieList extends React.Component {
       }
     });
     this.setState({moviesToDisplay: filtered });
+    this.resetDetails();
   }
   toggleDetails(movie) {
     if (this.state.movieDetail.title !== movie.title) {
       this.setState({movieDetail: movie});
     }
     else {
-      this.setState({ movieDetail: {title: null} });
+      this.resetDetails();
     }
+  }
+  resetDetails() {
+    this.setState({ movieDetail: { title: null } });    
   }
   componentDidMount() {
     this.moviesToDisplay = this.filterList();
@@ -81,6 +87,13 @@ class MovieList extends React.Component {
   }
   showAll() {
     this.setState({showWatched: true, showUnwatched: true}, this.filterList);
+  }
+  handleCheck(movie) {
+    movie.watched = !movie.watched;
+    this.setState({movies});
+    if (!(this.state.showUnwatched && this.state.showWatched)) {
+      this.filterList();
+    }
   }
   render() {
     return (
@@ -103,8 +116,18 @@ class MovieList extends React.Component {
           {
             this.state.moviesToDisplay.map((movie, idx) => {
               return ([
-                <Movie movie={movie} key={idx} show={true} handler={this.toggleDetails}/>,
-                <MovieDetails movie={movie} key={movie.title} show={movie.title === this.state.movieDetail.title} />
+                <Movie 
+                  movie={movie} 
+                  key={idx} 
+                  show={true} 
+                  handler={this.toggleDetails}
+                />,
+                <MovieDetails 
+                  movie={movie} 
+                  key={movie.title} 
+                  show={movie.title === this.state.movieDetail.title} 
+                  handleCheck={this.handleCheck}
+                />
               ]);
             })
           }

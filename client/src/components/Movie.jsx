@@ -11,7 +11,10 @@ let Movie = (props) => {
       movie={props.movie}
       onClick={handleClick}
       >
-        <div>{props.movie.title}</div>
+        <div>
+          {props.movie.title} 
+          {props.movie.watched ? <span className="badge badge-success">Watched</span> : null}
+        </div>
       </li>
     );
   }
