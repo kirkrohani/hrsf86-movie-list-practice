@@ -3,22 +3,44 @@ import ReactDOM  from 'react-dom';
 import Movie from './components/Movie.jsx';
 import Search from './components/Search.jsx';
 import AddMovie from './components/AddMovie.jsx';
+var http = require('http');
 
+var movies = '';
 
 class MovieList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [
-        {id: 0, title: 'Mean Girls', watched: false, details: {year: '2004', runtime: '97 minutes', 'RT Score': '84%', 'box office': '$129 million'}},
-        {id: 1, title: 'Hackers', watched: false, details: {year: '1995', runtime: '107 minutes', 'RT Score': '32%', 'box office': '$7.5 million'}},
-        {id: 2, title: 'The Grey', watched: false, details: {year: '2012', runtime: '117 minutes', 'RT Score': '78%', 'box office': '$77.3 million'}},
-        {id: 3, title: 'Sunshine', watched: false, details: {year: '2007', runtime: '107 minutes', 'RT Score': '75%', 'box office': '$32 million'}},
-        {id: 4, title: 'Ex Machina', watched: false, details: {year: '2015', runtime: '108 minutes', 'RT Score': '93%', 'box office': '$36.9 million'}},
-      ],
+      movies: [],
       nextMovieId: 5,
       view: false
     }
+  }
+
+  getMovieData() {
+    var req = http.get('http://127.0.0.1:3000/movies', (res) => {
+      var rawData = '';
+      res.on('data', function(chunk) {
+        rawData += chunk
+      })
+      res.on('end', () => {
+        var parsedData = JSON.parse(rawData);
+        movies = parsedData;
+        this.setState({
+          movies: movies,
+          nextMovieId: this.state.nextMovieId,
+          view: this.state.view
+        })
+      })
+    });
+
+    req.on('error', (e) => {
+      console.error('Error: ', e.message)
+    });
+  }
+
+  componentDidMount() {
+    this.getMovieData();
   }
 
   handleSearch(query, event, callback) {
