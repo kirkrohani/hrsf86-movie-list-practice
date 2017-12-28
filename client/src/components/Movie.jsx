@@ -1,4 +1,5 @@
 import React from 'react';
+import {MovieDetails} from './MovieDetails.jsx'
 
 export class Movie extends React.Component {
   constructor(props) {
@@ -6,29 +7,42 @@ export class Movie extends React.Component {
 
     this.state = {
       display: this.props.display, 
-      showDetails: false
+      displayDetails: 'false'
     }
   };
 
+  showDetails () {
+    if (this.state.displayDetails === 'false') {
+      this.setState({
+        displayDetails: 'true'
+      })
+    } else {
+      this.setState({
+        displayDetails: 'false'
+      })
+    }
+  }
 
 
-  // whatIsDisplay() {
-  //    var display = 'hide' ? this.props.display === -1 : 'show'
-  //    this.setState({
-  //     display: display
-  //    })
-  // }
 
   render() {
     return (
       <div class={this.props.display}>
-        <div>
+        <div id="movie" onClick={() => this.showDetails()}>
           {this.props.movie.title}
-          <button
+
+        </div>
+        <button
           type="button"
           id={this.props.movie.title.split(' ').join('')}
           onClick={(e) => this.props.addToWatchList(`#${e.target.id}`, this.props.movie) }
-          >Unwatched</button>
+          >Unwatched
+        </button>        
+        <div>
+          <MovieDetails 
+          movie={this.props.movie}
+          displayClass={this.state.displayDetails}
+        />         
         </div>
       </div>
       )
