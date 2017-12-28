@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const movieAPI = require('../lib/movieAPI.js');
+// var controller = require('./controllers.js');
+var router = require('express').Router();
 
 var movies = [];
 // var movies = [
@@ -18,11 +20,10 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.listen(3000, function () { console.log('MovieList app listening on port 3000!') });
 
-
-// app.get('/movies', (request, response) => {
-//   response.send(movies);
-//   console.log('Sent a GET request!');
-// });
+app.get('/movies', (request, response) => {
+  response.send(movies);
+  console.log('Sent a GET request!');
+});
 
 app.get('/load', (request, response) => {
   movieAPI.getRequest((body) => {
