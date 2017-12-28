@@ -38,13 +38,13 @@ app.get('/load', function(req, res) {
 	});
 });
 
-app.get('/messages', function(req, res) {
+app.get('/movies', function(req, res) {
 	db.movies.get(function(error, result) {
 		res.send(result);
 	})
 });
 
-app.post('/messages', function(req, res) {
+app.post('/movie', function(req, res) {
 	var currentMovieTitles = [];
 	db.movies.get(function(error, result){
 		if(error) {throw error;}
@@ -59,6 +59,14 @@ app.post('/messages', function(req, res) {
 			db.movies.get(function(error, result) {
 				res.send(result);
 			});
+		} else {
+			var parameters = [req.body.title];
+			db.movies.postNewMovie(parameters, function(error, result) {
+				if(error) {throw error;}
+			});
+			db.movies.get(function(error, result) {
+				res.send(result);
+			})
 		}
 	});
 	// for(var i = 0; i < movies.length; i++) {

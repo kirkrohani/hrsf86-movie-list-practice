@@ -38,7 +38,7 @@ class MovieList extends React.Component {
 
   getRequest() {
     $.ajax({
-      url: 'http://127.0.0.1:3000/messages',
+      url: 'http://127.0.0.1:3000/movies',
       method: 'GET',
       success: (data) => {
         var movies = data;
@@ -54,7 +54,7 @@ class MovieList extends React.Component {
 
   postRequest(data) {
     $.ajax({
-      url:'http://127.0.0.1:3000/messages',
+      url:'http://127.0.0.1:3000/movie',
       method: 'POST',
       data: data,
       success: (data) => {
