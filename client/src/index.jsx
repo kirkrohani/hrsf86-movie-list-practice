@@ -8,11 +8,11 @@ class MovieList extends React.Component {
   constructor() {
     super();
     this.state = {movies:[
-        {title: 'Mean Girls'},
-        {title: 'Hackers'},
-  	    {title: 'The Grey'},
-  	    {title: 'Sunshine'},
-  	    {title: 'Ex Machina'},
+        {title: 'Mean Girls', runtime: '107 minutes', year: 2005},
+        {title: 'Hackers', runtime: '107 minutes', year: 1995},
+  	    {title: 'The Grey', runtime: '107 minutes', year: 2000},
+  	    {title: 'Sunshine', runtime: '107 minutes', year: 1984},
+  	    {title: 'Ex Machina', runtime: '107 minutes', year: 2014},
 	  ], watchedMoviesShown: 'neither'
 	}
   }
@@ -66,7 +66,7 @@ class MovieList extends React.Component {
       	<Search onSubmitClick = {this.onSubmitClick.bind(this)}/>
       	<div className = 'toggleDiv'>
       	  <button className = 'toggle' onClick = {() => this.onWatchedClick()}> Watched </button>
-      	  <button className = 'toggle' onClick = {() => this.onNotWatchedClick()}> Not Watched </button> 
+      	  <button className = 'toggle' onClick = {() => this.onNotWatchedClick()}> To Watch </button> 
       	</div>
 
     	{this.state.movies.map(movie => <Movie movie = {movie} watchedMoviesShown = {this.state.watchedMoviesShown}/>)}
