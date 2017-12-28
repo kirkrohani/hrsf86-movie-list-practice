@@ -3,15 +3,20 @@ import React from 'react'
 class Search extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      input: ''
+    }
 
-    this.handleFilter = this.handleFilter.bind(this);
+    this.handleChangeFilter = this.handleChangeFilter.bind(this);
+    this.handleKeyPressFilter = this.handleKeyPressFilter.bind(this);
   }
 
-  handleFilter (e) {
+  handleChangeFilter (e) {
     var movieArray = [];
-
-    if (e.key === 'Enter') {
-      var searchTerm = e.currentTarget.value.toLowerCase();
+    if (this.state.input === '') {
+      this.props.filterMovies(this.props.movies);
+    } else {
+      var searchTerm = this.state.input;
       for (var i = 0; i < this.props.movies.length; i++) {
         var curMovie = this.props.movies[i];
         var curMovieTitle = this.props.movies[i].title.toLowerCase();
@@ -23,6 +28,14 @@ class Search extends React.Component {
     }
   }
 
+
+  handleKeyPressFilter (e) {
+    this.setState({input: e.currentTarget.value.toLowerCase()})
+    if (e.key === 'Enter') {
+      this.handleChangeFilter(e);
+    }
+  }
+
   render() {
     return (
       <div>
@@ -30,10 +43,11 @@ class Search extends React.Component {
            <div>
               <input 
                 placeholder="Search for a movie..."
-                onKeyPress={this.handleFilter}
+                onKeyUp={this.handleKeyPressFilter}
                 >
               </input>
-              <button> GO </button>
+              <button
+              onClick={this.handleChangeFilter}> GO </button>
            </div>
         </div>
       </div>
