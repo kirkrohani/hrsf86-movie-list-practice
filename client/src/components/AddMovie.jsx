@@ -23,17 +23,17 @@ class AddMovie extends React.Component {
 
   render() {
     return (
-            <div>
-              <label> Movie Name
-                <input 
-                  type="text" 
-                  onKeyUp={this.handleChange}
-                  id="movieName" 
-                  placeholder="ex. Zootopia" 
-                  />
-              </label>
-              <button>Add Movie</button>
-            </div>
+        <div>
+          <label> Movie Name
+            <input 
+              type="text" 
+              onKeyUp={this.handleChange}
+              id="movieName" 
+              placeholder="ex. Zootopia" 
+              />
+          </label>
+          <button>Add Movie</button>
+        </div>
       )
   }
 }
