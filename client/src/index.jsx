@@ -34,7 +34,8 @@ class MovieList extends React.Component {
     });
   }
   getMovies() {
-    axios.get('/movies')
+    console.log('Getting movies');
+    axios.get('/load')
       .then(response => {
         this.setState({
           list: response.data

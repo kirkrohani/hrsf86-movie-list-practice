@@ -1,13 +1,15 @@
 import React from 'react';
 
 const MovieDetails = (props) => {
+  console.log(props);
   return (
     <div className="movieDetails">
-      <p><strong>Year:</strong> {props.movie.Year}<br/>
-      <strong>Runtime:</strong> {props.movie.Runtime}<br/>
-      <strong>Metascore:</strong> {props.movie.Metascore}<br/>
-      <strong>imdbRating:</strong> {props.movie.imdbRating}<br />
-      <strong>Watched:</strong> {props.movie.watched}<br/></p>
+      <p><strong>Release Date:</strong> {props.movie.release_date}<br/>
+      <strong>Overview:</strong> {props.movie.overview}<br/>
+      <strong>Metascore:</strong> {props.movie.popularity}<br/>
+      <strong>IMDb Rating:</strong> {props.movie.vote_average}<br />
+      <strong>Watched:</strong> {props.movie.watched}<br/>
+      </p>
     </div>
   );
 }
