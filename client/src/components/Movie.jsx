@@ -30,6 +30,8 @@ class Movie extends React.Component {
           <ul>
             <li>Year: {this.props.year}</li>
             <li>Rating: {this.props.rating}</li>
+            <li>Overview: {this.props.overview}</li>
+            <img src={this.props.thumbnail} />
           </ul>
         </div>
       </div>

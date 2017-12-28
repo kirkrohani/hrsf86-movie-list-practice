@@ -119,7 +119,9 @@ class MovieList extends React.Component {
         watched={movie.watched ? true : false}
         title={movie.title}
         year={movie.release_date}
+        overview={movie.overview}
         rating={movie.vote_average}
+        thumbnail={`https://image.tmdb.org/t/p/w150${movie.poster_path}`}
         toggleWatched={this.toggleWatched.bind(this)}/>
     })
 
