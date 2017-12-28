@@ -54,7 +54,8 @@ class MovieList extends React.Component {
 
   toggleFromWatchList (movie) {
     const {watchList} = this.state;
-    if (!watchList.includes(movie)) {
+    const watchListTitles = watchList.map(mov => mov.title);
+    if (!watchListTitles.includes(movie)) {
       this.setState({'watchList': [...watchList, {'title': movie}]});
     } else {
       this.setState({'watchList': watchList.filter(movieObj => movieObj.title !== movie)});
