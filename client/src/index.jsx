@@ -5,22 +5,47 @@ import AddMovie from './components/AddMovie.jsx';
 import MovieDetails from './components/MovieDetails.jsx';
 import Search from './components/Search.jsx';
 
-var movies = [
+let movies = [
   {title: 'Mean Girls', year: '2012', rating: '8'},
   {title: 'Hackers', year: '2012', rating: '8'},
   {title: 'The Grey', year: '2012', rating: '8'},
   {title: 'Sunshine', year: '2012', rating: '8'},
-  {title: 'Ex Machina', year: '2012', rating: '8'},
-  {title: '50 Shades of Grey', year: '2012', rating: '8'}
+  // {title: 'Ex Machina', year: '2012', rating: '8'},
+  // {title: '50 Shades of Grey', year: '2012', rating: '8'}
 ];
-
+const server = 'http://localhost:3000/movies';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      movies: movies,
+      movies: this.props.movies,
     }
+  }
+
+  componentDidMount () {
+    this.getMovies();
+  }
+
+  setMovies (movies) {
+    this.setState({
+      movies: movies
+    })
+  }
+  
+  getMovies () {
+   $.ajax ({
+     url: server,
+     type: 'GET',
+     contentType: 'application/json',
+     success: (data) => {
+       this.setMovies(data);
+       console.log(data);
+     },
+     error: (error) => {
+       console.error('movieList: Failed to fetch movies', error);
+     }
+   });
   }
 
   filterMovies (target) {
@@ -43,13 +68,26 @@ class App extends React.Component {
   }
 
   addMovieToList (target) {
-
-    var newMovies = this.state.movies.concat([{title: target}]);
-    movies = movies.concat([{title: target}]);
-    this.setState({
-      movies: newMovies
-    })
-    document.getElementsByClassName('addMovie')['0'].value = '';
+    $.ajax ({
+      url: server,
+      type: 'POST',
+      data: target,
+      contentType: 'application/json',
+      success: (data) => {
+        console.log(target);
+        console.log(data);
+        this.getMovies();
+      },
+      error: (error) => {
+        console.error('movieList: Failed to fetch movies', error);
+      }
+    });
+    // var newMovies = this.state.movies.concat([{title: target}]);
+    // movies = movies.concat([{title: target}]);
+    // this.setState({
+    //   movies: newMovies
+    // })
+    // document.getElementsByClassName('addMovie')['0'].value = '';
   }
 
   renderWatched () {
@@ -118,4 +156,6 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render( <App />, document.getElementById('app'));
+module.exports.App = App;
+
+ReactDOM.render( <App movies={movies}/>, document.getElementById('app'));
