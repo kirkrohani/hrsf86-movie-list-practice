@@ -6,24 +6,54 @@ import {Search} from './components/Search.jsx';
 import {AddMovie} from './components/AddMovie.jsx';
 import {WatchedBar} from './components/WatchedBar.jsx';
 
-var movies = [
-  {title: 'Mean Girls', year: '2002', description: 'its about high school', url:'./images/heart.jpg'},
-  {title: 'Hackers', year: '2010', description: 'IT is a stable career path', url:'./images/robo.jpg'},
-  {title: 'The Grey', year:'1999', description: 'A coming of age movie', url:'./images/gandalf.jpg'},
-  {title: 'Sunshine', year: '2009', description: 'Generally accepted as favorable weather', url:'./images/sun.jpg'},
-  {title: 'Ex Machina', year:'2000', description: 'Do Androids Dream of Electric Sheep?', url:'./images/droid.jpg'},
-];
+// var db = [
+//   {title: 'Mean Girls', year: '2002', description: 'its about high school', url:'./images/heart.jpg'},
+//   {title: 'Hackers', year: '2010', description: 'IT is a stable career path', url:'./images/robo.jpg'},
+//   {title: 'The Grey', year:'1999', description: 'A coming of age movie', url:'./images/gandalf.jpg'},
+//   {title: 'Sunshine', year: '2009', description: 'Generally accepted as favorable weather', url:'./images/sun.jpg'},
+//   {title: 'Ex Machina', year:'2000', description: 'Do Androids Dream of Electric Sheep?', url:'./images/droid.jpg'},
+// ];
+
+//fetch data
+//==========
+var app = {};
+app.server = 'http://localhost:3000/movies';
+app.db = [];
+app.headers = {
+  'Content-Type': 'application/json'
+};
+app.initObj = {
+  method: 'GET',
+  headers: app.headers
+};
+
+app.updateDb = (db, component) => {
+  fetch(app.server, app.initObj)
+  .then((response) => {
+    return response.json();
+  })
+  .then((rJson)=>{
+    app.db = rJson;
+    console.log(app.db);
+    component.setState({'currMovies': app.db});
+  });
+};
+
+//render app
+//==========
 
 class MovieList extends React.Component {
   constructor() {
     super();
     this.state = {
-      'currMovies': movies,
+      'currMovies': app.db,
       'addMovie': '',
       'watchList': [],
       'watchSelected': null,
       'selected': {title: null}
     };
+
+    app.updateDb(app.db, this);
 
     this.addMovie = this.addMovie.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
@@ -47,7 +77,7 @@ class MovieList extends React.Component {
 
   submitSearch (event) {
     event.preventDefault();
-    var filteredList = movies.filter(movie => movie.title.toLowerCase().includes(event.target.value));
+    var filteredList = db.filter(movie => movie.title.toLowerCase().includes(event.target.value));
     if(!filteredList.length) {
       filteredList = [{title: 'None Found'}];
     } 
@@ -69,9 +99,9 @@ class MovieList extends React.Component {
     const {watchSelected, watchList} = this.state;
     const watchListTitles = watchList.map(mov => mov.title);
     if (watchSelected === true) {
-      this.setState({'watchSelected': false, 'currMovies': movies.filter(movieObj => !watchListTitles.includes(movieObj.title))});
+      this.setState({'watchSelected': false, 'currMovies': db.filter(movieObj => !watchListTitles.includes(movieObj.title))});
     } else if (watchSelected === false) {
-      this.setState({'watchSelected': null, 'currMovies': movies});
+      this.setState({'watchSelected': null, 'currMovies': db});
     } else {
       this.setState({'watchSelected': true, 'currMovies': watchList});
     }
@@ -82,6 +112,7 @@ class MovieList extends React.Component {
   }
 
   render() {
+    // app.updateDb();
     const {currMovies, addMovie, watchList, watchSelected, selected} = this.state;
     const watchListTitles = watchList.map(mov => mov.title);
     return (
