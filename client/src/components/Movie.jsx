@@ -4,25 +4,22 @@ import ReactDOM  from 'react-dom';
 var MovieDetailsComponent = require('./MovieDetails.jsx');
 
 class Movie extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showDescription: false,
-      watched: false
     }
   }
 
   handleWatchToggle(){
-    this.setState({
-      watched: !this.state.watched
-    })
+    this.props.movie.watched = !this.props.movie.watched
+    this.setState({});
   }
 
   handleTitleClick(){
     this.setState({
       showDescription: !this.state.showDescription
     })
-    console.log(this.state.showDescription)
   }
 
   render() {
@@ -30,7 +27,7 @@ class Movie extends React.Component {
       <tr>
         <td id="movie-title" onClick={this.handleTitleClick.bind(this)}>{this.props.movie.title}</td>
         {
-          this.state.watched 
+          this.props.movie.watched 
             ? <td><button type="button" class="watched" onClick={this.handleWatchToggle.bind(this)}>watched!</button></td> 
             : <td><button type="button" class="not-watched" onClick={this.handleWatchToggle.bind(this)}>watched</button></td>    
         }

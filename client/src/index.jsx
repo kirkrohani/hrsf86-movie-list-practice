@@ -11,7 +11,7 @@ class MovieList extends React.Component {
     super(props);
     this.state = {
       movies: [],
-      currentMovies: []
+      currentMovies: [],
     }
   }
 
@@ -49,14 +49,13 @@ class MovieList extends React.Component {
   }
 
   handleWatchedClick(){
-    //set state to only watched movies
-    console.log('set state to only watched movies')
+    var watchedMovies = this.state.movies.filter(movie => movie.watched)
+    this.setState({currentMovies: watchedMovies})
   }
 
   handleToWatchClick(){
-    //set state to only unwatched movies
-    console.log('set state to only unwatched movies')
-    
+    var toWatchMovies = this.state.movies.filter(movie => !movie.watched)
+    this.setState({currentMovies: toWatchMovies})
   }
 
   render() {
