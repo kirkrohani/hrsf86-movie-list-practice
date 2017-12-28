@@ -33,7 +33,7 @@ export class Movie extends React.Component {
         const {movie} = this.props;
         const {watched, selected} = this.state;
         return (
-            <div onClick={this.selectMe} className = "mov-list" style={movie.vote_average >= 7 ? {'background-color' : '#b1efe3'} : movie.vote_average > 5 ? {'background-color': '#fcefde'} : {'background-color': '#ff8282'}}>
+            <div onClick={this.selectMe} className = "mov-list" style={movie.vote_average >= 7 ? {'backgroundColor' : '#b1efe3'} : movie.vote_average > 5 ? {'backgroundColor': '#fcefde'} : {'backgroundColor': '#e8c0c0'}}>
                 <div className = "container">
                     <img src={`https://image.tmdb.org/t/p/w185/${movie.backdrop_path}`} />
                     <span className="mov-title" >{movie.title}</span>
