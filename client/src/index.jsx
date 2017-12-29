@@ -54,7 +54,7 @@ class MovieList extends React.Component {
 
   getMovies() {
     console.log('before get')
-  $.get('http://127.0.0.1:3000/movies', (data) => {
+  $.get('http://127.0.0.1:3000/load', (data) => {
       this.setState({
         movies: data,
         selectedMovies: data,
@@ -88,7 +88,7 @@ class MovieList extends React.Component {
   handleSubmit(text) {
       
     var selectedMovies = [];
-    movies.forEach( (movie) => {
+    this.state.movies.forEach( (movie) => {
       if (movie.title.includes(text)) {
         selectedMovies.push(movie);
       }
