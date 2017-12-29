@@ -15,12 +15,20 @@ class MovieList extends React.Component {
     done: false
     }
   }
-   addFilm() {
+   addFilm(value) {
     // const newItem = {};
     // newItem.title = this.search;
-    this.setState({
-      movies: [...this.state.movies, {title: this.search}]
-    });
+      axios.post('/movies', {
+        title: value
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    //   movies: [...this.state.movies, {title: this.search}]
+    // });
   }
   handleClick (search) {
     const searchObj = {title: search};
