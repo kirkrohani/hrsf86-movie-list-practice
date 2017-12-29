@@ -41,9 +41,9 @@ class MovieList extends React.Component {
   }
   addMovie(val) {
     if (val) {
-      axios.post('/movie', {title: val})
+      axios.post('/movie', {query: val})
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.getMovies();
       })
       .catch(function(error) {
@@ -84,7 +84,7 @@ class MovieList extends React.Component {
     }
   }
   resetDetails() {
-    this.setState({ movieDetail: { title: null } });    
+    this.setState({ movieDetail: { title: null } });
   }
   componentDidMount() {
     this.getMovies();
@@ -129,9 +129,10 @@ class MovieList extends React.Component {
             this.state.moviesToDisplay.map((movie, idx) => {
               return ([
                 <Movie 
+                  className="movie"
                   movie={movie} 
                   key={idx} 
-                  show={true} 
+                  show={true}
                   handler={this.toggleDetails}
                 />,
                 <MovieDetails 

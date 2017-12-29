@@ -2,27 +2,40 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+const movieAPI = require('../lib/movieAPI');
 const axios = require('axios');
+const _ = require('lodash');
 let router = express.Router();
 
-var movies = [
-  { title: 'Mean Girls', watched: true },
-  { title: 'Hackers', watched: true },
-  { title: 'The Grey', watched: false },
-  { title: 'Sunshine', watched: false },
-  { title: 'Ex Machina', watched: true }
-];
-let loadMovies = (req, res) => {
-  // modify
+let movies = [];
+let loadMovies = () => {
+  // moviedetails = [];
+  movieAPI.getNewMovies((movs) => {
+    // _.pullAll(movs, movies, 'id');
+    movs.forEach((movie) => {
+      movieAPI.getMoreDangDetails(movie.id, (deets) => {
+        deets.watched = false;
+        movies.push(deets)
+      });
+    });
+    // movies.push(...movs);
+    // movies = _.uniqBy(movies, 'id');
+  });
 };
+loadMovies(); //initial loading call before pages can be serverd
 let getMovies = (req, res) => {
   console.log('Serving GET request at /movies')
   res.send(movies);
+  // movieAPI.getNewMovies((movs) => {
+  //   res.send(movs);
+  // });
 };
 let addMovie = (req, res) => {
   console.log('Serving POST request at /movie')
-  console.log(req.body);
-  // console.log(req)
+  movieAPI.searchMovie(req.body.query, (movie) =>{
+    movie.watched = false;
+    movies.push(movie);
+  })
   res.send()
 };
 
