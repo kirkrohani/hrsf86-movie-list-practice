@@ -47,8 +47,10 @@ app.post('/movie', (request, response) => {
   console.log('Sent a POST request from /movie!');
 });
 
-app.put('/watched', (request, response) => {
-  db.toggleWatched(request.body);
+app.post('/watched', (request, response) => {
+  db.toggleAllWatched(request.body);
+  console.log(request.body);
   console.log('Toggling watched');
+  // response.send(movies);
 });
 module.exports = app;

@@ -5,7 +5,7 @@ USE movielist;
 CREATE TABLE movies(
   movieID INTEGER AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,
-  release_date DATE,
+  release_date VARCHAR(11),
   overview VARCHAR(1000) NOT NULL,
   popularity INTEGER,
   vote_average INTEGER,

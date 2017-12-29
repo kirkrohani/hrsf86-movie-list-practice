@@ -1,5 +1,6 @@
 import React from 'react';
 import MovieDetails from './MovieDetails.jsx';
+import axios from 'axios';
 
 class Movie extends React.Component {
   constructor(props) {
@@ -10,10 +11,14 @@ class Movie extends React.Component {
     };
   }
   onWatchClick() {
-    this.setState({
-      watched: !this.state.watched
-    });
-    this.props.movie.watched = (this.props.movie.watched === 0) ? 'Yes' : 'No';
+    
+    axios.get('/watched', this.props.movie)
+      .then(watched => {
+        this.setState({
+          watched: !watched
+        });
+      })
+    this.props.movie.watched = (this.props.movie.watched === 'Yes') ? 'No' : 'Yes';
   }
   showDetails() {
     this.setState({

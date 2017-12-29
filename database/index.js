@@ -33,11 +33,17 @@ module.exports = {
       if (callback) { callback(); }
     });
   },
-  toggleWatched: (movie, callback) => {
+  toggleOneWatched: (movie, callback) => {
     var query = `UPDATE movies SET watched = !watched WHERE movieID = ${movie.movieID}`;
     connection.query(query, (error, result) => {
       if (error) { console.log('toggleWatched Error: ', error); }
       if (callback) { callback(result); }
+    });
+  },
+  toggleAllWatched: (movies, callback) => {
+    movies.forEach((movie) => {
+      module.exports.toggleOneWatched(movie);
+      if (callback) { callback(); }
     });
   }
 }

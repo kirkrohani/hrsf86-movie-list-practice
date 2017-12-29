@@ -66,12 +66,10 @@ class MovieList extends React.Component {
   }
   toggleWatched() {
     this.state.toWatch = [];
-    axios.put('/watched')
-      .then(movies => {
-        this.setState({
-          list: movies.data
-        });
-      })
+    // axios.post('/watched', this,.)
+    // .then(movies => {
+    //   console.log('Toggled', movies);
+    // })
     this.state.list.forEach(movie => {
       if (movie.watched === 'Yes') {
         this.state.watched.push(movie);
