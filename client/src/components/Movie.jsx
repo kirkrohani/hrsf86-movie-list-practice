@@ -1,4 +1,5 @@
 import React from 'react';
+import MovieDetails from './MovieDetails.jsx';
 
 class Movie extends React.Component {
   constructor(props) {
@@ -25,15 +26,14 @@ class Movie extends React.Component {
           onClick={ () => this.props.toggleWatched(this.props.title) } >
           Watched
         </button>
-        <div 
-          className={this.state.display ? 'movieDetails show' : 'movieDetails hide'}>
-          <ul>
-            <li>Year: {this.props.year}</li>
-            <li>Rating: {this.props.rating}</li>
-            <li>Overview: {this.props.overview}</li>
-            <img src={this.props.thumbnail} />
-          </ul>
-        </div>
+        {this.state.display && 
+          <MovieDetails
+            year={this.props.year} 
+            rating={this.props.rating} 
+            overview={this.props.overview}
+            thumbnail={this.props.thumbnail}
+          />
+        }
       </div>
     )
   }

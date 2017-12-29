@@ -6,7 +6,7 @@ DROP TABLE if exists movies;
 
 CREATE TABLE movies (
   db_id int AUTO_INCREMENT, 
-  id int,
+  id int UNIQUE,
   release_date char(10) ,
   vote_average decimal(3, 1), 
   overview text, 

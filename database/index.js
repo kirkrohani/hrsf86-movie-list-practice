@@ -20,10 +20,11 @@ module.exports = {
       moviesArray.push([id, vote_average, title, poster_path, overview, release_date]);
     })
 
-    console.log(moviesArray);
+    var queryStr = 'INSERT into movies (id, vote_average, title, poster_path, overview, release_date) VALUES ? \
+                  ON DUPLICATE key UPDATE id = id';
 
-    var queryStr = 'INSERT into movies (id, vote_average, title, poster_path, overview, release_date) VALUES ?';
-
+    // INSERT INTO users (username) VALUES (?) ON DUPLICATE key UPDATE username = username;
+    
     queryDB(queryStr, [moviesArray], callback);
   },
 
@@ -36,10 +37,12 @@ module.exports = {
 
   insertOne: (newMovie, callback) => {
     var queryStr = 'INSERT into movies SET ?';
+    console.log('newMovie here -->', newMovie);
 
     queryDB(queryStr, newMovie, callback);
   }
 }
+
 
 // const movies = [{ 
 //        id: 376658,
