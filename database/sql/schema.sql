@@ -1,0 +1,15 @@
+DROP DATABASE IF EXISTS movielist;
+
+CREATE DATABASE movielist;
+
+USE movielist;
+
+CREATE TABLE movies (
+  id INTEGER NOT NULL,
+  title VARCHAR(100) NOT NULL,
+  overview VARCHAR(200) NOT NULL,
+  date DATE NOT NULL,
+  score DECIMAL(4,2) NOT NULL,
+  watched INTEGER NOT NULL,
+  PRIMARY KEY (ID)
+);
