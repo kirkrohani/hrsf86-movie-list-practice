@@ -24,19 +24,24 @@ class Movie extends React.Component {
 
   render() {
     return (
-      <tr>
-        <td id="movie-title" onClick={this.handleTitleClick.bind(this)}>{this.props.movie.title}</td>
-        {
-          this.props.movie.watched 
-            ? <td><button type="button" class="watched" onClick={this.handleWatchToggle.bind(this)}>watched!</button></td> 
-            : <td><button type="button" class="not-watched" onClick={this.handleWatchToggle.bind(this)}>watched</button></td>    
-        }
-        {
-          this.state.showDescription
-            ? <MovieDetailsComponent.MovieDetails movie={this.props.movie}/>
-            : null
-        }
-      </tr>
+      <tbody>
+        <tr id="button-column">
+          <td id="movie-title" onClick={this.handleTitleClick.bind(this)}>{this.props.movie.title}</td>
+          {
+            this.props.movie.watched 
+              ? <td><button type="button" class="watched" onClick={this.handleWatchToggle.bind(this)}>watched!</button></td> 
+              : <td><button type="button" class="not-watched" onClick={this.handleWatchToggle.bind(this)}>watched?</button></td>    
+          }
+          
+        </tr>
+        <tr>
+          {
+            this.state.showDescription
+              ? <MovieDetailsComponent.MovieDetails movie={this.props.movie}/>
+              : null
+          }
+        </tr>
+      </tbody>
     );
   }
 }

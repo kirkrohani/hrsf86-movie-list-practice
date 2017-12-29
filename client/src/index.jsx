@@ -17,7 +17,6 @@ class MovieList extends React.Component {
 
   componentDidMount() {
     $.ajax({url: '/load', success: (result) => {
-      console.log('inside app...', result);
       this.setState({
         movies: result,
         currentMovies: result
