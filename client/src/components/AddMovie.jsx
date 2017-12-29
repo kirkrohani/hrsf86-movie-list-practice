@@ -8,13 +8,15 @@ class AddMovie extends React.Component {
  
   }
   newFilm(e) {
-  	this.props.addFilm(e.value);
+  	if (e.key == 'Enter') {
+  	  this.props.addFilm(e.target.value);
+  	}
   }
   
   render() {
   	const search = this.props.search;
   	return <div> 
-  	  <input type="text" value={search} /><button onClick={this.newFilm}>Add New Movie</button>
+  	  <input type="text" defaultValue={search} onKeyPress={this.newFilm} /><button onClick={this.newFilm}>Add New Movie</button>
   	</div>
   }
 }

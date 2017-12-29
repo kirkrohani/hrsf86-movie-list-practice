@@ -16,10 +16,11 @@ class MovieList extends React.Component {
     done: false
     }
   }
-   addFilm(value) {
+   addFilm(event) {
     const newItem = {};
-    newItem.title = this.search;
+    newItem.title = event;
     console.log(newItem);
+    console.log(this.state.movies);
     this.setState({movies: [...this.state.movies, newItem]});
 
       // post('/movies', {
