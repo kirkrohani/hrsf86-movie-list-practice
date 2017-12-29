@@ -1,0 +1,46 @@
+
+.false {
+  display: none;
+}
+
+.true {
+  display: block;
+}
+
+#nav {
+  background: #fff;
+  margin: 5px;
+
+}
+
+#watched {
+  height: 40px;
+  width: 60px;
+  background-color: rgb(100,136,128);
+  border-radius: 1px;
+  padding: 5px;
+  margin: 5px;
+  display: inline-block;
+} 
+
+#to-watch{
+  display: inline-block;
+  height: 40px;
+  width: 60px;
+  background-color: rgb(100,136,128);
+  border-radius: 1px;
+  padding: 5px;
+  margin: 5px;
+}
+
+#watched:hover, #to-watch:hover{
+  background: #aaa;
+  color:#64880;
+}
+
+.search-bar {
+  display: inline-block;
+}
+
+
+
