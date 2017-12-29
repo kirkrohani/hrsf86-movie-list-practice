@@ -46,10 +46,10 @@ class MovieList extends React.Component {
   }
 
   addMovie (event) {
-    const {currMovies, addMovie} = this.state;
+    const {currMovies, addMovie, allMovies} = this.state;
     event.preventDefault();
     var formatMovie = addMovie.toLowerCase().split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
-    currMovies.push({title: formatMovie});
+    allMovies.push({title: formatMovie});
     app.postToDb({title: formatMovie});
     this.setState({'addMovie': ''});
   }
@@ -64,13 +64,13 @@ class MovieList extends React.Component {
     this.setState({'currMovies' : filteredList});
   }
 
-  toggleFromWatchList (movieTitle) {
+  toggleFromWatchList (movie) {
     const {watchList} = this.state;
     const watchListTitles = watchList.map(mov => mov.title);
-    if (!watchListTitles.includes(movieTitle)) {
-      this.setState({'watchList': [...watchList, {'title': movieTitle}]});
+    if (!watchListTitles.includes(movie.title)) {
+      this.setState({'watchList': [...watchList, movie]});
     } else {
-      this.setState({'watchList': watchList.filter(movieObj => movieObj.title !== movieTitle)});
+      this.setState({'watchList': watchList.filter(movieObj => movieObj.title !== movie.title)});
     }
   }
 

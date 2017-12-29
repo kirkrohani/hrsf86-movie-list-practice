@@ -36,7 +36,7 @@ app.postReq = {
 };
 
 app.postToDb = (data) => {
-  app.postReq.body = data;
+  app.postReq.body = JSON.stringify(data);
   fetch(app.database, app.postReq)
   .then((res) => {
     console.log('Post successful');

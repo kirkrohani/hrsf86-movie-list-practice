@@ -14,7 +14,7 @@ export class Movie extends React.Component {
     watchClick () {
         let {watched} = this.state;
         const {toggleFromWatchList, movie} = this.props;
-        toggleFromWatchList(movie.title);
+        toggleFromWatchList(movie);
         if (watched === 'hide-icon') {
             this.setState({'watched': 'show-icon'});
         } else {

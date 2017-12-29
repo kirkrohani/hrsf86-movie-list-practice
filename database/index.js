@@ -18,22 +18,24 @@ exports.selectAll = (callback) => {
     });
 };
 
+var backdropIfNone = '8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg';
+
 var makeQueryString = (movie, index) =>{ 
     if (!movie.overview) {
-        return `(NULL, '${movie.title.replace(/[’']/g, "''")}')`;
+        return `(NULL, '${movie.title.replace(/[’']/g, "''")}', '${backdropIfNone}')`;
     } else {
-        return `(${index}, '${movie.title.replace(/[’']/g, "''")}', '${movie.overview.replace(/[’']/g, "''")}', ${movie.vote_average}, '${movie.release_date}', '${movie.backdrop_path}')`;
+        return `(${index + 1}, '${movie.title.replace(/[’']/g, "''")}', '${movie.overview.replace(/[’']/g, "''")}', ${movie.vote_average}, '${movie.release_date}', '${movie.backdrop_path || backdropIfNone}')`;
     }
 };
 var insertSql = `INSERT IGNORE INTO now_playing (id, title, overview, vote_average, release_date, backdrop_path) VALUES `;
-var insertSqlOne = `INSERT IGNORE INTO now_playing(id, title) VALUES`;
+var insertSqlOne = `INSERT IGNORE INTO now_playing(id, title, backdrop_path) VALUES`;
 
 exports.insertMany = (movies, callback) => {
     
         var queryStrings = [];
         movies.forEach((movie, index) => queryStrings.push(makeQueryString(movie, index)));
         var qS = insertSql + queryStrings.join(',') + ';';
-        console.log('query string is ', qS);  
+        // console.log('query string is ', qS);  
         exports.connection.query(qS, (err, data) => {
             if (err) {
                 callback(err);
@@ -45,6 +47,7 @@ exports.insertMany = (movies, callback) => {
 
 exports.insertOne = (movie, callback) => {
     var qS = insertSqlOne + makeQueryString(movie);
+    console.log(qS, 'qS for post');
     exports.connection.query(qS, (err, data) => {
             if (err) {
                 callback(err);

@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS movies;
 USE movies;
 
 CREATE TABLE IF NOT EXISTS now_playing (
-    id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(40),
     overview VARCHAR(2000),
     vote_average INT NOT NULL,

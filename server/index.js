@@ -32,8 +32,9 @@ app.route('/movies')
     
   })
   .post((req, res) => {
-    movieDB.insertOne(req.body, (err) => {
-      err ? console.log(err) : res.send('POST data added to DB!');
+    var movie = req.body;
+    movieDB.insertOne(movie, (err, data) => {
+      err ? console.log(err) : console.log('POST added to DB');
     });
   });
 
