@@ -18,7 +18,6 @@ class Movie extends React.Component {
   }
 
   renderMovieDetails() {
-  	// render details elements 
   	this.setState((prevState) => {
   		return {isClicked: !prevState.isClicked};
   	});

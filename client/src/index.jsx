@@ -4,18 +4,55 @@ import Movie from './components/Movie.jsx';
 import Search from  './components/Search.jsx';
 import AddMovie from './components/AddMovie.jsx';
 
+const https = require('https');
+const axios = require('axios');
+var $ = require('jquery');
+
+// let movies = axios.get('/movies').then(function(response) {
+//   console.log('response.data is', response.data);
+// }).catch(function(error) {
+//   console.log(error);
+// });
+// console.log(movies)
+
+// let movies = https.get('/movies', (resp) => {
+//   let data = '';
+//   resp.on('data', (chunk) => {
+//     data += chunk;
+//   });
+
+//   resp.on('end', () => {
+//     this.setState({
+//       movies: JSON.parse(data)
+//     })
+//     console.log(JSON.parse(data));
+//   });
+// });
+
 class MovieList extends React.Component {
   constructor() {
     super();
-    this.state = {movies:[
-        {title: 'Mean Girls', runtime: '150 minutes', year: 2005},
-        {title: 'Hackers', runtime: '107 minutes', year: 1995},
-  	    {title: 'The Grey', runtime: '112 minutes', year: 2000},
-  	    {title: 'Sunshine', runtime: '92 minutes', year: 1984},
-  	    {title: 'Ex Machina', runtime: '84 minutes', year: 2014},
-	  ], watchedMoviesShown: 'neither'
-	}
+    this.state = { movies: [{title: 'Mean Girls', runtime: '150 minutes', year: 2005}], 
+                   watchedMoviesShown: 'neither'
+                 }
   }
+
+  componentDidMount() {
+    https.get('/movies', (resp) => {
+      let data = '';
+      resp.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      resp.on('end', () => {
+        this.setState({
+          movies: JSON.parse(data)
+        })
+      console.log(JSON.parse(data));
+    });
+  });
+  }
+
 
   onSubmitClick(searchVal) {
   	var searchMovs = [];
@@ -45,9 +82,6 @@ class MovieList extends React.Component {
   }
 
   onWatchedClick() {
-    // display only those movies where button classname is equal to not watched
-    // if this movie's isWatched is true, render
-    // movielist component only displays movie depending on whether the user has watched or not
     this.setState((prevState) => {
     	return {movies: prevState.movies, watchedMoviesShown: 'yes'}
     })
