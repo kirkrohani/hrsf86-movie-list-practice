@@ -25,7 +25,7 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    this.getMovies();
+    this.loadMovies();
   }
 
   setMovies (movies) {
@@ -35,18 +35,58 @@ class App extends React.Component {
     });
   }
   
+  loadMovies () {
+    $.ajax ({
+      url: server + '/load',
+      type: 'GET',
+      contentType: 'application/json',
+      success: (data) => {
+        console.log('successfully loaded');
+        this.getMovies();
+      },
+      error: (error) => {
+        console.error('movieList: Failed to fetch movies', error);
+      }
+    });
+  }
+
   getMovies () {
    $.ajax ({
      url: server,
      type: 'GET',
      contentType: 'application/json',
      success: (data) => {
+       console.log('successfully got movies');
+       console.log('getmovies data', data);
        this.setMovies(data);
+       console.log('new updated state', this.state.movies);
      },
      error: (error) => {
        console.error('movieList: Failed to fetch movies', error);
      }
    });
+  }
+
+  addMovieToList (target) {
+    $.ajax ({
+      url: server,
+      type: 'POST',
+      data: target,
+      contentType: 'application/json',
+      success: (data) => {
+        console.log(data);
+        this.loadMovies();
+      },
+      error: (error) => {
+        console.error('movieList: Failed to fetch movies', error);
+      }
+    });
+    // var newMovies = this.state.movies.concat([{title: target}]);
+    // movies = movies.concat([{title: target}]);
+    // this.setState({
+    //   movies: newMovies
+    // })
+    // document.getElementsByClassName('addMovie')['0'].value = '';
   }
 
   filterMovies (target) {
@@ -68,28 +108,6 @@ class App extends React.Component {
     })
   }
 
-  addMovieToList (target) {
-    $.ajax ({
-      url: server,
-      type: 'POST',
-      data: target,
-      contentType: 'application/json',
-      success: (data) => {
-        console.log(data);
-        this.getMovies();
-
-      },
-      error: (error) => {
-        console.error('movieList: Failed to fetch movies', error);
-      }
-    });
-    // var newMovies = this.state.movies.concat([{title: target}]);
-    // movies = movies.concat([{title: target}]);
-    // this.setState({
-    //   movies: newMovies
-    // })
-    // document.getElementsByClassName('addMovie')['0'].value = '';
-  }
 
   renderWatched () {
     var elements = document.getElementsByClassName('towatch');

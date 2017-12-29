@@ -14,6 +14,11 @@ module.exports.Movies = module.exports.db.define('Movies', {
     overview: Sequelize.TEXT
 });
 
+// module.exports.db.sync({
+//     force: true
+// });
+
+module.exports.db.sync();
 // Movies.create({
 //     title: 'Star Wars: The Last Jedi',
 //     realease_date: '2017-12-13',
