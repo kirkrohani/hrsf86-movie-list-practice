@@ -21,7 +21,7 @@ export default class Movie extends React.Component {
         <div className="movie-box">
           <div className="movie-title" /*onClick = {toggleMovieDetails}*/>{this.props.movie.title}</div>
         </div>
-        <div className="movie-details">
+        <div className="details-box">
           <MovieDetails description = {this.props.movie.description}/>
         </div>
       </div>

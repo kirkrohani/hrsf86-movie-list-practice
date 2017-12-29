@@ -11,7 +11,6 @@ class MovieList extends React.Component {
     super(props);
     this.state = {
       currentMovieList: [],
-      server: 'http://127.0.0.1:3000'
     }
   }
 
@@ -34,11 +33,23 @@ class MovieList extends React.Component {
     //       console.log('Get request failed :(')
     //     }
     //   )
-    axios.get(this.state.server + "/movies")
+    axios.get('/movies')
       .then(res => {
         this.setState({
           currentMovieList: res.data
         });
+      });
+  }
+
+  addMovie(movieTitle) {
+    axios.post('/movie', {
+        movieTitle: movieTitle
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   }
 
@@ -54,9 +65,9 @@ class MovieList extends React.Component {
   render() {
     return (
       <div className="movie-list-app">
-        <div className="navbar">
+        <div className="input-area">
           <div><Search  filterMLbyQuery={this.filterMLbyQuery.bind(this)}/></div>
-          <div><AddMovie/></div>
+          <div><AddMovie addMovie={this.addMovie.bind(this)}/></div>
         </div>
         <div className="toggle-view">
           <div></div>
@@ -70,4 +81,6 @@ class MovieList extends React.Component {
     )
   }
 }
+
 ReactDOM.render( <MovieList/>, document.getElementById('app'));
+
