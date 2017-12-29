@@ -31,7 +31,7 @@ class MovieList extends React.Component {
       'selected': {title: null}
     };
 
-    app.updateDb(this);
+    app.initDb(this);
 
     this.addMovie = this.addMovie.bind(this);
     this.submitSearch = this.submitSearch.bind(this);

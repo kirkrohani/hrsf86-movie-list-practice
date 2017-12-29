@@ -4,7 +4,7 @@ USE movies;
 CREATE TABLE IF NOT EXISTS now_playing (
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(40),
-    overview VARCHAR(200),
+    overview VARCHAR(2000),
     vote_average INT NOT NULL,
     release_date VARCHAR(20),
     backdrop_path VARCHAR(120),

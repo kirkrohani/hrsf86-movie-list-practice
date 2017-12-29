@@ -1,6 +1,7 @@
 var app = {};
-app.server = 'http://localhost:3000/load';
+app.api = 'http://localhost:3000/load';
 app.db = [];
+app.database = 'http://localhost:3000/movies';
 
 app.headers = {
   'Content-Type': 'application/json'
@@ -11,14 +12,21 @@ app.getReq = {
   headers: app.headers
 };
 
-app.updateDb = (component) => {
-  fetch(app.server, app.getReq)
+app.initDb = (component) => {
+  fetch(app.api, app.getReq)
   .then((response) => {
-    return response.json();
+    console.log('got response, data was posted');
+    fetch(app.database, app.getReq)
+    .then((res) => {
+      return res.json();
+    })
+    .then((rJson)=>{
+      component.setState({'allMovies': rJson, 'currMovies': rJson});
+    })
+    .catch (err => console.log(err));
   })
-  .then((rJson)=>{
-    console.log(rJson);
-    component.setState({'allMovies': rJson, 'currMovies': rJson});
+  .catch(err => {
+    console.log('error in initDB');
   });
 };
 
@@ -29,7 +37,7 @@ app.postReq = {
 
 app.postToDb = (data) => {
   app.postReq.body = data;
-  fetch(app.server, app.postReq)
+  fetch(app.database, app.postReq)
   .then((res) => {
     console.log('Post successful');
   })

@@ -18,7 +18,6 @@ movieDB.insertMany(movies, (err) => {
   }
 });
 
-
 movieDB.selectAll( (err, movieDataFromDB) => {
   if(err) {
     console.log('Error selecting from DB');
