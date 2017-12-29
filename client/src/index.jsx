@@ -6,6 +6,7 @@ import Search from './components/search.jsx';
 import MovieDetails from './components/MovieDetails.jsx';
 import AddMovie from './components/AddMovie.jsx';
 
+
 class MovieList extends React.Component {
   constructor(props) {
     super(props);
@@ -16,17 +17,20 @@ class MovieList extends React.Component {
     }
   }
    addFilm(value) {
-    // const newItem = {};
-    // newItem.title = this.search;
-      axios.post('/movies', {
-        title: value
-      })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    const newItem = {};
+    newItem.title = this.search;
+    console.log(newItem);
+    this.setState({movies: [...this.state.movies, newItem]});
+
+      // post('/movies', {
+      //   title: value
+      // })
+      // .then(function(response) {
+      //   console.log(response);
+      // })
+      // .catch(function(error) {
+      //   console.log(error);
+      // });
     //   movies: [...this.state.movies, {title: this.search}]
     // });
   }
