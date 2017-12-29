@@ -11,13 +11,10 @@ class Movie extends React.Component {
     };
   }
   onWatchClick() {
+    this.setState({
+      watched: !this.state.watched
+    });
     
-    axios.get('/watched', this.props.movie)
-      .then(watched => {
-        this.setState({
-          watched: !watched
-        });
-      })
     this.props.movie.watched = (this.props.movie.watched === 'Yes') ? 'No' : 'Yes';
   }
   showDetails() {
