@@ -12,7 +12,7 @@ class AddMovie extends React.Component {
   render() {
     return (
       <div>
-      <input type="text" placeholder="Add new movie..." />
+      <input type="text" placeholder="Add new movie" />
       <button type="submit">Add</button>
       </div>
     )

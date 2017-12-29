@@ -8,8 +8,10 @@ class Movie extends React.Component {
 
   render() {
     return (
-      <div>
-      {this.props.title}
+      <div className="movie">
+        {this.props.title}
+        <label htmlFor="watched" className="watched-label">Watched?</label>
+        <input type="checkbox" className="watched" />
       </div>
     )
   }

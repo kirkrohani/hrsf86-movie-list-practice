@@ -11,14 +11,13 @@ class Movies extends React.Component {
   }
 
   render() {
+    console.log(this.props.list);
     return (
       <ul>
-        {this.props.list.map((movie) => <Movie title={movie.title} />)}
+        {this.props.list.map((movie) => <Movie key={movie.id} title={movie.original_title} />)}
       </ul>
     )
   }
 }
 
 export default Movies;
-
-// this.props.list.map((list) => <Movie title={this.props.list.title} />)
