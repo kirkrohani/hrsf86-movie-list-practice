@@ -31,5 +31,6 @@ var exampleMovieData = [
   },
 ];
 
-module.exports.exampleMovieData = exampleMovieData;
+//not used anymore
+// module.exports.exampleMovieData = exampleMovieData;
 

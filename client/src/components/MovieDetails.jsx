@@ -4,9 +4,10 @@ import ReactDOM  from 'react-dom';
 var MovieDetails = ({movie}) => (
   <td>
     <ul>
-      <li>Year: {movie.year}</li>
-      <li>Runtime: {movie.runtime}</li>
-      <li>ImdbRating: {movie.imdbRating}</li>
+      <li>Release Date: {movie.release_date}</li>
+      <li>Rating: {movie.vote_average}</li>
+      <li>Overview: {movie.overview}</li>
+      <li><img src={'http://image.tmdb.org/t/p/w185/' + movie.poster_path} /></li>
     </ul>
   </td>
 )
