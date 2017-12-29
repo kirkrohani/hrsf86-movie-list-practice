@@ -24,7 +24,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/movies')
+    axios.get('/load')
       .then(response => {
         this.setState({ movies: response.data });
       })
@@ -36,19 +36,20 @@ class App extends React.Component {
   addMovie(addInput) {
     var newList = this.state.movies;
 
-    var movie = {
-      title: addInput
+    var query = {
+      string: addInput
     }
 
-    axios.post('/movies', movie)
+    axios.post('/movies', query)
       .then(response => {
-        this.componentDidMount();
+        axios.get('/movies')
+          .then(response => {
+            this.setState({ movies: response.data });
+          });
       })
       .catch(error => {
         console.error(error);
       });
-
-    this.setState({ movies: newList });
   }
 
   searchList(searchInput) {
