@@ -13,6 +13,16 @@ var queryDB = (queryStr, queryArgs, callback) => {
   });
 }
 
+var queryDBPromisey = (queryStr, queryArgs) => {
+  connection.query(queryStr, queryArgs, function (error, results) {
+    if (error) {
+      reject(error);
+    } else {
+      resolve(results);
+    }
+  });
+}
+
 module.exports = {
   insertMany: (movies, callback) => {
     var moviesArray = [];

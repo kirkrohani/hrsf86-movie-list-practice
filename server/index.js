@@ -27,7 +27,7 @@ app.patch('/movie/:id', function(req, res) {
   console.log('id', req.params.id, req.body.watched);
   movieDB.updateWatched(req.params.id, req.body.watched, (error, results) => {
     if (error) {
-      console.log('here -> ', error)
+      console.log('here', error)
       res.sendStatus(404);
     } else {
       res.sendStatus(201);
