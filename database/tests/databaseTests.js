@@ -7,16 +7,35 @@
 
 const movieDB = require('../index.js');
 
-let newMovie = ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0];
-let movies = [/*Create an array of movies. Each movie must be an array (not an object) */];
+let newMovie = {
+      title: 'Star Wars: The Last Jedi',
+      realease_date: '2017-12-13',
+      poster_path: '/xGWVjewoXnJhvxKW619cMzppJDQ.jpg',
+      vote_average: '7.4',
+      overview: `Rey develops her newly discovered abilities with the guidance 
+                  of Luke Skywalker, who is unsettled by the strength of her powers. 
+                  Meanwhile, the Resistance prepares to do battle with the First Order.`
+  };
 
-movieDB.insertMany(movies, (err) => {
-  if(err) {
-    console.log('Error inserting to DB');
-  } else {
-    console.log('Successfully inserted data into DB: ');
-  }
-});
+  let newMovie1 = {
+    title: 'Star Wars: The Last Jedi',
+    realease_date: '2017-12-13',
+    poster_path: '/xGWVjewoXnJhvxKW619cMzppJDQ.jpg',
+    vote_average: '7.4',
+    overview: `Rey develops her newly discovered abilities with the guidance 
+                of Luke Skywalker, who is unsettled by the strength of her powers. 
+                Meanwhile, the Resistance prepares to do battle with the First Order.`
+};
+
+let movies = [newMovie, newMovie1];
+
+// movieDB.insertMany(movies, (err) => {
+//   if(err) {
+//     console.log('Error inserting to DB');
+//   } else {
+//     console.log('Successfully inserted data into DB: ');
+//   }
+// });
 
 
 movieDB.selectAll( (err, movieDataFromDB) => {
@@ -27,11 +46,11 @@ movieDB.selectAll( (err, movieDataFromDB) => {
   }
 });
 
-movieDB.insertOne(newMovie, (err) => {
-  if(err) {
-    console.log('Error inserting to DB');    
-  } else {
-    console.log('Successfully inserted data into DB: ');
-  }
-});
+// movieDB.insertOne(newMovie, (err) => {
+//   if(err) {
+//     console.log('Error inserting to DB');    
+//   } else {
+//     console.log('Successfully inserted data into DB: ');
+//   }
+// });
 
