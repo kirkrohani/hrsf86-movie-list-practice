@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 
 class Movie extends React.Component {
-  constructor() {
+  constructor(props) {
     super(props);
   }
 
   render() {
     return (
       <div>
-      Movie
+      {this.props.title}
       </div>
     )
   }

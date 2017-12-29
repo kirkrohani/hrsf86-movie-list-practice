@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 
 class AddMovie extends React.Component {
-  constructor() {
+  constructor(props) {
     super(props);
     this.state = {
-      
+
     }
   }
 
   render() {
     return (
       <div>
-      AddMovie
+      <input type="text" placeholder="Add new movie..." />
+      <button type="submit">Add</button>
       </div>
     )
   }

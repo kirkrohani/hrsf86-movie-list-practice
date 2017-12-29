@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 
 class MovieDetails extends React.Component {
-  constructor() {
+  constructor(props) {
     super(props);
   }
 

@@ -2,14 +2,15 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 
 class Search extends React.Component {
-  constructor() {
+  constructor(props) {
     super(props);
   }
 
   render() {
     return (
       <div>
-      Search
+        <input type="text" placeholder="Search for a movie..." />
+        <button type="submit">Search</button>
       </div>
     )
   }
