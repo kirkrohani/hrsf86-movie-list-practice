@@ -26,6 +26,7 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/load')
       .then(response => {
+        console.log(response.data);
         this.setState({ movies: response.data });
       })
       .catch(error => {
