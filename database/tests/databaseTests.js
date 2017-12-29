@@ -8,7 +8,13 @@
 const movieDB = require('../index.js');
 
 let newMovie = ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0];
-let movies = [/*Create an array of movies. Each movie must be an array (not an object) */];
+let movies = [
+  ['Butch Cassidy and the Sundance Kid', 'Best Western!', '2017-09-01', 0.0, 0, 0],
+  ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0],
+  ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0],
+  ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0],
+  ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0]
+];
 
 movieDB.insertMany(movies, (err) => {
   if(err) {
