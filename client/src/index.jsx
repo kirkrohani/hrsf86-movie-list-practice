@@ -6,28 +6,8 @@ import AddMovie from './components/AddMovie.jsx';
 
 const https = require('https');
 const axios = require('axios');
+// const request = require('request');
 var $ = require('jquery');
-
-// let movies = axios.get('/movies').then(function(response) {
-//   console.log('response.data is', response.data);
-// }).catch(function(error) {
-//   console.log(error);
-// });
-// console.log(movies)
-
-// let movies = https.get('/movies', (resp) => {
-//   let data = '';
-//   resp.on('data', (chunk) => {
-//     data += chunk;
-//   });
-
-//   resp.on('end', () => {
-//     this.setState({
-//       movies: JSON.parse(data)
-//     })
-//     console.log(JSON.parse(data));
-//   });
-// });
 
 class MovieList extends React.Component {
   constructor() {
@@ -76,9 +56,23 @@ class MovieList extends React.Component {
   }
 
   onAddClick(addVal) {
-  	this.setState((prevState) => {
-  		return {movies: prevState.movies.concat([{title: addVal}]), watchedMoviesShown: prevState.watchedMoviesShown}
-  	});
+    var instance = this;
+    axios.post('/movies', 
+      {
+        title: addVal
+      })
+      .then(function (response) {
+        console.log(response.data);
+        instance.setState((prevState) => {
+          return {
+            movies: response.data,
+            watchedMoviesShown: prevState.watchedMoviesShown
+          }
+        })
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   onWatchedClick() {
