@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 var getMoviesFromAPI = require('../lib/movieAPI.js')
+var db = require('../database/index.js');
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));

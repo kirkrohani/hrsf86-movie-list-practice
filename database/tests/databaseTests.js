@@ -7,8 +7,22 @@
 
 const movieDB = require('../index.js');
 
-let newMovie = ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0];
-let movies = [/*Create an array of movies. Each movie must be an array (not an object) */];
+let newMovie = ['Test Movie', '2017-11-11', 9.0, 'testing...', 0];
+let movies = [
+  ['Test Movie 1', '2017-11-11', 9.0, 'testing...', 0],
+  ['Test Movie 2', '2017-11-11', 9.0, 'testing...', 0],
+  ['Test Movie 3', '2017-11-11', 9.0, 'testing...', 0],
+  ['Test Movie 4', '2017-11-11', 9.0, 'testing...', 0],
+];
+
+movieDB.insertOne(newMovie, (err) => {
+  if(err) {
+    console.log(err);
+    console.log('Error inserting to DB');    
+  } else {
+    console.log('Successfully inserted data into DB: ');
+  }
+});
 
 movieDB.insertMany(movies, (err) => {
   if(err) {
@@ -18,7 +32,6 @@ movieDB.insertMany(movies, (err) => {
   }
 });
 
-
 movieDB.selectAll( (err, movieDataFromDB) => {
   if(err) {
     console.log('Error selecting from DB');
@@ -27,11 +40,6 @@ movieDB.selectAll( (err, movieDataFromDB) => {
   }
 });
 
-movieDB.insertOne(newMovie, (err) => {
-  if(err) {
-    console.log('Error inserting to DB');    
-  } else {
-    console.log('Successfully inserted data into DB: ');
-  }
-});
+
+
 
