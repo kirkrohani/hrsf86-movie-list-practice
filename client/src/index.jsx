@@ -34,31 +34,38 @@ class MovieList extends React.Component {
     });
   }
   getMovies() {
+    this.state.list = [];
     console.log('Getting movies');
     axios.get('/load')
       .then(response => {
+      axios.get('/movies')
+      .then(movies => {
+        console.log('This is the response data', movies.data);
         this.setState({
-          list: response.data
-        })
+          list: movies.data
+        });
       })
       .catch(function(error) {
-        console.log(error)
+        console.log(error);
       });
+    })
+    
   }
   addMovie(movieTitle) {
-    // this.state.list = [];
-    axios.post('/movie', { title: movieTitle, release_date: "2017-12-28", overview: "Movie about fish", popularity: 9, vote_average: 8 })
-        .then(response => {
-          // this.getMovies();
-          this.state.list.push(response);
-          console.log('This is the list ', this.state.list);
-          // this.setState({
-          //   list: this.state.list
-          // })
-        })
-        .catch(function(error) {
-          console.log(error);
+      axios.post('/movie', { title: movieTitle, release_date: "2017-12-28", overview: "Movie about fish", popularity: 9, vote_average: 8 })
+      .then(movie => {
+        // this.getMovies();
+        this.state.list.push(movie.data);
+        console.log('This is the list ', this.state.list);
+        this.setState({
+          list: this.state.list
         });
+        // this.getMovies();
+        // console.log('calling getMovies');
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
   toggleWatched() {
     this.state.toWatch = [];
@@ -102,16 +109,16 @@ class MovieList extends React.Component {
         <AddMovie addMovie={this.addMovie.bind(this)} />
         <br />
         <div>
-        <button style={watchedStyle} className="watchedTab" onClick={this.toggleWatched.bind(this)}>Watched</button>
-        <button style={toWatchStyle} className="toWatchTab" onClick={this.toggleToWatch.bind(this)}>To Watch</button>
-        <Search searchMovies={this.searchMovies.bind(this)} />
+          <button style={watchedStyle} className="watchedTab" onClick={this.toggleWatched.bind(this)}>Watched</button>
+          <button style={toWatchStyle} className="toWatchTab" onClick={this.toggleToWatch.bind(this)}>To Watch</button>
+          <Search searchMovies={this.searchMovies.bind(this)} />
         </div>
         <div className="movieList">
           {
             this.state.list.map(movie => (
               <Movie
                 movie={movie}
-                key={movie.title ? movie.title : 'New Title'}
+                key={movie.movieID}
               />
             ))
           }
@@ -120,5 +127,18 @@ class MovieList extends React.Component {
     );
   }
 }
+
+// (function() {
+//   axios.get('/load')
+//     .then(result => {
+//       axios.get('/movies')
+//         .then(data => {
+//           ReactDOM.render( <MovieList list={data} />, document.getElementById('app'));
+//         })
+    
+//   })
+// })();
+
+// loadData();
 
 ReactDOM.render( <MovieList />, document.getElementById('app'));
