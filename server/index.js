@@ -37,9 +37,10 @@ var options = {
 }
 app.route('/load')
   app.get(function(req, res) {
-  	req.get('https://api.themoviedb.org/3/configuration?api_key=af29a1fd92e3ec3f4111aea875ad8350');
+  	req.get('https://api.themoviedb.org/3/configuration?api_key=af29a1fd92e3ec3f4111aea875ad8350', function(res) {
+  		movies.push(res.json());
+  	});
   	console.log('response', res);
-  	movies.concat(res.json())
   });
 
 module.exports = app;

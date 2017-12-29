@@ -6,6 +6,8 @@ import Search from './components/search.jsx';
 import MovieDetails from './components/MovieDetails.jsx';
 import AddMovie from './components/AddMovie.jsx';
 
+import axios from 'axios';
+
 
 class MovieList extends React.Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class MovieList extends React.Component {
     this.state = {
       movies: [],
     search: '',
-    done: false
+    watched: false
     }
   }
    addFilm(event) {
@@ -21,6 +23,12 @@ class MovieList extends React.Component {
     newItem.title = event;
     console.log(newItem);
     console.log(this.state.movies);
+    // fetch('/movies', {
+    //   method: 'POST',
+    //   body: JSON.stringify(newItem);
+    // }).then(function(response) {
+    //   movies.push(response.json());
+    // })
     this.setState({movies: [...this.state.movies, newItem]});
 
       // post('/movies', {
@@ -50,9 +58,14 @@ class MovieList extends React.Component {
     })
   }
   componentDidMount() {
-    fetch('/movies')
-      .then(res => res.json())
-      .then(movies => this.setState({movies: movies}));
+    axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=af29a1fd92e3ec3f4111aea875ad8350&language=en-US&page=1')
+      .then(res => {
+        const movies = res.data.results.map(obj => ({title: obj.title, overview: obj.overview}));
+        this.setState({ movies });
+      })
+    // fetch('/movies')
+    //   .then(res => res.json())
+    //   .then(movies => this.setState({movies: movies}));
   }
 
   render() {
