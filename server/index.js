@@ -8,40 +8,67 @@ var db = require('../database/index.js');
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-var movies = [
-  {id: 0, title: 'Mean Girls', watched: false, details: {year: '2004', runtime: '97 minutes', 'RT Score': '84%', 'box office': '$129 million'}},
-  {id: 1, title: 'Hackers', watched: false, details: {year: '1995', runtime: '107 minutes', 'RT Score': '32%', 'box office': '$7.5 million'}},
-  {id: 2, title: 'The Grey', watched: false, details: {year: '2012', runtime: '117 minutes', 'RT Score': '78%', 'box office': '$77.3 million'}},
-  {id: 3, title: 'Sunshine', watched: false, details: {year: '2007', runtime: '107 minutes', 'RT Score': '75%', 'box office': '$32 million'}},
-  {id: 4, title: 'Ex Machina', watched: false, details: {year: '2015', runtime: '108 minutes', 'RT Score': '93%', 'box office': '$36.9 million'}},
-];
+var movies = [];
 
-var apiMovies;
-
-getMoviesFromAPI(
+getMoviesFromAPI.getNowPlaying(
   function(body) {
-    apiMovies = body;
+    for (var i = 0; i < body.results.length; i++) {
+      var movie = body.results[i];
+      movies.push([
+        movie.title,
+        movie.release_date,
+        movie.vote_average,
+        movie.overview,
+      ]);
+    }
+
+    db.insertMany(movies, (err) => {
+      if(err) {
+        console.log('Error inserting to DB: ', err);
+      } else {
+        console.log('Successfully inserted data into DB!');
+      }
+    });
   }  
 );
 
 app.get('/movies', (req, res) => {
-  res.send(JSON.stringify(movies))
+  db.selectAll( (err, movies) => {
+    if(err) {
+      console.log('Error selecting from DB: ', err);
+    } else {
+      console.log('Successfully retrieved data from DB!');
+      res.send(JSON.stringify(movies));
+    }
+  });
 })
 
-app.get('/load', (req, res) => {
-  res.send(apiMovies);
-})
+// app.get('/load', (req, res) => {
+//   db.selectAll( (err, movies) => {
+//     if(err) {
+//       console.log('Error selecting from DB: ', err);
+//     } else {
+//       console.log('Successfully retrieved data from DB!');
+//       res.send(JSON.stringify(movies));
+//     }
+//   });
+// })
 
 app.post('/movies', (req, res) => {
-  res.send('POST request received!');
-  movies.push(req.body);
+  var newMovie = [
+    req.body.movieTitle,
+    'n/a',
+    0.0,
+    'n/a'
+  ];
+  db.insertOne(newMovie, (err) => {
+    if(err) {
+      console.log('Error inserting to DB: ', err);    
+    } else {
+      console.log('Successfully inserted data into DB: ');
+    }
+  });
 })
-
-// app.patch('/movies', (req, res) => {
-//   res.send('PATCH request received!')
-//   console.log(req.body);
-//   movies[req.body].watched = !movies[JSON.parse(req.body)].watched;
-// })
 
 app.listen(3000, function () { console.log('MovieList app listening on port 3000!') });
 

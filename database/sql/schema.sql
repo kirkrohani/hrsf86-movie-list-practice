@@ -7,7 +7,7 @@ CREATE TABLE movies (
   title varchar(30) NOT NULL,
   release_date varchar(20) NOT NULL,
   vote_average DECIMAL(3, 1) NOT NULL,
-  overview VARCHAR(100) NOT NULL,
+  overview TEXT NOT NULL,
   watched BOOLEAN NOT NULL DEFAULT 0,
   PRIMARY KEY (id)
 );

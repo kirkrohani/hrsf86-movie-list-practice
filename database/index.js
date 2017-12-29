@@ -37,4 +37,11 @@ db.selectAll = function(callback) {
   })
 }
 
+// db.updateOne = function(id, callback) {
+//   var queryStr = 'UPDATE movies SET watched = !watched WHERE id = ?'
+//   db.query(queryStr, [id], function(err) {
+//     callback(err);
+//   })
+// }
+
 module.exports = db;
