@@ -125,7 +125,6 @@ class MovieList extends React.Component {
         if((this.state.displayWatchedMovies && movie.watched) ||
             (this.state.displayUnwatchedMovies && !movie.watched) ||
             (this.state.displayWatchedMovies && this.state.displayUnwatchedMovies)) {
-          var posterImg = <img src={'http://image.tmdb.org/t/p/w92/ + movie.poster_path'} />;
           displayResults.push(
             <div>
               <span id={movie.title} onClick={() => this.togglePanel(movie)}>
