@@ -1,4 +1,3 @@
-var models = require('./models');
 const path = require('path');
 const API = require('../lib/movieAPI');
 const model = require('../database/index.js');
@@ -7,8 +6,6 @@ module.exports = {
     movies: {
         get: (req, res) => {
             model.selectAll((movies) => {
-                console.log(movies[0].dataValues);
-                console.log('movies', movies);
                 res.send(movies);
             });
             // module.exports.load.get((movies) => {
@@ -16,7 +13,8 @@ module.exports = {
         },
 
         post: (req, res) => {
-            model.insertOne(req.body);
+            console.log('req.body', req.body);
+            module.exports.load.getOne(req.body);
             res.send(req.body);
         }
     },
@@ -38,6 +36,19 @@ module.exports = {
                 }).catch((err) => {
                     console.log('API fetch error', err);
                 });
+            });
+        },
+
+        // crazy%20stupid%20love
+
+        getOne: (query) => {
+            query = query.title.split(' ').join('%20');
+            console.log('query', query);
+            API.getOneMovie(query, (data) => {
+                console.log('fetched data', data);
+                let parsedData = JSON.parse(data);
+                let movie = parsedData.results[0];
+                model.insertOne(movie);
             });
         }
     }

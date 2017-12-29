@@ -41,7 +41,6 @@ class App extends React.Component {
       type: 'GET',
       contentType: 'application/json',
       success: (data) => {
-        console.log('successfully loaded');
         this.getMovies();
       },
       error: (error) => {
@@ -56,10 +55,7 @@ class App extends React.Component {
      type: 'GET',
      contentType: 'application/json',
      success: (data) => {
-       console.log('successfully got movies');
-       console.log('getmovies data', data);
        this.setMovies(data);
-       console.log('new updated state', this.state.movies);
      },
      error: (error) => {
        console.error('movieList: Failed to fetch movies', error);
@@ -74,7 +70,6 @@ class App extends React.Component {
       data: target,
       contentType: 'application/json',
       success: (data) => {
-        console.log(data);
         this.loadMovies();
       },
       error: (error) => {

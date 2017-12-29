@@ -30,26 +30,14 @@ module.exports = {
         connection.Movies.findAll().then((movies) => cb(movies));
     },
 
-    insertOne: (movie, cb) => {
-        // connection.db.sync().then(() => {
-        connection.Movies.findOrCreate({
-            where: {
-            title: movie.title
-            },
-            defaults: {
-                title: movie.title,
-                realease_date: movie.release_date,
-                poster_path: movie.poster_path,
-                vote_average: movie.vote_average,
-                overview: movie.overview
-            }
-        }).spread((movies, created) => {
-            // console.log(movies.get({
-            //     plain: true
-            // }))
-            // console.log(created);
-        })
-        // })
+    insertOne: (movie) => {
+        connection.Movies.create({
+            title: movie.title,
+            realease_date: movie.release_date,
+            poster_path: movie.poster_path,
+            vote_average: movie.vote_average,
+            overview: movie.overview
+        });
     }
 }
 
