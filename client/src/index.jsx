@@ -6,6 +6,7 @@ import AddMovie from './components/AddMovie.jsx';
 import Tabs from './components/Tabs.jsx';
 import _ from 'underscore';
 import axios from 'axios';
+import { Container } from 'semantic-ui-react';
 
 class MovieList extends React.Component {
   constructor(props) {
@@ -98,6 +99,7 @@ class MovieList extends React.Component {
   }
 
   toggleWatched(key) {
+    console.log('here');
     let copyOfMovies = this.state.allMovies.slice();
     let toggledMovies = copyOfMovies && copyOfMovies.map((movie) => {
       if (movie.title === key) {
@@ -126,18 +128,22 @@ class MovieList extends React.Component {
     })
 
     return (
-      <div>
-        <Search handleSearch={ this.updateMoviesList.bind(this) } />
+      <Container>   
         <AddMovie addNewMovie={ this.addNewMovie.bind(this) } />
         <h2>Movie List</h2>
-        <Tabs 
-          activeTab={this.state.activeTab} 
-          changeTabSelection={ this.changeTab.bind(this) } 
-        />
+        
+        <div className='headerContainer'>
+          <Tabs 
+            activeTab={this.state.activeTab} 
+            changeTabSelection={ this.changeTab.bind(this) } 
+          />
+
+          <Search handleSearch={ this.updateMoviesList.bind(this) } />
+        </div>
         <div className='movieContainer'>
           {movies.length > 0 ? movies : 'No results for that search!'}
         </div>
-      </div>
+      </Container>
     )
   }
 }

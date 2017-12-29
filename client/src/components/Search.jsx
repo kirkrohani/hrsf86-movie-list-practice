@@ -1,4 +1,6 @@
 import React from 'react';
+import { Input } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 class Search extends React.Component {
   constructor(props) {
@@ -18,9 +20,9 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>Search for a movie here
-        <input type='text' value={this.state.value} onChange={this.handleChange} />
-        <button onClick={ () => this.props.handleSearch(this.state.value)} >Go!</button>
+      <div className='searchContainer'>
+        <Input type='text' placeholder='Search...' value={this.state.value} onChange={this.handleChange} />
+        <Button onClick={ () => this.props.handleSearch(this.state.value)} >Go!</Button>
       </div>
     );
   }

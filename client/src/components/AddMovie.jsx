@@ -1,4 +1,6 @@
 import React from 'react';
+import { Input } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 class AddMovie extends React.Component {
 
@@ -17,8 +19,8 @@ class AddMovie extends React.Component {
   render() {
     return (
       <div>
-        <input type='text' onChange={this.handleChange.bind(this)} />
-        <button onClick={ () => this.props.addNewMovie(this.state.value) } >Add Movie</button>
+        <Input type='text' onChange={this.handleChange.bind(this)} />
+        <Button onClick={ () => this.props.addNewMovie(this.state.value) } >Add Movie</Button>
       </div>
     ); 
   }
