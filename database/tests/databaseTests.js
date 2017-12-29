@@ -7,31 +7,32 @@
 
 const movieDB = require('../index.js');
 
-let newMovie = ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0];
-let movies = [/*Create an array of movies. Each movie must be an array (not an object) */];
+let newMovie = [null, 'Test Movie', '2017-11-11', 'This is the best movie ever!', 0.0, 0, false];
+let movies = [[null, 'a', '2017-11-12', 'aa', 0.1, 1, false], [null, 'b', '2017-11-13', 'bb', 0.2, 2, false], [null, 'c', '2017-11-14', 'cc', 0.3, 3, false]];
+// let movies = [];
 
 movieDB.insertMany(movies, (err) => {
   if(err) {
-    console.log('Error inserting to DB');
+    console.log('insertMany: Error inserting to DB', err);
   } else {
-    console.log('Successfully inserted data into DB: ');
+    console.log('insertMany: Successfully inserted data into DB: ', movies);
   }
 });
 
 
 movieDB.selectAll( (err, movieDataFromDB) => {
   if(err) {
-    console.log('Error selecting from DB');
+    console.log('selectAll: Error selecting from DB', err);
   } else {
-    console.log('Successfully retrieved data from DB: ', movieDataFromDB);
+    console.log('selectAll: Successfully retrieved data from DB: ', movieDataFromDB);
   }
 });
 
 movieDB.insertOne(newMovie, (err) => {
   if(err) {
-    console.log('Error inserting to DB');    
+    console.log('insertOne: Error inserting to DB', err);    
   } else {
-    console.log('Successfully inserted data into DB: ');
+    console.log('insertOne: Successfully inserted data into DB: ', newMovie);
   }
 });
 
