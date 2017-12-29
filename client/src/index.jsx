@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
+import $ from 'jquery';
 
-const sampleData = require('../exampleMovieData.js');
 var MovieComponent = require('./components/Movie.jsx');
 var SearchComponent = require('./components/Search.jsx');
 var AddMovieComponent = require('./components/AddMovie.jsx');
@@ -16,10 +16,12 @@ class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      movies: this.props.movies,
-      currentMovies: this.props.movies
-    })
+    $.ajax({url: '/movies', success: (result) => {
+      this.setState({
+        movies: result,
+        currentMovies: result
+      });
+    }});
   }
 
   handleMovieSearch(searchValue) {
@@ -40,12 +42,25 @@ class MovieList extends React.Component {
   }
 
   handleMovieTitleAdd(titleText) {
-    var moviesList = this.state.movies;
-    moviesList.push({title: titleText});
-    this.setState({
-      movies: moviesList,
-      currentMovies: moviesList
-    })
+    $.ajax({
+      url: '/movie',
+      contentType: 'application/json',
+      type: 'POST',
+      data: JSON.stringify({
+        moviesList: this.state.movies,
+        movieToAdd: {title: titleText}
+      }),
+      success: (data) => {
+        console.log('movie added!');
+        this.setState({
+          movies: data,
+          currentMovies: data
+        });
+      },
+      error: function(data) {
+        console.log('error adding movie', data);
+      }
+    });
   }
 
   handleWatchedClick(){
@@ -92,4 +107,4 @@ class MovieList extends React.Component {
   }
 }
 
-ReactDOM.render( <MovieList movies={sampleData.exampleMovieData}/>, document.getElementById('app'));
+ReactDOM.render( <MovieList />, document.getElementById('app'));
