@@ -18,15 +18,22 @@ exports.selectAll = (callback) => {
     });
 };
 
-var makeQueryString = (movie) =>{ return `(NULL, '${movie.title.replace(/[’']/g, "''")}', '${movie.overview.replace(/[’']/g, "''")}', ${movie.vote_average}, '${movie.release_date.replace(/[’']/g, "''")}')`};
-var insertSql = `INSERT IGNORE INTO now_playing (id, title, overview, vote_average, release_date) VALUES `;
+var makeQueryString = (movie, index) =>{ 
+    if (!movie.overview) {
+        return `(NULL, '${movie.title.replace(/[’']/g, "''")}')`;
+    } else {
+        return `(${index}, '${movie.title.replace(/[’']/g, "''")}', '${movie.overview.replace(/[’']/g, "''")}', ${movie.vote_average}, '${movie.release_date}', '${movie.backdrop_path}')`;
+    }
+};
+var insertSql = `INSERT IGNORE INTO now_playing (id, title, overview, vote_average, release_date, backdrop_path) VALUES `;
+var insertSqlOne = `INSERT IGNORE INTO now_playing(id, title) VALUES`;
 
 exports.insertMany = (movies, callback) => {
     
         var queryStrings = [];
-        movies.forEach(movie => queryStrings.push(makeQueryString(movie)));
+        movies.forEach((movie, index) => queryStrings.push(makeQueryString(movie, index)));
         var qS = insertSql + queryStrings.join(',') + ';';
-        // console.log('query string is ', qS);  
+        console.log('query string is ', qS);  
         exports.connection.query(qS, (err, data) => {
             if (err) {
                 callback(err);
@@ -37,17 +44,12 @@ exports.insertMany = (movies, callback) => {
 };
 
 exports.insertOne = (movie, callback) => {
-    var qS = insertSql + makeQueryString(movie);
-    return new Promise((resolve, reject) => {
-        exports.connection.query(qS, (err, data) => {
+    var qS = insertSqlOne + makeQueryString(movie);
+    exports.connection.query(qS, (err, data) => {
             if (err) {
-                reject(err);
+                callback(err);
             } else {
-                resolve(data);
+                callback(err, data);
             }
-        });
-    })
-    .catch(err => {
-        console.log('error in insertOne');
-    });      
+        });  
 };
