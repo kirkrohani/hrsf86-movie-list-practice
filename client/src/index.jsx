@@ -5,21 +5,22 @@ import AddMovie from './components/AddMovie.jsx';
 import MovieDetails from './components/MovieDetails.jsx';
 import Search from './components/Search.jsx';
 
-let movies = [
+let movieList = [
   {title: 'Mean Girls', year: '2012', rating: '8'},
   {title: 'Hackers', year: '2012', rating: '8'},
   {title: 'The Grey', year: '2012', rating: '8'},
   {title: 'Sunshine', year: '2012', rating: '8'},
-  // {title: 'Ex Machina', year: '2012', rating: '8'},
-  // {title: '50 Shades of Grey', year: '2012', rating: '8'}
+  {title: 'Ex Machina', year: '2012', rating: '8'},
+  {title: '50 Shades of Grey', year: '2012', rating: '8'}
 ];
+
 const server = 'http://localhost:3000/movies';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: this.props.movies,
+      movies: movieList,
     }
   }
 
@@ -28,9 +29,10 @@ class App extends React.Component {
   }
 
   setMovies (movies) {
+    movieList = movies;
     this.setState({
       movies: movies
-    })
+    });
   }
   
   getMovies () {
@@ -40,7 +42,6 @@ class App extends React.Component {
      contentType: 'application/json',
      success: (data) => {
        this.setMovies(data);
-       console.log(data);
      },
      error: (error) => {
        console.error('movieList: Failed to fetch movies', error);
@@ -63,7 +64,7 @@ class App extends React.Component {
 
   clearFilter () {
     this.setState({
-      movies: movies,
+      movies: movieList,
     })
   }
 
@@ -74,7 +75,9 @@ class App extends React.Component {
       data: target,
       contentType: 'application/json',
       success: (data) => {
+        console.log(data);
         this.getMovies();
+
       },
       error: (error) => {
         console.error('movieList: Failed to fetch movies', error);
@@ -156,4 +159,4 @@ class App extends React.Component {
 
 module.exports.App = App;
 
-ReactDOM.render( <App movies={movies}/>, document.getElementById('app'));
+ReactDOM.render( <App />, document.getElementById('app'));

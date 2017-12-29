@@ -25,7 +25,7 @@ class AddMovie extends React.Component {
           <label>
             <input className="addMovie" placeholder="Add movie title here" type="text" name="name" onChange={e => {console.log(e.target.value); this.setState({movieTitle: e.target.value})}}/>
           </label>
-          <input className="btn btn-outline-dark btn-sm" type="submit" value="Add" onClick={this.addMovieOnClick.bind(this)}/>
+          <input className="btn btn-outline-dark btn-sm" type="submit" value="Add" onClick={(e) => this.addMovieOnClick(e)}/>
         </form>
       </div>
     )
