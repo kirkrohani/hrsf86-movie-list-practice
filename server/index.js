@@ -18,25 +18,21 @@ let loadMovies = () => {
         movies.push(deets)
       });
     });
-    // movies.push(...movs);
-    // movies = _.uniqBy(movies, 'id');
   });
 };
 loadMovies(); //initial loading call before pages can be serverd
 let getMovies = (req, res) => {
   console.log('Serving GET request at /movies')
-  res.send(movies);
-  // movieAPI.getNewMovies((movs) => {
-  //   res.send(movs);
-  // });
+  //sort not working for some reason
+  res.send(movies.sort((a, b) => { return a.title.toLowerCase() > b.title.toLowerCase()}));
 };
 let addMovie = (req, res) => {
   console.log('Serving POST request at /movie')
   movieAPI.searchMovie(req.body.query, (movie) =>{
     movie.watched = false;
     movies.push(movie);
+    res.send();
   })
-  res.send()
 };
 
 router.get('/movies', getMovies);

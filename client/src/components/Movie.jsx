@@ -2,6 +2,7 @@ import React from 'react';
 
 let Movie = (props) => {
   let handleClick = (e) => {
+    console.error('Error querying IMDB: To reduce API requests, all movies are now Jurassic Park. Rawr!');
     props.handler(props.movie);
   }
   if (props.show) {
