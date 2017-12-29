@@ -50,6 +50,7 @@ class MovieList extends React.Component {
     event.preventDefault();
     var formatMovie = addMovie.toLowerCase().split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
     allMovies.push({title: formatMovie});
+    currMovies.push({title: formatMovie});
     app.postToDb({title: formatMovie});
     this.setState({'addMovie': ''});
   }

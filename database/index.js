@@ -22,13 +22,13 @@ var backdropIfNone = '8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg';
 
 var makeQueryString = (movie, index) =>{ 
     if (!movie.overview) {
-        return `(NULL, '${movie.title.replace(/[’']/g, "''")}', '${backdropIfNone}')`;
+        return `(NULL, '${movie.title.replace(/[’']/g, "''")}', '${backdropIfNone}', '10')`;
     } else {
         return `(${index + 1}, '${movie.title.replace(/[’']/g, "''")}', '${movie.overview.replace(/[’']/g, "''")}', ${movie.vote_average}, '${movie.release_date}', '${movie.backdrop_path || backdropIfNone}')`;
     }
 };
 var insertSql = `INSERT IGNORE INTO now_playing (id, title, overview, vote_average, release_date, backdrop_path) VALUES `;
-var insertSqlOne = `INSERT IGNORE INTO now_playing(id, title, backdrop_path) VALUES`;
+var insertSqlOne = `INSERT IGNORE INTO now_playing(id, title, backdrop_path, vote_average) VALUES`;
 
 exports.insertMany = (movies, callback) => {
     

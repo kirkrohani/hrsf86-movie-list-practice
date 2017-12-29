@@ -37,7 +37,7 @@ export class Movie extends React.Component {
                 <div className = "container">
                     <img src={`https://image.tmdb.org/t/p/w185/${movie.backdrop_path}`} />
                     <span className="mov-title" >{movie.title}</span>
-                    <img className="watch-button" onClick={this.watchClick} src="./images/eye.png" />
+                    <img className="watch-button" onClick={this.watchClick} src="./images/eye2.png" />
                     <span className={watched}>Watched</span>
                 </div>
                 {selected &&
