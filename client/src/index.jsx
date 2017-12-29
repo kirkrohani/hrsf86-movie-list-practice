@@ -17,18 +17,26 @@ class MovieList extends React.Component {
 
   componentDidMount() {
     fetch('/load')
-      .then(res => res.json())
       .then((result) => {
+        console.log(result);
         this.setState({
-          isLoaded: true,
-          movies: result
+          isLoaded: true
         });
-        console.log('after mount, state variables:', this.state);
-      },
-      (error) => {
+      })
+      .then((result) => {
+        fetch('/movies')
+          .then(res => res.json())
+          .then(result => {
+            this.setState({
+              movies: result
+            });
+            console.log('after mount, state variables:', this.state)
+          });
+      })
+      .catch((error) => {
         console.error('on load got error:', error);
-      }
-    );
+      });
+
   }
 
   handleSearchChange(event) {
@@ -52,8 +60,6 @@ class MovieList extends React.Component {
     newObj['title'] = this.state.currentAddMovie;
     newObj['director'] = 'some director' + this.state.movies.length - 1;
     newObj['year'] = 1980 + this.state.movies.length - 1;
-    newObj['watched'] = false;
-    newObj['showPanel'] = false;
     this.setState({currentAddMovie: ''});
 
     // post the new movie
@@ -67,13 +73,22 @@ class MovieList extends React.Component {
       body: JSON.stringify(newObj)
     });
     fetch(request)
-      .then(res => res.json())
-      .then((response) => {
-        console.log('POST response body:', response);
-        this.setState({
-          movies: response
-        });
-      },
+      // .then(res => res.json())
+      // .then((response) => {
+      //   console.log('POST response body:', response);
+      //   this.setState({
+      //     movies: response
+      //   });
+      // },
+      .then((result) => {
+        fetch('/movies')
+          .then(res => res.json())
+          .then(result => {
+            this.setState({
+              movies: result
+            })
+          })
+        },
       (error) => {
         console.error('on post got error:', error);
       }
@@ -110,6 +125,7 @@ class MovieList extends React.Component {
         if((this.state.displayWatchedMovies && movie.watched) ||
             (this.state.displayUnwatchedMovies && !movie.watched) ||
             (this.state.displayWatchedMovies && this.state.displayUnwatchedMovies)) {
+        //  var posterImg = `img src='http://image.tmdb.org/t/p/w92/${movie.poster_path}' />`;
           displayResults.push(
             <div>
               <span id={movie.title} onClick={() => this.togglePanel(movie)}>
