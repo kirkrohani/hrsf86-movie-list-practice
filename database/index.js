@@ -1,4 +1,5 @@
 var mysql      = require('mysql');
+
 var connection = mysql.createConnection({
   user     : 'root',
   password : '',
@@ -7,14 +8,14 @@ var connection = mysql.createConnection({
  
 connection.connect();
 
-var queryDB = (queryStr, queryArgs, callback) => {
-  connection.query(queryStr, queryArgs, function (error, results) {
-    callback(error, results);
-  });
-}
+// var queryDB = (queryStr, queryArgs, callback) => {
+//   connection.query(queryStr, queryArgs, function (error, results) {
+//     callback(error, results);
+//   });
+// }
 
-var queryDBPromisey = (queryStr, queryArgs) => {
-  connection.query(queryStr, queryArgs, function (error, results) {
+var queryDBPromisey = (queryStr, queryArgs, resolve, reject) => {
+  connection.query(queryStr, queryArgs, (error, results) => {
     if (error) {
       reject(error);
     } else {
@@ -24,35 +25,42 @@ var queryDBPromisey = (queryStr, queryArgs) => {
 }
 
 module.exports = {
-  insertMany: (movies, callback) => {
-    var moviesArray = [];
-    movies.forEach(({id, vote_average, title, poster_path, overview, release_date}) => {
-      moviesArray.push([id, vote_average, title, poster_path, overview, release_date]);
-    })
+  insertMany: (movies) => {
+    return new Promise((resolve, reject) => {
+      var moviesArray = [];
+      movies.forEach(({id, vote_average, title, poster_path, overview, release_date}) => {
+        moviesArray.push([id, vote_average, title, poster_path, overview, release_date]);
+      })
 
-    var queryStr = 'INSERT into movies (id, vote_average, title, poster_path, overview, release_date) VALUES ? \
-                  ON DUPLICATE key UPDATE id = id';
+      var queryStr = 'INSERT into movies (id, vote_average, title, poster_path, overview, release_date) VALUES ? \
+                    ON DUPLICATE key UPDATE id = id';
 
     // INSERT INTO users (username) VALUES (?) ON DUPLICATE key UPDATE username = username;
-    queryDB(queryStr, [moviesArray], callback);
+      queryDBPromisey(queryStr, [moviesArray], resolve, reject);
+    });
   },
 
-  selectAll: (callback) => {
-    var queryStr = 'SELECT * FROM movies';
-    var queryArgs = [];
-
-    queryDB(queryStr, queryArgs, callback);
+  selectAll: () => {
+    return new Promise((resolve, reject) => {
+      var queryStr = 'SELECT * FROM movies';
+      var queryArgs = [];
+      queryDBPromisey(queryStr, queryArgs, resolve, reject);
+    })
   },
 
-  insertOne: (newMovie, callback) => {
-    var queryStr = 'INSERT into movies SET ?';
-    queryDB(queryStr, newMovie, callback);
+  insertOne: (newMovie) => {
+    return new Promise((resolve, reject) => {
+      var queryStr = 'INSERT into movies SET ?';
+      queryDBPromisey(queryStr, newMovie, resolve, reject);
+    });
   },
 
-  updateWatched: (id, watchedState, callback) => {
-    var queryStr = 'UPDATE movies SET watched=? WHERE id=?';
-    var queryArgs = [watchedState, parseInt(id)];
-    queryDB(queryStr, queryArgs, callback);  
+  updateWatched: (id, watchedState) => {
+    return new Promise((resolve, reject) => {
+      var queryStr = 'UPDATE movies SET watched=? WHERE id=?';
+      var queryArgs = [watchedState, parseInt(id)];
+      queryDBPromisey(queryStr, queryArgs, resolve, reject);
+    });
   }
 }
 

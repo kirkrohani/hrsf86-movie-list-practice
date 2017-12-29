@@ -13,66 +13,58 @@ app.listen(3000, function () { console.log('MovieList app listening on port 3000
 const PICK_MOVIE_ATTRIBUTES = ['id', 'vote_average', 'title', 'poster_path', 'overview', 'release_date'];
 
 app.get('/movies', function(req, res) {
-  movieDB.selectAll((error, results) => {
-    if (error) {
+  movieDB.selectAll()
+    .then((results) => {
+      res.status(200).send(results);
+    })
+    .catch((error) => {
       console.log(error)
       res.status(500).send({error: error});
-    } else {
-      res.status(200).send(results);
-    } 
-  })
+    })
 });
 
 app.patch('/movie/:id', function(req, res) {
-  console.log('id', req.params.id, req.body.watched);
-  movieDB.updateWatched(req.params.id, req.body.watched, (error, results) => {
-    if (error) {
-      console.log('here', error)
-      res.sendStatus(404);
-    } else {
+  movieDB.updateWatched(req.params.id, req.body.watched)
+    .then((results) => {
       res.sendStatus(201);
-    } 
-  })
-})
+    })
+    .catch((error) => {
+      console.log('here', error)
+      res.sendStatus(404);   
+    })
+});
 
 app.post('/movie', function(req, res) {
 
-  movieAPI.getMovieDetails(req.body.title, (error, results) => {
-    if (error) { 
+  movieAPI.getMovieDetails(req.body.title)
+    .then((movie) => {
+      let filteredObject = _.pick.apply(this, [movie].concat(PICK_MOVIE_ATTRIBUTES));
+      movieDB.insertOne(filteredObject);
+    })
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
       console.log(error);
-      res.sendStatus(404);
-    } else {
-
-      let filteredObject = _.pick.apply(this, [results].concat(PICK_MOVIE_ATTRIBUTES));
-
-      movieDB.insertOne(filteredObject, (error, results) => {
-        if (error) {
-          res.sendStatus(404);
-          console.log(error)
-        } else {
-          res.sendStatus(201);
-        } 
-     });
-    }
-  });
+      res.sendStatus(404);     
+    })
 });
 
+
 app.get('/load', function(req, res) {
-  // console.log('movieapi', movieAPI);
-  movieAPI.getNowPlaying((movieArray) => {
-   //  movies = movieArray; 
-    movieDB.insertMany(movieArray, (error, results) => {
-      if (error) {
-        console.log(error)
-      } else {
-        movieDB.selectAll((error, results) => {
-          if (error) {
-            console.log(error)
-          } else {
-            res.send(results)
-          } 
-        })   
-      }       
-    });
-  })
+  movieAPI.getNowPlaying()
+    .then((movieArray) => { 
+      movieDB.insertMany(movieArray);
+    })
+    .then(() => {
+      return movieDB.selectAll();
+    })
+    .then((results) => {
+      console.log('and results: ', results.length);
+      res.status(200).send(results);
+    })
+    .catch((error) => {
+      console.log(error)
+      res.status(500).send({error: error});
+    })
 });
