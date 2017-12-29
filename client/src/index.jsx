@@ -35,22 +35,24 @@ class MovieList extends React.Component {
   }
   getMovies() {
     this.state.list = [];
+    console.log('This is the list at beginning of getMovies', this.state.list);
     axios.get('/load')
-      .then(response => {
+      .then(() => {
         axios.get('/movies')
         .then(movies => {
           console.log('This is the response data', movies.data);
           this.setState({
             list: movies.data
           });
+          console.log('This is the list at end of getMovies', this.state.list);
         })
         .catch(function(error) {
           console.log(error);
         });
-      })
+      });
   }
   addMovie(movieTitle) {
-    axios.post('/movie', { title: movieTitle, release_date: "2017-12-28", overview: "Movie about fish", popularity: 9, vote_average: 8 })
+    axios.post('/movie', { title: movieTitle, release_date: "2017-12-28", overview: "Movie about " + movieTitle, popularity: 9, vote_average: 8 })
       .then(movie => {
         this.state.list.push(movie.data);
         console.log('This is the list ', this.state.list);
@@ -64,6 +66,12 @@ class MovieList extends React.Component {
   }
   toggleWatched() {
     this.state.toWatch = [];
+    axios.put('/watched')
+      .then(movies => {
+        this.setState({
+          list: movies.data
+        });
+      })
     this.state.list.forEach(movie => {
       if (movie.watched === 'Yes') {
         this.state.watched.push(movie);

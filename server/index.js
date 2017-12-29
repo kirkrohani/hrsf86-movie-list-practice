@@ -23,34 +23,32 @@ app.listen(3000, function () { console.log('MovieList app listening on port 3000
 
 app.get('/movies', (request, response) => {
   db.selectAll((result) => {
-    console.log('ADSFASDFASDFASDFADSFS', result);
+    // console.log('ADSFASDFASDFASDFADSFS', result);
     response.send(result);
   });
-  console.log('Sent a GET request!');
+  console.log('Sent a GET request from /movies!');
 });
 
 app.get('/load', (request, response) => {
   movieAPI.getRequest((body) => {
     movies = body.results;
-    console.log('Movies are ', movies);
-    db.insertMany(movies, (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
+    db.insertMany(movies);
     response.send(movies);
   });
-  console.log('Sent a GET request!');
+  console.log('Sent a GET request from /load!');
 });
 
 app.post('/movie', (request, response) => {
   // var newMovie = { title: request.body, release_date: "2017-12-28", overview: "Movie about fish", popularity: 9, vote_average: 8 };
-  db.insertOne(request.body, (err) => {
-    if (err) { console.log(err); }
-  });
+  db.insertOne(request.body);
   movies.push(request.body);
   response.send(movies[movies.length - 1]);
   console.log('New movie is ', request.body);
+  console.log('Sent a POST request from /movie!');
 });
 
+app.put('/watched', (request, response) => {
+  db.toggleWatched(request.body);
+  console.log('Toggling watched');
+});
 module.exports = app;

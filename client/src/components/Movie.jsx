@@ -13,7 +13,7 @@ class Movie extends React.Component {
     this.setState({
       watched: !this.state.watched
     });
-    this.props.movie.watched = (this.props.movie.watched === 'Yes') ? 'No' : 'Yes';
+    this.props.movie.watched = (this.props.movie.watched === 0) ? 'Yes' : 'No';
   }
   showDetails() {
     this.setState({
