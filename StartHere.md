@@ -8,7 +8,7 @@ This repository is broken up into 5 Sections which can be worked on independentl
 1. Go through and look over the scaffolding of the repo provided to you. Look at each file.
 2. Open a terminal window and run the script command (listed in package.json) which starts webpack
 3. Open a terminal window and run the script commend (listed in package.json) which starts your web server
-4. Open a browser window and enter the url and port of the the web server as lised in the server/index.js file and you will see the words "Welcome to Move List"
+4. Open a browser window and enter the url and port of the the web server as lised in the server/index.js file and you will see the words "Welcome to Movie List"
 
 
 ### Level 1 - Front end
