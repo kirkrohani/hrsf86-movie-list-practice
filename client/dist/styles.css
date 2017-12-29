@@ -43,5 +43,10 @@
 }
 
 .movieDetails {
+  display:flex;
+  flex-direction: row;
+}
 
+.movieChild {
+  flex-basis: 50%;
 }

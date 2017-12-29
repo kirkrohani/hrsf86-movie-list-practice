@@ -10,6 +10,7 @@ class AddMovie extends React.Component {
       value: null
     }
   }
+  
   handleChange(event) {
     this.setState({
       value: event.target.value

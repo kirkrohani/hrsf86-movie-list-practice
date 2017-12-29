@@ -1,5 +1,8 @@
 # Movie List App
 
+## Ginger To DO
+- [ ] Move DB logic out of the DB into the api code
+- [ ] Change to Promises
 
 ## Level 1 - Front end
 

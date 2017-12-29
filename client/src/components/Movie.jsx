@@ -23,7 +23,7 @@ class Movie extends React.Component {
         <h4 onClick={this.toggleDisplay.bind(this)} >{this.props.title}</h4>
         {this.state.display && 
           <MovieDetails
-            toggleWatched = { () => this.props.toggleWatched(this.props.title) } 
+            toggleWatched = {this.props.toggleWatched} 
             watched = {this.props.watched}
             year={this.props.year} 
             rating={this.props.rating} 

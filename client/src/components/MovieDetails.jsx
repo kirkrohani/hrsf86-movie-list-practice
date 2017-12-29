@@ -1,31 +1,56 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 
-var MovieDetails = (props) => {
+class MovieDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isChecked: true
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-  return (
-     <div 
-      className='movieDetails show'>
-        {/*<label>Watched
-          <button 
-            type="checkbox"
-            checked={props.watched}
-            onChange={ () => props.toggleWatched(props.title) } 
-            name="watchedCheckbox" />
-        </label> */}
-      <Button compact color='pink'   
-          className={props.watched ? 'watchButton watched' : 'watchButton'} 
-          onClick={props.toggleWatched } >
-          Watched
-        </Button>
-      <ul>
-        <li><strong>Year</strong>: {props.year}</li>
-        <li><strong>Rating</strong>: {props.rating}</li>
-        <li><strong>Overview</strong>: {props.overview}</li>
-        <img src={props.thumbnail} />
-      </ul>
-    </div>
-  )
+  componentDidMount() {
+    this.setState ({
+      isChecked: this.props.watched
+    })
+  }
+
+  handleChange(event) {
+    this.props.toggleWatched();
+    this.setState({
+      isChecked: event.target.checked
+    })
+  }
+
+  render() {
+    return (
+
+       <div 
+        className='movieDetails show'>  
+
+        <div className='movieChild'>
+          <ul >
+            <li><strong>Year</strong>: {this.props.year}</li>
+            <li><strong>Rating</strong>: {this.props.rating}</li>
+            <li><strong>Overview</strong>: {this.props.overview}</li>  
+          </ul>
+          <label>
+            <input 
+              name="isChecked"
+              type="checkbox"
+              checked={this.state.isChecked}
+              onChange = {this.handleChange}
+              />
+               Watched
+          </label>
+        </div>
+        <div className="movieChild">
+          <img src={this.props.thumbnail} / >         
+        </div>
+      </div>
+    )
+  }
 }
 
 module.exports = MovieDetails;

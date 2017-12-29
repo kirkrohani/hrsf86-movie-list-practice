@@ -24,7 +24,6 @@ module.exports = {
                   ON DUPLICATE key UPDATE id = id';
 
     // INSERT INTO users (username) VALUES (?) ON DUPLICATE key UPDATE username = username;
-    
     queryDB(queryStr, [moviesArray], callback);
   },
 
@@ -37,12 +36,15 @@ module.exports = {
 
   insertOne: (newMovie, callback) => {
     var queryStr = 'INSERT into movies SET ?';
-    console.log('newMovie here -->', newMovie);
-
     queryDB(queryStr, newMovie, callback);
+  },
+
+  updateWatched: (id, watchedState, callback) => {
+    var queryStr = 'UPDATE movies SET watched=? WHERE id=?';
+    var queryArgs = [watchedState, parseInt(id)];
+    queryDB(queryStr, queryArgs, callback);  
   }
 }
-
 
 // const movies = [{ 
 //        id: 376658,

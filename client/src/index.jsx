@@ -15,7 +15,7 @@ class MovieList extends React.Component {
     this.state = {
       allMovies: [],
       filteredBy: null,
-      activeTab: 'toWatch'
+      activeTab: 'all'
     }
   }
 
@@ -72,7 +72,8 @@ class MovieList extends React.Component {
 
   updateMoviesList(query) {
     this.setState({
-      filteredBy: query
+      filteredBy: query,
+      activeTab: 'all'
     })
   }
 
@@ -81,9 +82,15 @@ class MovieList extends React.Component {
     let queryMovies = _.filter(this.state.allMovies, (movie) => {
       let passesQuery = query ? movie.title.toUpperCase().includes(query.toUpperCase()) : true;
       let isWatched = movie.watched;
-      var matchesActiveTabState = (this.state.activeTab === 'toWatch')
-        ? !isWatched 
-        : isWatched;
+      var matchesActiveTabState = false;
+      if (this.state.activeTab === 'all') {
+        matchesActiveTabState = true;
+      } else if (this.state.activeTab === 'toWatch') {
+        matchesActiveTabState = !movie.watched;
+      } else {
+        matchesActiveTabState = movie.watched;
+      }
+
       return passesQuery && matchesActiveTabState;
     });
 
@@ -98,18 +105,30 @@ class MovieList extends React.Component {
     }
   }
 
-  toggleWatched(key) {
-    console.log('here');
+  toggleWatched(id) {
+    
+    var newState; 
     let copyOfMovies = this.state.allMovies.slice();
     let toggledMovies = copyOfMovies && copyOfMovies.map((movie) => {
-      if (movie.title === key) {
+      if (movie.id === id) {
         movie.watched = !movie.watched;
+        newState = movie.watched;
       }
       return movie;
     })
     this.setState({
       allMovies: toggledMovies
     })
+
+    axios.patch(`/movie/${id}`, {
+      watched: newState
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   render() {
@@ -117,14 +136,14 @@ class MovieList extends React.Component {
 
     let movies = filteredMovies && filteredMovies.map((movie) => {
       return <Movie 
-        key={movie.title}
+        key={movie.id}
         watched={movie.watched ? true : false}
         title={movie.title}
         year={movie.release_date}
         overview={movie.overview}
         rating={movie.vote_average}
         thumbnail={`https://image.tmdb.org/t/p/w150${movie.poster_path}`}
-        toggleWatched={this.toggleWatched.bind(this)}/>
+        toggleWatched={this.toggleWatched.bind(this, movie.id)}/>
     })
 
     return (

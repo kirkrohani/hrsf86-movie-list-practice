@@ -16,11 +16,24 @@ app.get('/movies', function(req, res) {
   movieDB.selectAll((error, results) => {
     if (error) {
       console.log(error)
+      res.status(500).send({error: error});
     } else {
-      res.send(results)
+      res.status(200).send(results);
     } 
   })
 });
+
+app.patch('/movie/:id', function(req, res) {
+  console.log('id', req.params.id, req.body.watched);
+  movieDB.updateWatched(req.params.id, req.body.watched, (error, results) => {
+    if (error) {
+      console.log('here -> ', error)
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(201);
+    } 
+  })
+})
 
 app.post('/movie', function(req, res) {
 
@@ -63,7 +76,3 @@ app.get('/load', function(req, res) {
     });
   })
 });
-
-// TODO:
-// 1. When a user adds a movie, must make a call to the amovie db to get data to insert it. 
-// 1. make db_id a unique field so we're not loading new ones all the time
