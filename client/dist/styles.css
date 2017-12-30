@@ -1,0 +1,45 @@
+.movieEntry {
+  font-style: italic;
+  text-align: center;
+  padding-top: 50px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.search {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.addmovie {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.watchedDiv {
+  padding-left: 0px;
+}
+
+.watchedButton {
+  color: green;
+}
+
+.toggle {
+  color: blue;
+  margin-left: 33%;
+}
+
+.toggleDiv {
+  padding-top: 10px;
+}
+
+.details {
+  font-weight: bold;
+  text-align: left;
+}
+
