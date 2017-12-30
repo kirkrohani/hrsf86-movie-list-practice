@@ -33,6 +33,7 @@ class MovieList extends React.Component {
     let stupidHackyThisBinding = this; //so tired of async calls. WHY DOESN'T BIND WORK HERE
     axios.get('/movies')
     .then(function(res) {
+      console.log(res.data)
       stupidHackyThisBinding.setState({movies: res.data}, stupidHackyThisBinding.filterList);
     })
     .catch(function(error) {
@@ -100,9 +101,11 @@ class MovieList extends React.Component {
     this.setState({showWatched: true, showUnwatched: true}, this.filterList);
   }
   handleCheck(movie) {
-    let movies = this.state.movies; //this shouldn't be necessary but getting movies async breaks effffffffffferything
+    // let movies = this.state.movies; //this shouldn't be necessary but getting movies async breaks effffffffffferything
     movie.watched = !movie.watched;
-    this.setState({movies});
+    axios.post('/update', { tmdb_id: movie.tmdb_id, watched: movie.watched });
+    this.setState({movie});
+    // console.log(this.state.movies.indexOf(movie))
     if (!(this.state.showUnwatched && this.state.showWatched)) {
       this.filterList();
     }
