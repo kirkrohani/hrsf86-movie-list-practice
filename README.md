@@ -48,16 +48,16 @@ var movies = [
 
 ## Level 4 - Database
 - [COMPLETE] Write code in schema.sql to setup your database structure to be able to store your API movie data
-- [ ] Write code in database/index.js to insert and retrieve data from your database
-- [ ] You will be inserting and retrieving the data retrieved from the API. You may pick and chose which specific fields your store
-- [ ] A test file has been provided for you in database/tests/ which you may run independently of your application to test your queries.
+- [COMPLETE] Write code in database/index.js to insert and retrieve data from your database
+- [COMPLETE] You will be inserting and retrieving the data retrieved from the API. You may pick and chose which specific fields your store
+- [NO] A test file has been provided for you in database/tests/ which you may run independently of your application to test your queries.
 
 
 ## Level 5 - Integration
 - [COMPLETE] Modify the 3 Express routes so that they are no longer using or accessing any hardcoded data. 
-- [ ] The /load route should be retrieving from the API and inserting into the DB
-- [ ] The get /movies route should be retrieving from the db
-- [ ] The post /movie route should be inserting into the db
+- [COMPLETE] The /load route should be retrieving from the API and inserting into the DB
+- [COMPLETE] The get /movies route should be retrieving from the db
+- [COMPLETE] The post /movie route should be inserting into the db
 - [COMPLETE] Modify your front end code to only use these routes for both getting and sending data
 - [COMPLETE] All other front end functionality (i.e. search, add movie, toggle watched) should still be fully functioning
 
