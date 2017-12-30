@@ -13,8 +13,6 @@ connection.connect(function(err) {
 	throw (err);
   }
   console.log('Connected!');
-  // var queryStr = "INSERT INTO movies (title, rating, overview) VALUES ()"
-
 });
 
 module.exports = connection;

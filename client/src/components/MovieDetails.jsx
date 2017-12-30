@@ -17,15 +17,8 @@ class MovieDetails extends React.Component {
 		  	Overview: {this.props.movie.overview}
 		  	</div>
 		  </div>
-		  	
-		
-
 		)
 	}
-
-
-
-
 }
 
 
