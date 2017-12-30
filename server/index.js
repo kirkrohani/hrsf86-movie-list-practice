@@ -26,9 +26,7 @@ app.get('/load', (req, res) => {
   	  	dbMovieList.push(dbMovie);
   	  });
 
-  	  // console.log('dbMovieList is', dbMovieList.length);
   	  var params = [dbMovieList];
-  	 // console.log('PARAMS ARE', params[0][0])
   	  dbServer.movies.post(params, function(err, results){
   	  	  // adds all movies in params to the database
   	  	  if (err) {
@@ -40,8 +38,7 @@ app.get('/load', (req, res) => {
   	  	if (err) {
   	  	  console.log(err);
   	  	} else {
-  	  		// console.log('here')
-  	  		// console.log(result);
+
   	  	  res.send(result);
   	  	}
   	  });
@@ -66,7 +63,7 @@ app.get('/movies', (req, res) => {
 app.post('/movie', (req, res) => {
 
   // need to get movie data from movieAPI.js and post to DB
-  API.getSingleMovie(req.body.title, function(err, data){
+  API.getSingleMovie(req.body.title, function(err, data) {
       if (err) {
         console.log(err)
       } else {

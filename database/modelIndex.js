@@ -4,7 +4,7 @@ module.exports = {
 
   movies: {
   	get: (callback) => {
-  	  var queryStr = 'select * FROM movies';
+  	  var queryStr = 'select DISTINCT title, rating, overview FROM movies';
   	  db.query(queryStr, function(err, results) {
   	  	callback(err, results);
   	  })

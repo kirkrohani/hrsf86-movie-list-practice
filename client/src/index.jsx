@@ -11,12 +11,13 @@ const axios = require('axios');
 class MovieList extends React.Component {
   constructor() {
     super();
-    this.state = { movies: [{title: 'Mean Girls', runtime: '150 minutes', year: 2005}], 
+    this.state = { movies: [], 
                    watchedMoviesShown: 'neither'
                  }
   }
 
   componentDidMount() {
+    // if (this.state.movies.length <= 1) {
     https.get('/load', () => {
       console.log('Successfully loaded page')
       
@@ -34,6 +35,7 @@ class MovieList extends React.Component {
       });
 
     })
+  // }
   }
 
 
@@ -59,26 +61,13 @@ class MovieList extends React.Component {
   }
 
   onAddClick(addVal) {
-   
-
     // send query - addVal- to server 
     // server gets movie data using movieAPI get method
     // server posts movie data to db 
     // server gets movie data from db and renders 
 
     axios.post('/movie', {title: addVal});
-    https.get('/movies', (resp) => {
-        let data = '';
-        resp.on('data', (chunk) => {
-          data += chunk;
-        });
-
-        resp.on('end', () => {
-          this.setState({
-            movies: JSON.parse(data)
-          })
-        });
-      });
+    
       
   }
 
