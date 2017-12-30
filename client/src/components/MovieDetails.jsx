@@ -11,10 +11,10 @@ class MovieDetails extends React.Component {
 		return (
 		  <div className = 'details'>
 		    <div> 
-		  	Runtime: {this.props.movie.runtime} 
+		  	Vote Average: {this.props.movie.rating} 
 		  	</div>
 		  	<div>
-		  	Year: {this.props.movie.year}
+		  	Overview: {this.props.movie.overview}
 		  	</div>
 		  </div>
 		  	

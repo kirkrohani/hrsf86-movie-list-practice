@@ -3,40 +3,73 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const API = require('../lib/movieAPI.js')
+const dbServer = require('../database/modelIndex.js');
 
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-
-// let movies = [
-//         {title: 'Mean Girls', runtime: '150 minutes', year: 2005},
-//         {title: 'Hackers', runtime: '107 minutes', year: 1995},
-//   	    {title: 'The Grey', runtime: '112 minutes', year: 2000},
-//   	    {title: 'Sunshine', runtime: '92 minutes', year: 1984},
-//   	    {title: 'Ex Machina', runtime: '84 minutes', year: 2014},
-// 	  ]
-
+let movies = [];
 app.get('/load', (req, res) => {
-  
   API.getMovies(function(err, data) {
   	if (err) {
   	  console.log(err)
   	} else {
-  	  //console.log(movies)
-  	  let movies = [];
-  	  movies = data.results;
-  	  console.log('movies is', movies[0])
-  	  res.send(movies[0])
+  	  var movieList = [];
+  	  movieList = data.results;
+  	  console.log('movielist is', movieList.length);
+  	  var dbMovieList = [];
+  	  
+  	  movieList.forEach((movie) => {
+  	  	var dbMovie = [];
+  	  	dbMovie.push(movie.title, movie.vote_average, movie.overview);
+  	  	dbMovieList.push(dbMovie);
+  	  });
+  	  console.log('dbMovieList is', dbMovieList.length);
+  	  var params = [dbMovieList];
+  	  //console.log('PARAMS ARE', params)
+  	  dbServer.movies.post(params, function(err, results){
+  	  	  // adds all movies in params to the database
+  	  	  if (err) {
+  	  	  	console.log(err);
+  	  	  }
+  	  });
+
+  	  dbServer.movies.get(function(err, result) {
+  	  	if (err) {
+  	  	  console.log(err);
+  	  	} else {
+  	  		// console.log('here')
+  	  		// console.log(result);
+  	  	  res.send(result);
+  	  	}
+  	  });
+  	}
+  });
+});
+
+app.get('/movies', (req, res) => {
+  // console.log(movies)
+  dbServer.movies.get(function(err, result) {
+  	if (err) {
+  	  console.log(err);
+  	} else {
+  	  console.log('successful get from DB');
+  	  res.send(result);
   	}
   })
-
-});
-app.get('/movies', (req, res) => {
-  res.send(movies)
+  //res.send(movies)
 })
 
 app.post('/movies', (req, res) => {
+  // var params = [req.body.title, req.body.vote_average, req.body.overview];
+  // dbServer.movies.post(params, function(err, results) {
+  // 	if (err) {
+  //     console.log(err);
+  // 	} else {
+  // 	  res.sendStatus(201);
+  // 	}
+  //})
   movies.push(req.body);
   console.log(movies)
   res.send(movies)

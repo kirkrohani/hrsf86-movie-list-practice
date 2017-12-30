@@ -18,23 +18,23 @@ class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    https.get('/movies', (resp) => {
-      let data = '';
-      resp.on('data', (chunk) => {
-        data += chunk;
-      });
+    https.get('/load', () => {
+      console.log('Successfully loaded page')
+      
+      https.get('/movies', (resp) => {
+        let data = '';
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
 
-      resp.on('end', () => {
-        this.setState({
-          movies: JSON.parse(data)
-        })
-      console.log(JSON.parse(data));
-    });
-  });
-    // $.ajax({
-    //   url: 'http://localhost:3000/load',
-       
-    // })
+        resp.on('end', () => {
+          this.setState({
+            movies: JSON.parse(data)
+          })
+        });
+      });
+      
+    })
   }
 
 
