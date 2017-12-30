@@ -31,6 +31,10 @@ class MovieList extends React.Component {
       console.log(JSON.parse(data));
     });
   });
+    // $.ajax({
+    //   url: 'http://localhost:3000/load',
+       
+    // })
   }
 
 
