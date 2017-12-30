@@ -29,7 +29,7 @@ app.patch('/movie/:id', function(req, res) {
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.log('here', error)
+      console.log(error)
       res.sendStatus(404);   
     })
 });

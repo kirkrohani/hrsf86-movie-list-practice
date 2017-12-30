@@ -57,7 +57,6 @@ class MovieList extends React.Component {
         title: title
       })
       .then((response)=> {
-        console.log(response);
         this.refreshMovies(() => {
            this.setState({
             filteredBy: null
@@ -106,7 +105,6 @@ class MovieList extends React.Component {
   }
 
   toggleWatched(id) {
-    
     var newState; 
     let copyOfMovies = this.state.allMovies.slice();
     let toggledMovies = copyOfMovies && copyOfMovies.map((movie) => {
@@ -116,15 +114,14 @@ class MovieList extends React.Component {
       }
       return movie;
     })
-    this.setState({
-      allMovies: toggledMovies
-    })
 
     axios.patch(`/movie/${id}`, {
       watched: newState
     })
       .then((response) => {
-        console.log(response);
+        this.setState({
+          allMovies: toggledMovies
+        })     
       })
       .catch((error) => {
         console.log(error);

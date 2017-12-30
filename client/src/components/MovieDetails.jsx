@@ -25,10 +25,8 @@ class MovieDetails extends React.Component {
 
   render() {
     return (
-
        <div 
         className='movieDetails show'>  
-
         <div className='movieChild'>
           <ul >
             <li><strong>Year</strong>: {this.props.year}</li>
