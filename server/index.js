@@ -17,17 +17,18 @@ app.get('/load', (req, res) => {
   	} else {
   	  var movieList = [];
   	  movieList = data.results;
-  	  console.log('movielist is', movieList.length);
+  	  // console.log('movielist is', movieList.length);
   	  var dbMovieList = [];
-  	  
+
   	  movieList.forEach((movie) => {
   	  	var dbMovie = [];
   	  	dbMovie.push(movie.title, movie.vote_average, movie.overview);
   	  	dbMovieList.push(dbMovie);
   	  });
-  	  console.log('dbMovieList is', dbMovieList.length);
+
+  	  // console.log('dbMovieList is', dbMovieList.length);
   	  var params = [dbMovieList];
-  	  //console.log('PARAMS ARE', params)
+  	 // console.log('PARAMS ARE', params[0][0])
   	  dbServer.movies.post(params, function(err, results){
   	  	  // adds all movies in params to the database
   	  	  if (err) {
@@ -61,19 +62,44 @@ app.get('/movies', (req, res) => {
   //res.send(movies)
 })
 
-app.post('/movies', (req, res) => {
-  // var params = [req.body.title, req.body.vote_average, req.body.overview];
-  // dbServer.movies.post(params, function(err, results) {
-  // 	if (err) {
-  //     console.log(err);
-  // 	} else {
-  // 	  res.sendStatus(201);
-  // 	}
-  //})
-  movies.push(req.body);
-  console.log(movies)
-  res.send(movies)
+
+app.post('/movie', (req, res) => {
+
+  // need to get movie data from movieAPI.js and post to DB
+  API.getSingleMovie(req.body.title, function(err, data){
+      if (err) {
+        console.log(err)
+      } else {
+        var movie = data.results[0];
+
+        var dbEntry = [];
+        dbEntry.push(movie.title, movie.vote_average, movie.overview);
+        var params = [[dbEntry]];
+        //console.log('single params are', params)
+        dbServer.movies.post(params, function(err, results){
+          // adds all movies in params to the database
+          if (err) {
+            console.log(err);
+          }
+      });
+
+        dbServer.movies.get(function(err, result) {
+  	  	if (err) {
+  	  	  console.log(err);
+  	  	} else {
+  	  		// console.log('here')
+  	  		// console.log(result);
+  	  	  res.send(result);
+  	  	}
+  	  });
+      }
+    
+
+
+    })
+
 })
+
 // app.use(bodyParser.json());
 // app.use(express.static(path.join(__dirname, '../client/dist')));
 app.listen(3000, function () { console.log('MovieList app listening on port 3000!') });

@@ -4,10 +4,9 @@ import Movie from './components/Movie.jsx';
 import Search from  './components/Search.jsx';
 import AddMovie from './components/AddMovie.jsx';
 
+// const API = require('../../lib/movieAPI.js');
 const https = require('https');
 const axios = require('axios');
-// const request = require('request');
-var $ = require('jquery');
 
 class MovieList extends React.Component {
   constructor() {
@@ -33,7 +32,7 @@ class MovieList extends React.Component {
           })
         });
       });
-      
+
     })
   }
 
@@ -60,23 +59,27 @@ class MovieList extends React.Component {
   }
 
   onAddClick(addVal) {
-    var instance = this;
-    axios.post('/movies', 
-      {
-        title: addVal
-      })
-      .then(function (response) {
-        console.log(response.data);
-        instance.setState((prevState) => {
-          return {
-            movies: response.data,
-            watchedMoviesShown: prevState.watchedMoviesShown
-          }
-        })
-      })
-      .catch(function (error) {
-        console.log(error);
+   
+
+    // send query - addVal- to server 
+    // server gets movie data using movieAPI get method
+    // server posts movie data to db 
+    // server gets movie data from db and renders 
+
+    axios.post('/movie', {title: addVal});
+    https.get('/movies', (resp) => {
+        let data = '';
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        resp.on('end', () => {
+          this.setState({
+            movies: JSON.parse(data)
+          })
+        });
       });
+      
   }
 
   onWatchedClick() {
