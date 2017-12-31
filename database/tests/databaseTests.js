@@ -7,8 +7,29 @@
 
 const movieDB = require('../index.js');
 
-let newMovie = ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0];
-let movies = [/*Create an array of movies. Each movie must be an array (not an object) */];
+let newMovie = { 
+   id: 376658,
+   vote_average: 6.7,
+   title: 'Love Beats Rhymes',    
+   poster_path: '/40DTqW72Igok7ilNJ5ju6HWYhpi.jpg',
+   overview: 'An aspiring hip-hop artist discovers the world of slam poetry.',
+   release_date: '2017-12-01' };
+
+let movies = [{ 
+   id: 376658,
+   vote_average: 6.7,
+   title: 'Love Beats Rhymes',    
+   poster_path: '/40DTqW72Igok7ilNJ5ju6HWYhpi.jpg',
+   overview: 'An aspiring hip-hop artist discovers the world of slam poetry.',
+   release_date: '2017-12-01' },
+  { 
+   id: 446354,
+   vote_average: 6.7,
+   title: 'The Post',
+   poster_path: '/5765ORvdKVX5bWmhEjjiOqLk3TH.jpg',
+   overview: 'A cover-up that spanned four U.S. Presidents pushed the country\'s first female newspaper publisher and a hard-driving editor to join an unprecedented battle between journalist and government. Inspired by true events.',
+   release_date: '2017-12-22' } ];
+
 
 movieDB.insertMany(movies, (err) => {
   if(err) {

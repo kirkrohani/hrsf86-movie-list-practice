@@ -1,0 +1,52 @@
+
+.watchButton {
+  background-color: red;
+
+}
+
+.watchButton.watched {
+  background-color: green;
+}
+
+.tabContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.MovieListItem {
+  padding: 8px 0 8px 5px;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.MovieListItem.expanded {
+  background-color: #F3F3FD;
+}
+
+.movieContainer {
+  border: 1px solid #ddd; 
+}
+
+.tab {
+  border: 1px solid #ddd; 
+  padding: 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tab.active {
+  background: #F3F3FD;
+}
+
+.movieDetails {
+  display:flex;
+  flex-direction: row;
+}
+
+.movieChild {
+  flex-basis: 50%;
+}
