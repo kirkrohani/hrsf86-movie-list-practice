@@ -8,7 +8,7 @@ CREATE TABLE movies (
   title VARCHAR(40) NOT NULL,
   release_date VARCHAR(15),
   rating INT,
-  overview VARCHAR(250),
+  overview VARCHAR(1000),
   image_link VARCHAR(100),
   watched_bool BOOLEAN
 );

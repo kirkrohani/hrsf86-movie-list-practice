@@ -13,7 +13,7 @@ con.connect(function(err) {
 });
 
 var insertMany = function(movies, callback) {
-  var queryString = 'INSERT INTO movies (title, release_date, rating, overview, image_link, watched_bool) VALUES ?';
+  var queryString = 'INSERT IGNORE INTO movies (title, release_date, rating, overview, image_link, watched_bool) VALUES ?';
   con.query(queryString, [movies], function(err, result) {
     callback(err, result);
   });

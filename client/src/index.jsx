@@ -16,11 +16,14 @@ class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    $.ajax({url: '/load', success: (result) => {
-      this.setState({
-        movies: result,
-        currentMovies: result
-      });
+    $.ajax({url: '/load', success: () => {
+      $.ajax({url: '/movies', type: 'GET', success: (data) => {
+        console.log('get request....', data)
+        this.setState({
+          movies: data,
+          currentMovies: data
+        });
+      }});
     }});
   }
 
@@ -42,8 +45,7 @@ class MovieList extends React.Component {
   }
 
   handleMovieTitleAdd(titleText) {
-    $.ajax({
-      url: '/movie',
+    $.ajax({url: '/movie',
       contentType: 'application/json',
       type: 'POST',
       data: JSON.stringify({
@@ -51,11 +53,12 @@ class MovieList extends React.Component {
         movieToAdd: {title: titleText}
       }),
       success: (data) => {
-        console.log('movie added!');
-        this.setState({
-          movies: data,
-          currentMovies: data
-        });
+        $.ajax({url: '/movies', type: 'GET', success: (data) => {
+          this.setState({
+            movies: data,
+            currentMovies: data
+          });
+        }})      
       },
       error: function(data) {
         console.log('error adding movie', data);
