@@ -5,6 +5,13 @@ module.exports =  {
             {id: '3', original_title: 'The Grey', release_date: '2006-01-01', popularity:'20', vote_average: '4.5'},
             {id: '4', original_title: 'Sunshine', release_date: '2009-01-01', popularity:'65', vote_average: '4.5'},
             {id: '5', original_title: 'Ex Machina', release_date: '2015-01-01', popularity:'88', vote_average: '4.5'}
+          ],
+  database: [
+            {id: '6', original_title: 'The Matrix', release_date: '1999-01-01', popularity:'99', vote_average: '4.8'},
+            {id: '7', original_title: 'The Net', release_date: '1994-01-01', popularity:'13.37', vote_average: '4.5'},
+            {id: '8', original_title: 'Swordfish', release_date: '2005-01-01', popularity:'20', vote_average: '4.5'},
+            {id: '9', original_title: 'Johnny Mnemonic', release_date: '1992-01-01', popularity:'65', vote_average: '4.5'},
+            {id: '10', original_title: 'Zoolander', release_date: '2009-01-01', popularity:'88', vote_average: '4.5'}
           ]
 };
 
