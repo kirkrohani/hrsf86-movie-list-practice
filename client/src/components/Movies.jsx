@@ -13,9 +13,18 @@ class Movies extends React.Component {
   render() {
     console.log(this.props.list);
     return (
-      <ul>
-        {this.props.list.map((movie) => <Movie key={movie.id} title={movie.original_title} />)}
-      </ul>
+      <div>
+        <div className="navigation">
+        <button type="submit" onClick={() => {console.log('clicked')}}>Watched</button>
+        <button type="submit" onClick={() => {console.log('clicked')}}>To Watch</button>
+        <button type="submit" onClick={() => {console.log('clicked')}}>Main List</button>
+        </div>
+        <div className="main-list">
+          <ul className="list">
+            {this.props.list.map((movie) => <Movie key={movie.id} id={movie.id} title={movie.original_title} />)}
+          </ul>
+        </div>
+      </div>
     )
   }
 }
