@@ -16,14 +16,21 @@ class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    $.ajax({url: '/load', success: () => {
-      $.ajax({url: '/movies', type: 'GET', success: (data) => {
-        console.log('get request....', data)
-        this.setState({
-          movies: data,
-          currentMovies: data
-        });
-      }});
+    $.ajax({url: '/movies', type: 'GET', success: (data) => {
+      this.setState({
+        movies: data,
+        currentMovies: data
+      });
+      if (this.state.movies.length === 0) {
+        $.ajax({url: '/load', success: () => {
+          $.ajax({url: '/movies', type: 'GET', success: (data) => {
+            this.setState({
+              movies: data,
+              currentMovies: data
+            });
+          }});
+        }});
+      }
     }});
   }
 
