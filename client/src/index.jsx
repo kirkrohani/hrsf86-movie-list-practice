@@ -21,6 +21,7 @@ class MovieList extends React.Component {
    addFilm(event) {
     const newItem = {};
     newItem.title = event;
+    newItem.overview ='Kirk, you need to watch this movie';
     console.log(newItem);
     console.log(this.state.movies);
     // fetch('/movies', {
@@ -43,7 +44,14 @@ class MovieList extends React.Component {
     //   movies: [...this.state.movies, {title: this.search}]
     // });
   }
-  handleClick (search) {
+  handleClick(clicked) {
+    clicked.watched = clicked.watched ? !clicked.watched: true;
+    this.setState({
+      watched: !this.state.watched
+    });
+    
+  }
+  searchClick (search) {
     const searchObj = {title: search};
     if (this.state.movies.includes(searchObj)) {
       this.state.movies = [
@@ -52,29 +60,22 @@ class MovieList extends React.Component {
     }
   }
 
-  toggleClick() {
-    this.setState({
-      done: !this.state.done
-    })
-  }
   componentDidMount() {
     axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=af29a1fd92e3ec3f4111aea875ad8350&language=en-US&page=1')
       .then(res => {
         const movies = res.data.results.map(obj => ({title: obj.title, overview: obj.overview}));
         this.setState({ movies });
       })
-    // fetch('/movies')
-    //   .then(res => res.json())
-    //   .then(movies => this.setState({movies: movies}));
+    
   }
 
   render() {
+
     return (
       <div>
-      <div><Search handleClick={this.handleClick.bind(this)}/></div>
+      <div><Search searchClick={this.searchClick.bind(this)}/></div>
       <div><AddMovie search = {this.state.search} addFilm={this.addFilm.bind(this)}/></div>
-      <div><Movie movies={this.state.movies} /></div>
-     
+      <ul>{this.state.movies.map((movie, index) => {return <Movie key={index} movie={movie} handleClick={this.handleClick.bind(this)} />})} </ul>
       </div>
     )
   }
