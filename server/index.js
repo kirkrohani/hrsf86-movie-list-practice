@@ -18,12 +18,14 @@ app.listen(3000, function () { console.log('MovieList app listening on port 3000
 
 
 // GET method route
-app.get('/', function (req, res) {
-  res.send('Simple GET request')
+app.get('/movies', function (req, res) {
+  console.log('Get Request Received');
+  res.send(JSON.stringify(movies));
 })
 
 // POST method route
 app.post('/', function (req, res) {
-  res.send('Simple POST request')
+  console.log('Post Request Received')
+  console.log('Post body', req.body);
 })
 
