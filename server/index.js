@@ -24,8 +24,10 @@ app.get('/movies', function (req, res) {
 })
 
 // POST method route
-app.post('/', function (req, res) {
+app.post('/movies', function (req, res) {
   console.log('Post Request Received')
-  console.log('Post body', req.body);
+  movies.push(req.body);
+  res.status(200).end();
+
 })
 

@@ -4,16 +4,8 @@ import Search from './components/Search.jsx';
 import Movie from './components/Movie.jsx';
 import AddMovie from './components/AddMovie.jsx'
 import ajaxGet from './ajaxGet.jsx';
+import ajaxPost from './ajaxPost.jsx';
 
-// var movies = [
-//   {title: 'Mean Girls', year: 1999, runtime: '105 min', metascore: 28, imbd: 4.5},
-//   {title: 'Hackers', year: 2001, runtime: '5 min', metascore: 100, imbd: 1.2},
-//   {title: 'The Grey', year: 2003, runtime: '98 min', metascore: 1, imbd: 2.0},
-//   {title: 'Sunshine', year: 1998, runtime: '182 min', metascore: 76, imbd: 6.8},
-//   {title: 'Ex Machina', year: 2089, runtime: '456 min', metascore: 99, imbd: 11.0},
-// ];
-
-// window.movies = movies;
 
 class MovieList extends React.Component {
   constructor(props) {
@@ -38,24 +30,15 @@ class MovieList extends React.Component {
   }
 
   addNewMovie(movieName) {
+    console.log('starting add and post')
     var movieObj = {
       title: movieName
     }
-    for (var i = 0; i < this.state.movies.length; i++) {
-      var curMovieTitle = this.state.movies[i].title;
-      if (curMovieTitle !== movieObj.title) {
-        continue;
-      } else {
-        break;
-      }
-    }
-
-    this.state.movies.push(movieObj);
-    this.setState(this.state);
+    ajaxPost(movieName);
+    this.fetch()
   }
 
   fetch() {
-    console.log('started fetch')
     ajaxGet(this.stateSet)
   }
 

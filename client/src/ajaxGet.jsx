@@ -8,7 +8,7 @@ var ajaxGet = (cb) => {
     url: 'http://localhost:3000/movies',
     type: 'GET', 
     success: (data) => {
-      console.log('in the get request');
+      console.log('GET request successful');
       cb(JSON.parse(data))
     }
   });
