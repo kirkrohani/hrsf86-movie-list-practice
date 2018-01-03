@@ -3,8 +3,10 @@ import ReactDOM  from 'react-dom';
 import Search from './components/Search.jsx';
 import Movie from './components/Movie.jsx';
 import AddMovie from './components/AddMovie.jsx'
-import ajaxGet from './ajaxGet.jsx';
+import ajaxGetMovies from './ajaxGetMovies.jsx';
+import ajaxGetLoad from './ajaxGetLoad.jsx';
 import ajaxPost from './ajaxPost.jsx';
+
 
 
 class MovieList extends React.Component {
@@ -39,7 +41,8 @@ class MovieList extends React.Component {
   }
 
   fetch() {
-    ajaxGet(this.stateSet)
+    ajaxGetMovies(this.stateSet)
+    ajaxGetLoad(console.log)
   }
 
   stateSet(data) {
