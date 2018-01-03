@@ -42,7 +42,7 @@ class MovieList extends React.Component {
 
   fetch() {
     ajaxGetMovies(this.stateSet)
-    ajaxGetLoad(console.log)
+    ajaxGetLoad(this.stateSet)
   }
 
   stateSet(data) {
