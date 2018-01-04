@@ -4,13 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const movieAPI = require('../lib/movieAPI.js');
 
-let movies = [
-  // {title: 'Mean Girls', year: 1999, runtime: '105 min', metascore: 28, imbd: 4.5},
-  // {title: 'Hackers', year: 2001, runtime: '5 min', metascore: 100, imbd: 1.2},
-  // {title: 'The Grey', year: 2003, runtime: '98 min', metascore: 1, imbd: 2.0},
-  // {title: 'Sunshine', year: 1998, runtime: '182 min', metascore: 76, imbd: 6.8},
-  // {title: 'Ex Machina', year: 2089, runtime: '456 min', metascore: 99, imbd: 11.0},
-];
+let movies = [];
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -32,7 +26,9 @@ app.post('/movies', function (req, res) {
 
 app.get('/load', function (req, res) {
   console.log('GET /load request');
-  movieAPI.apiCall().then( (movies) => {
+
+  movieAPI.apiCall()
+  .then( (movies) => {
     let moviesArr = JSON.parse(movies).results
     movies = moviesArr;
     res.send(JSON.stringify(movies));
