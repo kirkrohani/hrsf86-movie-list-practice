@@ -2,7 +2,7 @@ import React from 'react';
 
 class Movie extends React.Component {
 	constructor(props){
-		super();
+		super(props);
 		this.state = {
 			like: true,
 			thumbsUp: "https://vignette.wikia.nocookie.net/adventuretimewithfinnandjake/images/0/0a/Thumbs-up.png/revision/latest?cb=20121114201259",
@@ -16,16 +16,15 @@ class Movie extends React.Component {
 	}
 
 	render(){
-		var thumbsUp = "https://vignette.wikia.nocookie.net/adventuretimewithfinnandjake/images/0/0a/Thumbs-up.png/revision/latest?cb=20121114201259";
 		var movieArray = this.props.movies.length ? this.props.movies : [];
-
 		//console.log('search: ', this.props.searchVal)
 		var thumb = this.state.like === true ? "https://vignette.wikia.nocookie.net/adventuretimewithfinnandjake/images/0/0a/Thumbs-up.png/revision/latest?cb=20121114201259" 
 											 : "https://upload.wikimedia.org/wikipedia/commons/2/21/Not_facebook_dislike_thumbs_down.png";
 		//console.log(thumb)
+
 		var filteredMovies = movieArray.filter( (movie, index) => {
-			if(movie.title.indexOf(this.props.searchVal) !== -1) {	
-				return movieArray[index];
+			if(movie.title.toLowerCase().indexOf(this.props.searchVal.toLowerCase()) !== -1) {	
+				return <div key={index} > {movie} </div>
 			}
 		});
 		//console.log(this.state.like)

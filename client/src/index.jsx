@@ -2,38 +2,13 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 import Movie from './components/Movie.jsx';
 import axios from 'axios';
-
-//import Search from './components/Search.jsx';
-var movies = [
-  {title: 'Mean Girls',
-   description: 'blahbabhabhsdf',
-   released: '1997',
-   stars: '4'
-  },
-  {title: 'Hackers',
-   description: 'blahbabhabhsdf',
-   released: '1997',
-   stars: '2'},
-  {title: 'The Grey',
-   description: 'blahbabhabhsdf',
-   released: '1998',
-   stars: '3'},
-  {title: 'Sunshine',
-   description: 'blahbabhabhsdf',
-   released: '1987',
-   stars: '1'},
-  {title: 'Ex Machina',
-   description: 'blahbabhabhsdf',
-   released: '1999',
-   stars: '4'},
-];
-
+import $ from "jquery";
 
 class MovieList extends React.Component {
   constructor() {
     super();
     this.state = {
-    	movies: movies,
+    	movies: [],
     	view: 'movieView',
     	searchVal: '',
     }
@@ -43,28 +18,75 @@ class MovieList extends React.Component {
 
 componentDidMount(){
   axios.get('/movies')
+      .then( (response) => {
+          console.log(response.data)
+        this.setState({
+          movies: response.data
+        })
+      })
+      .catch( (error) => {
+        console.log(error);
+      });
+}
+// saveMovies(data){
+//   this.setState({
+//     movies: data
+//   })
+// }
+
+addMovie(eventObj) {
+    $.ajax({
+  url: '/movie',
+  method: 'POST',
+  data: JSON.stringify({
+    title:      newMovieTitle,
+    watched:    false
+  }),
+  contentType: 'application/json',
+  success: () => {
+    this.getMovies();
+  },
+  error: (xhr, status, error) => {
+      console.log('err', xhr, status, error);
+    }
+  }); 
+}
+
+//--------------------REFACTORING TO AJAX'S
+// addMovie(eventObj){
+//   axios.post('/movies',{something: eventObj})
+//                 .then( (response) => {
+//                   console.log(response)
+//                 })
+//                 .catch( (error) => {
+//                   console.log(error)
+//                 })
+// }
+//-------------------------
+
+add(){
+axios.post('/movie', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
   .then(function (response) {
-    console.log(response.data);
+    console.log(response);
   })
   .catch(function (error) {
     console.log(error);
   });
 }
 
-saveMovies(data){
-  this.setState({
-    movies: data
-  })
-}
-
 handleChange(event) {
-	//console.log('this is the event: ', event.target.value);
+	console.log('this is the event: ', event.target.value);
 	this.setState({
 		searchVal: event.target.value,
 	})
 }
 
 handleSubmit(event) {
+  alert('addMovie', event)
+  addMovie(event)
 	alert('an event '+ this.state.searchVal + ' has occured')
 }
 
@@ -80,21 +102,24 @@ switchView() {
     //getMovies();
     return (
       <div>
-      	<form onSubmit={this.handleSubmit.bind(this)}>
+
+      	<form onSubmit={this.handleSubmit}>
 			<label>
 				<input type="text" placeholder="movie title"
 					    		value={this.state.searchVal}
 								onChange={this.handleChange}
 						 />
+
 				</label>
-			<input type="submit" value="Search" />
+			<input type="submit" value="Add Movie.." />
 		</form>
+    <div> <button>Watched</button>
+          <button>All</button>
+
+    </div>
       	{this.switchView()}
-
-
       </div>
     )
   }
 }
-
 ReactDOM.render( <MovieList />, document.getElementById('app'));
