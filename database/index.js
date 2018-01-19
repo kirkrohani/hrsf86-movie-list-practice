@@ -1,5 +1,7 @@
 const mysql = require('mysql');
-const MOVIE_API_KEY = require('../lib/api_key.js').modules.MOVIE_API_KEY
+const movieAPI = require('../lib/movieAPI.js');
+
+console.log(movieAPI.parseMovie)
 
 var con = mysql.createConnection({
 	host: 'localhost',
@@ -43,9 +45,10 @@ var insertOne = (movieData, callback) => {
 }
 
 var insertMany = (movieData, callback) => {
-	var insertManyStatment = 'INSERT INTO movies (title, description, relased, stars) VALUES ?';
-	
-	con.query(insertManyStatment, [...movieData], (error) => { //[...movieData] ? does it have to be destructured
+	var insertManyStatment = 'INSERT INTO movies (title, description, released, stars) VALUES ?';
+	var parseData = movieAPI.parseMovie(movieData)
+
+	con.query(insertManyStatment, [parseData], (error) => { //[...movieData] ? does it have to be destructured
 		if(error) {
 			callback(error, null)
 		} else {

@@ -34,41 +34,8 @@ componentDidMount(){
 //   })
 // }
 
-addMovie(eventObj) {
-    $.ajax({
-  url: '/movie',
-  method: 'POST',
-  data: JSON.stringify({
-    title:      newMovieTitle,
-    watched:    false
-  }),
-  contentType: 'application/json',
-  success: () => {
-    this.getMovies();
-  },
-  error: (xhr, status, error) => {
-      console.log('err', xhr, status, error);
-    }
-  }); 
-}
-
-//--------------------REFACTORING TO AJAX'S
-// addMovie(eventObj){
-//   axios.post('/movies',{something: eventObj})
-//                 .then( (response) => {
-//                   console.log(response)
-//                 })
-//                 .catch( (error) => {
-//                   console.log(error)
-//                 })
-// }
-//-------------------------
-
-add(){
-axios.post('/movie', {
-    firstName: 'Fred',
-    lastName: 'Flintstone'
-  })
+addMovie(eventObj){
+axios.post('/movie', {title: eventObj})
   .then(function (response) {
     console.log(response);
   })
@@ -84,9 +51,8 @@ handleChange(event) {
 	})
 }
 
-handleSubmit(event) {
-  alert('addMovie', event)
-  addMovie(event)
+handleSubmit() {
+  this.addMovie(this.state.searchVal)
 	alert('an event '+ this.state.searchVal + ' has occured')
 }
 
@@ -106,7 +72,7 @@ switchView() {
       	<form onSubmit={this.handleSubmit}>
 			<label>
 				<input type="text" placeholder="movie title"
-					    		value={this.state.searchVal}
+					    	value={this.state.searchVal}
 								onChange={this.handleChange}
 						 />
 
