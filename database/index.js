@@ -7,7 +7,7 @@ var con = mysql.createConnection({
 	password: '',
 	database: 'movieDB'
 });
-//do I need this?
+//---------------------------do I need this kind of thing?
 // con.connect(function(err) {
 //   if (err) throw err;
 //   con.query("SELECT name, address FROM customers", function (err, result, fields) {
@@ -17,9 +17,9 @@ var con = mysql.createConnection({
 // });
 
 var selectAll = (callback) => {
-	var searchQuery = 'SELECT * FROM movies';
+	var searchAll = 'SELECT * FROM movies';
 
-	con.query(searchQuery, (error, movieDatabase) => {
+	con.query(searchAll, (error, movieDatabase) => {
 		if(error) {
 			callback(error, null); //need null?
 		} else {
@@ -30,21 +30,29 @@ var selectAll = (callback) => {
 }
 
 var insertOne = (movieData, callback) => {
-	var insertStatement = 'INSERT INTO movies (title, description, released, stars) VALUES ?';
+	var insertOneStatement = 'INSERT INTO movies (title, description, released, stars) VALUES (?,?,?,?)';
 
-	let newMovie = ['Test Movie', 'This is the best movie ever!', '2017-11-11', 0];
-
-	con.query(insertStatement, newMovie, (error) => {
+	con.query(insertOneStatement, movieData, (error) => {
 		if(error) {
 			callback(error, null) //null?
 		} else {
 			callback(null)
 		}
+	//con.end()
 	})
 }
 
 var insertMany = (movieData, callback) => {
-	var insertManyStatement = 'INSERT INTO movies (title, description, relased, stars) VALUES'
+	var insertManyStatment = 'INSERT INTO movies (title, description, relased, stars) VALUES ?';
+	
+	con.query(insertManyStatment, [...movieData], (error) => { //[...movieData] ? does it have to be destructured
+		if(error) {
+			callback(error, null)
+		} else {
+			callback(null)
+		}
+	//con.end()
+	})
 }
 
 

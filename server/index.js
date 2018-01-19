@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-
+const MovieAPI = require('../lib/movieAPI.js');
+const movieDB = require('../database/index.js');
 
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,33 +39,31 @@ var movies = [
 //   movies.push(movie)
 // }
 
-app.get('/movies', function(req, res){
-	res.send(movies)
+app.get('/movies', (req, res) => {
+  movieDB.selectAll((error, movieData) => {
+    if(error) {
+      res.status(500).send({error: error})
+    } else {
+      res.status(200).send(movieData)
+    }
+  });
+});
+  //res.send(movies)
+
+app.post('/movie', function(req,res) {
+  console.log(res, req)
+  res.send('it sent!')
 })
 
-// app.post('/movie', function(req,res) {
-//   console.log(res, req)
-//   res.send('it sent!')
-// })
-
-app.post('/movie', (req, res) => {
-  let newMovie = [req.body.title, 'This is the best movie ever!', '2017-11-11', 0.0, 0, 0];
-  res.send('hi')
-  if(!req.body) {
-    res.status(400).send({ error: 'Bad Request' });
-  } else {
-    movieDB.insertOne(newMovie, (err) => {
-      if(err) {
-        res.status(500).send({ error: err });
-      } else {
-        res.status(201).end();
-      }
-    });
-  }
-});
-
-
-
+app.get('/movieapi', (req, res) => {
+  movieAPI.getNewMovie( (err, movies) => {
+    if(err) {
+      res.send(500, null)
+    } else {
+      res.send(null, movies)
+    }
+  })
+})
 
 
 
