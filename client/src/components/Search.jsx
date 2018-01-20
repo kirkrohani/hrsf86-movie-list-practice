@@ -1,5 +1,6 @@
 import React from 'react';
 
+//not connected yet
 
 class Search extends React.Component {
 	constructor() {

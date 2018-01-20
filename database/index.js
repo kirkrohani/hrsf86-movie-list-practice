@@ -9,6 +9,7 @@ var con = mysql.createConnection({
 	password: '',
 	database: 'movieDB'
 });
+
 //---------------------------do I need this kind of thing?
 // con.connect(function(err) {
 //   if (err) throw err;
@@ -17,7 +18,7 @@ var con = mysql.createConnection({
 //     console.log(result);
 //   });
 // });
-
+//---------------------------It doesn't seems so.
 var selectAll = (callback) => {
 	var searchAll = 'SELECT * FROM movies';
 
@@ -40,15 +41,16 @@ var insertOne = (movieData, callback) => {
 		} else {
 			callback(null)
 		}
-	//con.end()
+	//con.end() ?
 	})
 }
 
 var insertMany = (movieData, callback) => {
 	var insertManyStatment = 'INSERT INTO movies (title, description, released, stars) VALUES ?';
-	var parseData = movieAPI.parseMovie(movieData)
+	//UNCOMMENT FOR API DATA
+	//var parseData = movieAPI.parseMovie(movieData)
 
-	con.query(insertManyStatment, [parseData], (error) => { //[...movieData] ? does it have to be destructured
+	con.query(insertManyStatment, [movieData]/*[parseData]*/, (error) => { 
 		if(error) {
 			callback(error, null)
 		} else {
