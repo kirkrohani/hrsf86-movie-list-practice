@@ -1,0 +1,55 @@
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.movie {
+  width: 400px;
+  border: medium solid red;
+  padding: 10px;
+}
+
+.add-movie {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+.search-movie {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+.watched {
+  float: right;
+}
+
+.list {
+  padding: 0;
+}
+
+.main-list {
+  display: flex;
+  justify-content: center;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+
+.navigation button {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.app-body {
+
+}
